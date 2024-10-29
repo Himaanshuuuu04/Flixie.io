@@ -1,6 +1,7 @@
 "use client";
 import {cn} from "../lib/utils";
 import { useEffect, useRef, useState } from "react";
+import NavBar from "./NavBar";
 
 export const BackgroundGradientAnimation = ({
     gradientBackgroundStart = "rgb(0, 17, 45)",    // Dark blue
@@ -13,9 +14,9 @@ export const BackgroundGradientAnimation = ({
     pointerColor = "75, 50, 155",                    // Brighter red for visibility (reduced intensity)
     size = "70%",
     blendingValue = "hard-light",
-    children,
+    children = NavBar(),
     className,
-    interactive = true,
+    interactive = false,
     containerClassName
   }
   
