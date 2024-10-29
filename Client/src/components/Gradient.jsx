@@ -1,7 +1,7 @@
-"use client";
+
 import {cn} from "../lib/utils";
 import { useEffect, useRef, useState } from "react";
-import NavBar from "./NavBar";
+
 
 export const BackgroundGradientAnimation = ({
     gradientBackgroundStart = "rgb(0, 17, 45)",    // Dark blue
@@ -12,12 +12,12 @@ export const BackgroundGradientAnimation = ({
     fourthColor = "100, 0, 0",                     // Less intense dark red
     fifthColor = "100, 0, 50",                        // Very dark blue
     pointerColor = "75, 50, 155",                    // Brighter red for visibility (reduced intensity)
-    size = "70%",
-    blendingValue = "hard-light",
-    children = NavBar(),
+    size = "100%",
+    blendingValue = "soft-light",
+    children,
     className,
     interactive = false,
-    containerClassName
+    containerClassName="z-0"
   }
   
   ) => {
@@ -85,7 +85,7 @@ export const BackgroundGradientAnimation = ({
           </filter>
         </defs>
       </svg>
-      <div className={cn("", className)}>{children}</div>
+      <div className={cn("", className)}> {children}</div>
       <div
         className={cn(
           "gradients-container h-full w-full blur-lg",
