@@ -17,7 +17,7 @@ export const BackgroundGradientAnimation = ({
     children,
     className,
     interactive = false,
-    containerClassName="z-0"
+    containerClassName
   }
   
   ) => {

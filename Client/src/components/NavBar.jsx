@@ -3,7 +3,7 @@ import Logo from "../assets/logo.png";
 import Home from "../assets/Home.png";
 import Settings from "../assets/Settings.png";
 import Arrow from "../assets/Arrow.png";
-import Bussinessman from "../assets/Businessman.png";
+import Businessman from "../assets/Businessman.png";
 import Heart from "../assets/Heart.png";
 
 export default function NavBar() {
@@ -74,7 +74,7 @@ export default function NavBar() {
                  hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
               }
             >
-              <img src={Bussinessman} alt="profile" className="h-6" />
+              <img src={Businessman} alt="profile" className="h-6" />
               <span>Profile</span>
             </NavLink>
           </li>
