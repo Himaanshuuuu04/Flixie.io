@@ -21,9 +21,9 @@ export default function TopBar() {
         <div className="flex flex-row flex-grow space-x-10 mt-10 w-[100%] mr-10  ml-[21rem] font-sans font-light text-white text-lg z-50">
             
             {/* Custom Select Dropdown */}
-            <div className="relative flex flex-col items-center z-50 transition-all duration-200 transform hover:scale-105">
+            <div className="relative flex flex-col items-center z-50 transition-all duration-300  hover:scale-105">
                 <div
-                    className={`flex justify-center items-center w-36 p-2 border-2 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-xl text-white cursor-pointer hover:bg-blue-400
+                    className={`flex justify-center items-center w-36 p-2 border-2 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-xl text-white cursor-pointer hover:bg-blue-400 transition-all duration-300
                     ${isOpen ? "border-blue-400" : "border-slate-800"} transition-all duration-300`}
                     onClick={toggleDropdown}
                 >
@@ -68,7 +68,7 @@ export default function TopBar() {
             </div>
 
             {/* Notifications Button */}
-            <button className="transition-all duration-200 transform hover:scale-110 z-50 ">
+            <button className="transition-all duration-200 transform hover:scale-125 z-50 ">
                 <div className="flex justify-center items-center p-2 border-2 border-slate-800 rounded-full backdrop-filter backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400 transition-colors duration-200">
                     <img src={Notification} className="h-6" alt="Notification" />
                 </div>
