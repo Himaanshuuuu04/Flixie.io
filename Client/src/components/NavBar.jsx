@@ -67,7 +67,7 @@ export default function NavBar() {
         <ul className="space-y-6 font-light">
           <li className="text-lg">
             <NavLink
-              to="/Profile"
+              to="/Auth"
               className={({ isActive }) =>
                 `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                  ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 

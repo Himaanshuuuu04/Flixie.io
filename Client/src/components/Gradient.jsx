@@ -12,8 +12,8 @@ export const BackgroundGradientAnimation = ({
     fourthColor = "100, 0, 0",                     // Less intense dark red
     fifthColor = "100, 0, 50",                        // Very dark blue
     pointerColor = "75, 50, 155",                    // Brighter red for visibility (reduced intensity)
-    size = "100%",
-    blendingValue = "soft-light",
+    size = "70%",
+    blendingValue = "hard-light",
     children,
     className,
     interactive = false,
