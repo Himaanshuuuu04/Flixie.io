@@ -107,7 +107,7 @@ const Carousel = () => {
 
   return (
     <div 
-      className="relative w-full overflow-hidden z-40 rounded-3xl font-light shadow-xl"
+      className="relative w-full overflow-hidden z-30 rounded-3xl font-light shadow-xl "
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
