@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Switch = ({ isOpen, toggleMenu }) => {
   return (
     <StyledWrapper>
-      <div>
+      <div className="h-10 w-10 ml-2 rounded-full border-2 border-slate-800 flex justify-center items-center backdrop-filter backdrop-blur-3xl">
         <input
           type="checkbox"
           id="checkbox"
@@ -28,8 +28,8 @@ const StyledWrapper = styled.div`
 
   .toggle {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -41,9 +41,9 @@ const StyledWrapper = styled.div`
 
   .bars {
     width: 100%;
-    height: 4px;
+    height: 2px;
     background-color: rgb(255, 255, 255);
-    border-radius: 2px;
+    border-radius: 5px;
   }
 
   #bar2 {

@@ -18,7 +18,7 @@ export default function NavBar() {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex flex-col items-center md:w-64 w-40 border-2 p-8 rounded-3xl border-slate-800 backdrop-filter backdrop-blur-3xl shadow-xl text-white absolute left-10 bottom-10 top-10 opacity-90 z-50 overflow-auto">
+      <nav className="hidden md:flex flex-col items-center md:w-64 w-40 border-2 p-8 rounded-3xl border-slate-800 backdrop-filter backdrop-blur-3xl shadow-xl text-white float-left ml-10 mt-10 md:h-[90%] opacity-90 md:z-40  mb-10 overflow-auto">
         
         {/* Logo Section */}
         <div className="flex flex-col items-center space-y-2 mt-4">
@@ -106,15 +106,16 @@ export default function NavBar() {
       </nav>
 
       {/* Mobile Navigation */}
-      <div className="md:hidden">
+      <div className="md:hidden ">
         {/* Hamburger Icon */}
-        <div className="fixed top-4 left-4 z-50">
+        <div className="absolute z-50 top-10 right-10 ml-10 mr-10">
           <Switch isOpen={isOpen} toggleMenu={toggleMenu} />
         </div>
 
+
         {/* Mobile Menu */}
         <ul
-          className={`fixed inset-0 bg-zinc-950 bg-opacity-90 backdrop-filter backdrop-blur-sm text-white font-bold text-2xl flex flex-col space-y-6 items-center justify-center transition-transform duration-500 ease-in-out z-40 ${
+          className={`fixed inset-0 bg-opacity-90 backdrop-filter backdrop-blur-3xl text-white text-2xl flex flex-col space-y-6 items-center justify-center transition-all duration-500 ease-in-out z-40 ${
             isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
           }`}
         >
