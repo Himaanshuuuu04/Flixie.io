@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 const Switch = ({ isOpen, toggleMenu }) => {
   return (
-    <StyledWrapper>
-      <div className="h-10 w-10 ml-2 rounded-full border-2 border-slate-800 flex justify-center items-center backdrop-filter backdrop-blur-3xl">
+    <StyledWrapper onClick={toggleMenu}>
+      <div className="h-12 w-12  rounded-full border-2 border-slate-800 flex justify-center items-center backdrop-filter backdrop-blur-3xl z-50">
         <input
           type="checkbox"
           id="checkbox"
-          checked={isOpen} // Use isOpen to control checkbox state
-          onChange={toggleMenu} // Trigger toggleMenu function on change
+          checked={isOpen}
+          onChange={toggleMenu}
         />
         <label htmlFor="checkbox" className="toggle">
           <div className="bars" id="bar1" />
