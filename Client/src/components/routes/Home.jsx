@@ -8,7 +8,7 @@ import MainLayout from '../MainLayout'
 
 export default function Home() {
     return (
-        <div >       
+        <div className='h-screen w-screen overflow-x-hidden' >       
             <BackgroundGradientAnimation>
                 <MainLayout/>
             </BackgroundGradientAnimation>

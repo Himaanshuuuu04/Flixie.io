@@ -7,30 +7,35 @@ import Logo from "./Logo";
 
 export default function MainLayout() {
   return (
-    <div className="flex flex-col md:flex-row ">
-      <div className="hidden md:flex  flex-row w-full justify-center">
-     
-        <div >
+    <div className="overflow-y-auto overflow-x-hidden">
+      <div className="flex flex-col md:flex-row overflow-y-auto  flex-wrap">
+        <div className="hidden md:flex flex-row w-full justify-center mr-10">
+          <div>
+            <NavBar />
+          </div>
+          <div className="mt-10 flex flex-col gap-10 w-full ">
+            <TopBar />
+            <Carousel />
+          </div>
+          
+           
+          
+        </div>
+
+
+        {/* Mobile Navigation */}
+        <div className="md:hidden flex flex-row w-full justify-around mt-5">
+          <Logo />
+          <TopBar />
           <NavBar />
         </div>
-
-        
-        <div className=" mt-10  flex flex-row gap-10 w-full  ">
-          <TopBar />
-        
-        
+        <div className="m-5 md:hidden">
+          <Carousel />
         </div>
-        
-
       </div>
-      
-      <div className="md:hidden  flex flex-row w-full justify-center  mt-10 ">
-        <Logo/>
-        <TopBar />
-        <NavBar />
 
-      </div>
-      
+      {/* Main Content */}
+     
     </div>
   );
 }

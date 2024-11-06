@@ -1,4 +1,3 @@
-
 import {cn} from "../lib/utils";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,7 +11,7 @@ export const BackgroundGradientAnimation = ({
     fourthColor = "100, 0, 0",                     // Less intense dark red
     fifthColor = "100, 0, 50",                        // Very dark blue
     pointerColor = "75, 50, 155",                    // Brighter red for visibility (reduced intensity)
-    size = "70%",
+    size = "90%",
     blendingValue = "hard-light",
     children,
     className,
@@ -69,7 +68,7 @@ export const BackgroundGradientAnimation = ({
   return (
     (<div
       className={cn(
-        "h-screen w-screen relative overflow-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
+        "h-screen w-screen relative overflow-x-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))]",
         containerClassName
       )}>
       <svg className="hidden">
@@ -88,8 +87,8 @@ export const BackgroundGradientAnimation = ({
       <div className={cn("", className)}> {children}</div>
       <div
         className={cn(
-          "gradients-container h-full w-full blur-lg",
-          isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]"
+          "gradients-container h-full w-full blur-3xl",
+          isSafari ? "blur-3xl" : "[filter:url(#blurMe)_blur(50px)]"
         )}>
         <div
           className={cn(

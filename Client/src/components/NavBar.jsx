@@ -118,13 +118,13 @@ export default function NavBar() {
       {/* Mobile Navigation */}
       <div className="md:hidden flex flex-col">
         {/* Hamburger Icon */}
-        <div className="z-50 mr-10">
+        <div className="z-50 mr-5">
           <Switch isOpen={isOpen} toggleMenu={toggleMenu} />
         </div>
 
         {/* Mobile Menu */}
         <ul
-          className={`fixed inset-0 bg-opacity-90 backdrop-filter backdrop-blur-3xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${
+          className={`fixed inset-0 bg-black/20 backdrop-filter backdrop-blur-3xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${
             isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
           }`}
         >

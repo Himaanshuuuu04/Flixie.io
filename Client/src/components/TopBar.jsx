@@ -19,7 +19,7 @@ export default function TopBar() {
     const buttonClasses = "h-full p-2 border-2 border-slate-800 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400";
 
     return (
-        <div className="flex items-center justify-evenly md:mr-0 md:ml-0 mr-10 ml-10  md:w-full h-12 px-0 md:px-4 font-sans font-light text-white text-lg z-40 md:z-50">
+        <div className="flex items-center justify-between md:mr-0 md:ml-0 mr-10 ml-10  w-full h-12 px-0   font-sans font-light text-white text-lg z-40 md:z-50">
             <div className="relative md:flex items-center hidden">
                 <div
                     className={`${isOpen ? "border-blue-400" : "border-slate-800"} ${baseClasses} flex items-center justify-center w-fit xl:w-36 h-full p-2 border-2 rounded-2xl cursor-pointer`}
@@ -43,7 +43,7 @@ export default function TopBar() {
                 )}
             </div>
 
-            <div className={`${baseClasses} flex items-center  md:w-[40%] h-full p-2 border-2 z-0  md:z-50 border-slate-800 rounded-2xl`}>
+            <div className={`${baseClasses} flex items-center w-full  md:w-[40%] h-full p-2 border-2 z-0  md:z-50 border-slate-800 rounded-2xl`}>
                 <input type="text" placeholder="Search" className="bg-transparent focus:outline-none ml-2 w-full h-full" />
                 <button type="submit">
                     <img src={Search} className="ml-2 mr-2 h-6" alt="search" />
@@ -54,10 +54,10 @@ export default function TopBar() {
                 <img src={Notification} className="h-6" alt="Notification" />
             </button>
 
-            <button className={`${baseClasses} hidden md:flex`}>
+            <button className={`${baseClasses} hidden md:flex h-12`}>
                 <div className={`${buttonClasses} flex items-center`}>
                     <img src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj" className="h-8 rounded-full" alt="Profile" />
-                    <h2 className="ml-4">John Doe</h2>
+                    <h2 className="ml-4  ">John Doe</h2>
                     <img src={Enter} className="h-6 ml-2" alt="Logout" />
                 </div>
             </button>
