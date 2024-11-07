@@ -4,7 +4,7 @@ import TopBar from "./TopBar";
 import NavBar from "./NavBar";
 import Carousel from "./Carousel";
 import Logo from "./Logo";
-
+import CardMapper from "./CardMapper"
 export default function MainLayout() {
   return (
     <div className="overflow-y-auto overflow-x-hidden">
@@ -16,6 +16,7 @@ export default function MainLayout() {
           <div className="mt-10 flex flex-col gap-10 w-full ">
             <TopBar />
             <Carousel />
+            <CardMapper/>
           </div>
           
            
@@ -31,6 +32,10 @@ export default function MainLayout() {
         </div>
         <div className="m-5 md:hidden">
           <Carousel />
+          
+        </div>
+        <div className="m-5 md:hidden">
+        <CardMapper/>
         </div>
       </div>
 
