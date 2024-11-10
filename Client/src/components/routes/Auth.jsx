@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { BackgroundGradientAnimation } from '../Gradient';
 import NavBar from '../NavBar';
 
@@ -146,9 +146,12 @@ const Auth = () => {
               </button>
               <p className="text-sm md:text-md text-center mt-4">
                 Already have an account?{' '}
-                <a href="#" className="font-light text-blue-400 hover:underline">
+                {/* <a href="#" className="font-light text-blue-400 hover:underline">
                   Login here
-                </a>
+                </a> */}
+                <Link to="/login" className="font-light text-blue-400 hover:underline">
+                  Login here
+                </Link>
               </p>
             </div>
           </div>
