@@ -1,12 +1,62 @@
 import React from 'react';
+import { useNavigate,Link } from 'react-router-dom';
 import { BackgroundGradientAnimation } from '../Gradient';
 import NavBar from '../NavBar';
 
 const Auth = () => {
+  const [formData, setFormData] = React.useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    securityQuestion: '',
+    securityAnswer: '',
+    termsAccepted: false,
+  })
+  const navigate=useNavigate();
+  const handleChange = (e) => {
+    const { id, value,type,checked } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: type==='checkbox'?checked:value,
+    }))
+  }
+  const SignIn=async(e)=>{
+    e.preventDefault();
+    if(formData.email==="" || formData.password==="" ||  formData.confirmPassword===""  || formData.securityAnswer==="" || formData.securityQuestion===""){
+      alert("All fields are required");
+    }
+    else if(formData.password!==formData.confirmPassword){
+      alert("Passwords don't match");
+    }
+    else if(formData.termsAccepted===false){
+      alert("Please accept the terms and conditions");
+    }
+    else
+    {
+    try{
+      const response = await fetch('http://localhost/Flixie.io/server/SignUp.php', {
+        method: 'POST',
+        headers: {
+          "Accept":"application/json",
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (response.ok) {
+          navigate('/');
+      } else {
+        alert(result.result || 'Error occurred.');
+      }
+    }catch(error){
+      console.error('Error:', error);
+    }
+  }
+  }
   return (
     <BackgroundGradientAnimation>
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
-      <form className="flex items-center justify-center  w-full h-full px-4 md:px-0">
+      <form className="flex items-center justify-center  w-full h-full px-4 md:px-0" onSubmit={SignIn}>
         <div className="flex flex-col items-center justify-center w-full px-4 py-8  text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
           <div className="w-full  border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
             <div className="p-6 space-y-4 sm:p-8">
@@ -18,8 +68,10 @@ const Auth = () => {
                 <input
                   placeholder="JohnDoe"
                   className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
-                  id="username"
+                  id="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -29,6 +81,8 @@ const Auth = () => {
                   placeholder="••••••••"
                   id="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -38,6 +92,8 @@ const Auth = () => {
                   placeholder="••••••••"
                   id="confirmPassword"
                   type="password"
+                  value={formData.confirmPassword}
+                    onChange={handleChange}
                 />
               </div>
               <div>
@@ -47,6 +103,8 @@ const Auth = () => {
                   placeholder="What is your favorite color?"
                   id="securityQuestion"
                   type="text"
+                  value={formData.securityQuestion}
+                    onChange={handleChange}
                 />
               </div>
               <div>
@@ -56,6 +114,8 @@ const Auth = () => {
                   placeholder="Answer"
                   id="securityAnswer"
                   type="text"
+                  value={formData.securityAnswer}
+                  onChange={handleChange}
                 />
               </div>
               <div className="flex items-start">
@@ -64,7 +124,9 @@ const Auth = () => {
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 focus:ring-primary-600 ring-offset-gray-800"
                     type="checkbox"
                     aria-describedby="terms"
-                    id="terms"
+                    id="termsAccepted"
+                    checked={formData.termsAccepted}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="ml-3 text-sm md:text-md">
@@ -84,9 +146,12 @@ const Auth = () => {
               </button>
               <p className="text-sm md:text-md text-center mt-4">
                 Already have an account?{' '}
-                <a href="#" className="font-light text-blue-400 hover:underline">
+                {/* <a href="#" className="font-light text-blue-400 hover:underline">
                   Login here
-                </a>
+                </a> */}
+                <Link to="/login" className="font-light text-blue-400 hover:underline">
+                  Login here
+                </Link>
               </p>
             </div>
           </div>
