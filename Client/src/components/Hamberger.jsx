@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Switch = ({ isOpen, toggleMenu }) => {
   return (
     <StyledWrapper onClick={toggleMenu}>
-      <div className="h-12 w-12  rounded-full border-2 border-slate-800 flex justify-center items-center backdrop-filter backdrop-blur-3xl z-50">
+      <div className="h-12 w-12  rounded-full border-2 border-white/20 flex justify-center items-center backdrop-filter backdrop-blur-3xl z-50">
         <input
           type="checkbox"
           id="checkbox"

@@ -7,10 +7,10 @@ import Logo from "./Logo";
 import CardMapper from "./CardMapper"
 export default function MainLayout() {
   return (
-    <div className="overflow-y-auto overflow-x-hidden">
+    <div className=" overflow-hidden">
       <div className="flex flex-col md:flex-row overflow-y-auto  flex-wrap">
-        <div className="hidden md:flex flex-row w-full justify-center mr-10">
-          <div>
+        <div className="hidden md:flex flex-row w-full justify-center mr-10 ">
+          <div >
             <NavBar />
           </div>
           <div className="mt-10 flex flex-col gap-10 w-full ">

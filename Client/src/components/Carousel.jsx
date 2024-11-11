@@ -103,9 +103,9 @@ const Carousel = () => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden " >
       <div
-        className="relative w-full rounded-2xl shadow-2xl"
+        className="relative w-full rounded-2xl shadow-2xl  "
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={handleTouchStart}
@@ -113,11 +113,11 @@ const Carousel = () => {
       >
         {/* Carousel Content */}
         <div
-          className="flex rounded-2xl transition-transform duration-1000 ease-in-out"
+          className="flex rounded-2xl transition-transform duration-1000 ease-in-out "
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {movies.map((movie) => (
-            <div key={movie.id} className="flex-shrink-0 w-full  h-[15rem] relative">
+            <div key={movie.id} className="flex-shrink-0 w-full  h-[15rem] relative ">
               <img src={movie.image} alt={movie.title} className="object-cover w-full h-full opacity-100 rounded-2xl" />
 
               {/* Overlay Content */}
@@ -126,15 +126,15 @@ const Carousel = () => {
                   {movie.isPopular && (
                     <span className="absolute top-3 left-3 backdrop-blur-3xl bg-black/20 font-lighter text-xs px-2 py-1 rounded-full shadow-md">🔥 Popular</span>
                   )}
-                  <div className='absolute bottom-5 left-5 text-left backdrop:filter backdrop-blur-3xl p-4 rounded-2xl border border-slate-700 bg-black/20 mr-5 shadow-2xl'>
+                  <div className='absolute bottom-5 left-5 text-left backdrop:filter backdrop-blur-3xl p-4 rounded-2xl border border-white/20 bg-black/20 mr-5 shadow-2xl'>
                     <h2 className="text-lg font-bold">{movie.title}</h2>
                     <p className="text-xs font-extralight">{movie.description.slice(0, 95) + (movie.description.length > 95 ? '...' : '')}</p>
 
                     <div className="flex gap-2 mt-2 ">
-                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1">
+                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1">
                         <img src={Play} alt="Play" className="w-4 h-4" /> <span className='-mb-1'>Watch Now</span>
                       </button>
-                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1">
+                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1">
                         <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span className='-mb-1'>Like</span>
                       </button>
                     </div>
@@ -143,13 +143,13 @@ const Carousel = () => {
               </div>
 
               {/* Mobile Content */}
-              <div className="absolute bottom-0 h-[30%] bg-black/20 w-full flex flex-col justify-center p-4 md:hidden backdrop-blur-2xl rounded-2xl text-white transition-opacity duration-300">
+              <div className="absolute bottom-0 h-[30%] bg-black/20 w-full flex flex-col justify-center p-4 md:hidden backdrop-blur-2xl rounded-2xl rounded-t-0 text-white transition-opacity duration-300 ">
                 <h2 className="font-semibold text-nowrap text-lg">{movie.title}</h2>
                 <div className="flex gap-4">
-                  <button className="text-base border border-white px-2 py-[0.15rem] rounded-full flex items-center space-x-1">
+                  <button className="text-sm border border-white/20 px-2 py-[0.15rem] rounded-full flex items-center space-x-1">
                     <img src={Play} alt="Play" className="w-4 h-4" /> <span>Watch Now</span>
                   </button>
-                  <button className="text-sm border border-white px-2 rounded-full flex items-center space-x-1">
+                  <button className="text-sm border border-white/20 px-2 rounded-full flex items-center space-x-1">
                     <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span>Like</span>
                   </button>
                 </div>

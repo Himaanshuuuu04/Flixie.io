@@ -16,20 +16,20 @@ export default function TopBar() {
     };
 
     const baseClasses = "transition-all duration-200 transform hover:scale-105";
-    const buttonClasses = "h-full p-2 border-2 border-slate-800 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400";
+    const buttonClasses = "h-full p-2 border-2 border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400";
 
     return (
         <div className="flex items-center justify-between md:mr-0 md:ml-0 mr-10 ml-10  w-full h-12 px-0   font-sans font-light text-white text-lg z-40 md:z-50">
             <div className="relative md:flex items-center hidden">
                 <div
-                    className={`${isOpen ? "border-blue-400" : "border-slate-800"} ${baseClasses} flex items-center justify-center w-fit xl:w-36 h-full p-2 border-2 rounded-2xl cursor-pointer`}
+                    className={`${isOpen ? "border-blue-400" : "border-white/20"} ${baseClasses} flex items-center justify-center w-fit xl:w-36 h-full p-2 border-2 rounded-2xl cursor-pointer`}
                     onClick={toggleDropdown}
                 >
                     <h2 className="ml-2">{selectedOption}</h2>
                     <img src={ExpandArrow} alt="arrow" className={`ml-2 h-3 ${isOpen ? 'rotate-180' : ''}`} />
                 </div>
                 {isOpen && (
-                    <div className="absolute top-16 w-48 border border-slate-800 rounded-xl backdrop-blur-3xl shadow-lg text-white z-50 text-center opacity-100 translate-y-0 transition-transform duration-300">
+                    <div className="absolute top-16 w-48 border border-white/20 rounded-xl backdrop-blur-3xl shadow-lg text-white z-50 text-center opacity-100 translate-y-0 transition-transform duration-300">
                         {options.map((option) => (
                             <div
                                 key={option}
@@ -43,7 +43,7 @@ export default function TopBar() {
                 )}
             </div>
 
-            <div className={`${baseClasses} flex items-center w-full  md:w-[40%] h-full p-2 border-2 z-0  md:z-50 border-slate-800 rounded-2xl`}>
+            <div className={`${baseClasses} flex items-center w-full  md:w-[40%] h-full p-2 border-2 z-0  md:z-50 border-white/20 rounded-2xl`}>
                 <input type="text" placeholder="Search" className="bg-transparent focus:outline-none ml-2 w-full h-full" />
                 <button type="submit">
                     <img src={Search} className="ml-2 mr-2 h-6" alt="search" />

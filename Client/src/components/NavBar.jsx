@@ -26,7 +26,7 @@ export default function NavBar() {
       )}
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex flex-col items-center md:w-64 w-40 h-[calc(100vh-5rem)] border-2 p-8 rounded-3xl border-slate-800 backdrop-blur-3xl shadow-xl text-white float-left sticky ml-10 mt-10 mr-10 opacity-90 md:z-40 z-50 overflow-auto">
+      <nav className="hidden md:flex flex-col items-center md:w-64 w-40 h-[calc(100vh-5rem)] border-2 p-8 rounded-3xl border-white/20 backdrop-blur-3xl shadow-xl text-white float-left sticky ml-10 mt-10 mr-10 opacity-90 md:z-40 z-50 overflow-auto">
         {/* Logo Section */}
         <div className="flex flex-col items-center space-y-2 mt-4">
           <NavLink to="/" className="flex items-center -space-x-1">
@@ -128,7 +128,7 @@ export default function NavBar() {
             isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
           }`}
         >
-          <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-[60%] w-[80%] border-2 rounded-3xl border-slate-800 p-10">
+          <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-[60%] w-[80%] border-2 rounded-3xl border-white/20 p-10 bg-white/10">
           <ul className="space-y-6 font-light">
 
             {/* Link items */}
