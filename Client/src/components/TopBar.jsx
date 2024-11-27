@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpandArrow from '../assets/ExpandArrow.png';
 import Search from '../assets/Search.png';
 import Notification from '../assets/Notification.png';
@@ -8,6 +8,7 @@ export default function TopBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState("All");
     const options = ["All", "Option 1", "Option 2", "Option 3"];
+    const [searchTerm, setSearchTerm] = useState('');
 
     const toggleDropdown = () => setIsOpen(!isOpen);
     const handleOptionClick = (option) => {
@@ -17,7 +18,21 @@ export default function TopBar() {
 
     const baseClasses = "transition-all duration-200 transform hover:scale-105";
     const buttonClasses = "h-full p-2 border-2 border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400";
+    const fetchData = () => {
+        const url = `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&include_adult=false&language=en-US&page=1`;
+        const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: `${import.meta.env.VITE_API_TOKEN}`
+        }
+        };
 
+        fetch(url, options)
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.error(err));
+    }
     return (
         <div className="flex items-center justify-between md:mr-0 md:ml-0 mr-10 ml-10  w-full h-12 px-0   font-sans font-light text-white text-lg z-40 md:z-50">
             <div className="relative md:flex items-center hidden">
@@ -44,8 +59,8 @@ export default function TopBar() {
             </div>
 
             <div className={`${baseClasses} flex items-center w-full  md:w-[40%] h-full p-2 border-2 z-0  md:z-50 border-white/20 rounded-2xl`}>
-                <input type="text" placeholder="Search" className="bg-transparent focus:outline-none ml-2 w-full h-full" />
-                <button type="submit">
+                <input type="text" placeholder="Search" className="bg-transparent focus:outline-none ml-2 w-full h-full" onChange={(e) => setSearchTerm(e.target.value)} />
+                <button type="submit" onClick={fetchData}>
                     <img src={Search} className="ml-2 mr-2 h-6" alt="search" />
                 </button>
             </div>
