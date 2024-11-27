@@ -5,8 +5,12 @@ import NotFound from "./components/routes/NotFound.jsx";
 import Auth from "./components/routes/Auth.jsx";
 import Login from "./components/routes/Login.jsx";
 import Moviedetails from "./components/routes/Moviedetails.jsx";
+import { MovieProvider } from "./components/contextAPI/MovieContext.jsx";
+import { GenreProvider } from "./components/contextAPI/GenreContext.jsx";
 function App() {
   return (
+    <MovieProvider>
+      <GenreProvider>
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -16,6 +20,8 @@ function App() {
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </HashRouter> 
+    </GenreProvider>
+    </MovieProvider>  
   );
 }
 
