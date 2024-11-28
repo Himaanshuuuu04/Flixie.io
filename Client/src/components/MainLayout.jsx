@@ -23,11 +23,12 @@ export default function MainLayout() {
     <div className="overflow-hidden">
       <div className="flex flex-col md:flex-row overflow-y-auto flex-wrap">
         <div className="hidden md:flex flex-row w-full justify-center mr-10">
-          <div className="sticky top-0">
+          <div className="sticky top-0 h-screen ">
             <NavBar />
           </div>
           <div className="mt-10 flex flex-col gap-10 w-full">
             <TopBar  /> {/* Pass state setter */}
+            {movieByGenre && <GenreResults />}
             {searchActive ? (
               <MovieResults /> 
             ) : (
@@ -36,11 +37,7 @@ export default function MainLayout() {
                 <CardMapper />
               </>
             )}
-            {movieByGenre ?(<GenreResults/>):((
-              <>
-                
-              </>
-            ))}
+            
           </div>
         </div>
 
@@ -51,6 +48,7 @@ export default function MainLayout() {
           <NavBar />
         </div>
         <div className="m-5 md:hidden">
+          {movieByGenre && <GenreResults />}
           {searchActive ? <MovieResults /> : <Carousel />}
         </div>
         <div className="m-5 md:hidden">{!searchActive && <CardMapper />}</div>

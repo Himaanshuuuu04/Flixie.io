@@ -97,7 +97,7 @@ const Carousel = () => {
                       <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Watch Now">
                         <img src={Play} alt="Play" className="w-4 h-4" /> <span className='-mb-1'>Watch Now</span>
                       </button>
-                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Like">
+                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Like">
                         <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span className='-mb-1'>Like</span>
                       </button>
                     </div>

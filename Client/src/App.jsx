@@ -10,7 +10,7 @@ import { GenreProvider } from "./components/contextAPI/GenreContext.jsx";
 function App() {
   return (
     <MovieProvider>
-      <GenreProvider>
+    <GenreProvider>
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
