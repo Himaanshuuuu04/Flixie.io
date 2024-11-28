@@ -32,7 +32,6 @@ const Login = () => {
         });
         const result = await response.json();
         if (response.ok && result.result === "Login Successful!") {
-          alert(result.result);
           navigate('/');
         } else {
           alert(result.result || "Login failed");
