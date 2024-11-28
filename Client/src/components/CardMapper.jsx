@@ -11,7 +11,7 @@ export default function CardMapper() {
     const fetchMovies = async () => {
       try {
         const response = await fetch(
-          `${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US&region=US`
+          `${TMDB_BASE_URL}/movie/now_playing?api_key=${TMDB_API_KEY}&language=en-US`
         );
         const data = await response.json();
         if (data && data.results) {

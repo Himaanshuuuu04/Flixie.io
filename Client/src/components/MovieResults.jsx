@@ -6,7 +6,7 @@ import Loader from './Loading.jsx';
 import {Link } from "react-router-dom";
 
 function MovieResults() {
-    const { movies, loading, searchTerm } = useMovieContext();
+    const { movies, loading, searchTerm,setSearchActive } = useMovieContext();
 
     return (
         <div className="">
@@ -23,6 +23,7 @@ function MovieResults() {
                                 <div
                                     key={movie.id}
                                     className="bg-white/10 rounded-2xl text-white border-2 border-white/20 overflow-hidden backdrop-filter backdrop-blur-3xl shadow-xl"
+                                    onClick={() => setSearchActive(false)}
                                 >
                                 <Link to={`/Moviedetails/${movie.id}`}>
                                     <img
