@@ -26,7 +26,7 @@ function App() {
               <Route path="Forgot" element={<ForgotPassword />} />
               <Route path="Moviedetails/:id" element={<Moviedetails />} />
               <Route path="Favourite" element={<Favourite />} />
-              {/* <Route path="*" element={<NotFound />} /> */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </HashRouter>
         </AuthProvider>

@@ -73,7 +73,7 @@ const Login = () => {
             <div className="w-full border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
               <div className="p-6 space-y-4 sm:p-8">
                 <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl">
-                  Create an account
+                  Log In
                 </p>
                 <div>
                   <label className="block mb-1 text-sm md:text-md font-light">Email or Username</label>
@@ -109,9 +109,12 @@ const Login = () => {
                     SignUp
                   </Link>
                 </p>
-                <Link to="/Forgot" className="text-blue-400 hover:underline font-light text-center">
-                  Forgot Your Password?
-                </Link>
+                <div className="text-center">
+                  <Link to="/Forgot" className="text-blue-400 hover:underline font-light">
+                    Forgot Your Password?
+                  </Link>
+                </div>
+
               </div>
             </div>
           </div>
