@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
-    email: '',
+    identifier: '',
     password: '',
   });
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-    if (formData.email === '' || formData.password === '') {
+    if (formData.identifier === '' || formData.password === '') {
       toast.warn('All fields are required!', {
         position: "top-right",
         autoClose: 3000,
@@ -41,9 +41,11 @@ const Login = () => {
         if (response.ok && result.result === 'Login Successful!') {
           toast.success('Login successful!', {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1000,
           });
-          navigate('/');
+          setTimeout(() => {
+            navigate('/');
+          }, 1500);
         } else {
           toast.error(result.result || 'Login failed', {
             position: "top-right",
@@ -71,13 +73,13 @@ const Login = () => {
                   Create an account
                 </p>
                 <div>
-                  <label className="block mb-1 text-sm md:text-md font-light">Your Email</label>
+                  <label className="block mb-1 text-sm md:text-md font-light">Email or Username</label>
                   <input
                     placeholder="JohnDoe"
                     className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
-                    id="email"
-                    type="email"
-                    value={formData.email}
+                    id="identifier"
+                    type="identifier"
+                    value={formData.identifier}
                     onChange={handleChange}
                   />
                 </div>

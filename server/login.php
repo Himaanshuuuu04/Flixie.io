@@ -20,21 +20,29 @@ if (is_null($ddate)) {
     exit();
 }
 
-$email = $ddate["email"] ?? '';
+$identifier = $ddate["identifier"] ?? '';  // Username or email
 $password = $ddate["password"] ?? '';
 $result = "";
 
-if (!empty($email) && !empty($password)) {
-    $sql = "SELECT * FROM userdata WHERE email = ? AND password = ?";
+if (!empty($identifier) && !empty($password)) {
+    // Check if identifier is an email or username
+    if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+        // If it's an email, check the email field
+        $sql = "SELECT * FROM userdata WHERE email = ? AND password = ?";
+    } else {
+        // If it's a username, check the username field
+        $sql = "SELECT * FROM userdata WHERE username = ? AND password = ?";
+    }
+
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $email, $password);
+    $stmt->bind_param("ss", $identifier, $password);
     $stmt->execute();
     $queryResult = $stmt->get_result();
 
     if ($queryResult->num_rows > 0) {
         $result = "Login Successful!";
     } else {
-        $result = "Invalid email or password.";
+        $result = "Invalid username/email or password.";
     }
     $stmt->close();
 } else {
@@ -44,3 +52,4 @@ if (!empty($email) && !empty($password)) {
 
 $conn->close();
 echo json_encode(["result" => $result]);
+?>
