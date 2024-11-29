@@ -22,7 +22,7 @@ function MovieResults() {
                                
                                 <div
                                     key={movie.id}
-                                    className="bg-white/10 rounded-2xl text-white border-2 border-white/20 overflow-hidden backdrop-filter backdrop-blur-3xl shadow-xl"
+                                    className="bg-white/10 rounded-2xl text-white border-2 border-white/20 overflow-hidden backdrop-filter backdrop-blur-3xl shadow-xl  hover:bg-blue-400 transition-all duration-300 "
                                     onClick={() => setSearchActive(false)}
                                 >
                                 <Link to={`/Moviedetails/${movie.id}`}>

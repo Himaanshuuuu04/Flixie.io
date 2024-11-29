@@ -95,7 +95,7 @@ const Moviedetails = () => {
                     d="M5 3l14 9-14 9V3z"
                   ></path>
                 </svg>
-                <span className="text-sm -mb-1">Watch Now</span>
+                <span className="text-sm -mb-1 text-white">Watch Now</span>
               </a>
               <a
                 href={VIDSRCS_ME_API + movieDetails.id}
@@ -168,7 +168,7 @@ const Moviedetails = () => {
           </div>
            {/* Back Button */}
         <svg
-          className="bg-black md:w-8 md:h-8 w-8 h-8 absolute top-3 right-3 cursor-pointer rounded-full p-2 z-50 hidden md:flex"
+          className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute top-3 right-3 cursor-pointer rounded-full p-2 z-50 hidden md:flex"
           onClick={() => navigate("/")}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
