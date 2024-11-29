@@ -3,6 +3,7 @@ import TopBar from "./TopBar";
 import NavBar from "./NavBar";
 import Logo from "./Logo";
 import MovieResults from "./MovieResults";
+import FavouriteMovies from "./FavouriteMovies";
 import { useMovieContext } from "./contextAPI/MovieContext.jsx";
 import GenreResults from "./GenreResults.jsx";
 import { useGenreContext } from "./contextAPI/GenreContext.jsx";
@@ -13,7 +14,7 @@ export default function MainLayout() {
 
   useEffect(() => {
     if (!searchTerm) {
-      setSearchActive(false); // Reset when searchTerm becomes empty
+      setSearchActive(false);
     }
   }, [searchTerm]);
 
@@ -30,7 +31,13 @@ export default function MainLayout() {
           <div className="mt-10 mb-10 flex flex-col gap-10 px-5">
             <TopBar />
             {movieByGenre && <GenreResults />}
-            {searchActive ? <MovieResults /> : null}
+            {searchActive ? (
+              <MovieResults />
+            ) : (
+              <>
+                <FavouriteMovies />
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -46,7 +53,13 @@ export default function MainLayout() {
         {/* Scrollable Content */}
         <div className="flex flex-col gap-5 px-5">
           {movieByGenre && <GenreResults />}
-          {searchActive ? <MovieResults /> : null}
+          {searchActive ? (
+            <MovieResults />
+          ) : (
+            <>
+              <FavouriteMovies />
+            </>
+          )}
         </div>
       </div>
     </div>

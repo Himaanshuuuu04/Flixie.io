@@ -31,7 +31,7 @@ export default function CardMapper() {
         <Card
           key={movie.id}
           id={movie.id}
-          img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} // TMDB poster URL
+          img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} 
           title={movie.title}
           link={`/movie/${movie.id}`} // You can customize this link
         />
