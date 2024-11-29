@@ -81,7 +81,7 @@ const Auth = () => {
 
   return (
     <BackgroundGradientAnimation>
-      <ToastContainer /> {/* Add ToastContainer */}
+      <ToastContainer /> 
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
         <form className="flex items-center justify-center  w-full h-full px-4 md:px-0" onSubmit={SignIn}>
           <div className="flex flex-col items-center justify-center w-full px-4 py-8  text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">

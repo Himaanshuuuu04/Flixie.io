@@ -5,6 +5,7 @@ import NotFound from "./components/routes/NotFound.jsx";
 import Auth from "./components/routes/Auth.jsx";
 import Login from "./components/routes/Login.jsx";
 import Moviedetails from "./components/routes/Moviedetails.jsx";
+import Favourite from "./components/routes/Favourite.jsx";
 import { MovieProvider } from "./components/contextAPI/MovieContext.jsx";
 import { GenreProvider } from "./components/contextAPI/GenreContext.jsx";
 import { ToastContainer } from 'react-toastify';
@@ -20,6 +21,7 @@ function App() {
             <Route path="Auth" element={<Auth />} />
             <Route path="Login" element={<Login />} />
             <Route path="Moviedetails/:id" element={<Moviedetails />} />
+            <Route path="Favourite" element={<Favourite />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </HashRouter>
