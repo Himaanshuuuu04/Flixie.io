@@ -4,8 +4,10 @@ import { BackgroundGradientAnimation } from '../Gradient';
 import NavBar from '../NavBar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import { useAuthContext } from '../contextAPI/AuthContext';
 
 const Login = () => {
+  const { loginDone } = useAuthContext();
   const [formData, setFormData] = React.useState({
     identifier: '',
     password: '',
@@ -39,6 +41,7 @@ const Login = () => {
         });
         const result = await response.json();
         if (response.ok && result.result === 'Login Successful!') {
+          loginDone();
           toast.success('Login successful!', {
             position: "top-right",
             autoClose: 1000,

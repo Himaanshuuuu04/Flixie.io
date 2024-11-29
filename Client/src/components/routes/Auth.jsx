@@ -3,8 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { BackgroundGradientAnimation } from '../Gradient';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
+import { useAuthContext } from '../contextAPI/AuthContext';
 
 const Auth = () => {
+  const { loginDone } = useAuthContext();
   const [formData, setFormData] = React.useState({
     username: '', // Added username
     email: '',
@@ -26,7 +28,7 @@ const Auth = () => {
 
   const SignIn = async (e) => {
     e.preventDefault();
-  
+
     if (
       !formData.username ||
       !formData.email ||
@@ -59,9 +61,10 @@ const Auth = () => {
           },
           body: JSON.stringify(formData),
         });
-        
+
         const result = await response.json();
         if (response.ok && result.result === "Registration Successful!") {
+          loginDone();
           toast.success('Account created successfully!', {
             position: "top-right",
             autoClose: 1000,
@@ -86,7 +89,7 @@ const Auth = () => {
 
   return (
     <BackgroundGradientAnimation>
-      <ToastContainer /> 
+      <ToastContainer />
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
         <form className="flex items-center justify-center w-full h-full px-4 md:px-0" onSubmit={SignIn}>
           <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
