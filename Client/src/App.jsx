@@ -11,6 +11,7 @@ import { GenreProvider } from "./components/contextAPI/GenreContext.jsx";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./components/contextAPI/AuthContext.jsx";
+import ForgotPassword from "./components/routes/ForgotPassword.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="Auth" element={<Auth />} />
               <Route path="Login" element={<Login />} />
+              <Route path="Forgot" element={<ForgotPassword />} />
               <Route path="Moviedetails/:id" element={<Moviedetails />} />
               <Route path="Favourite" element={<Favourite />} />
               {/* <Route path="*" element={<NotFound />} /> */}
