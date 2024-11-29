@@ -2,53 +2,70 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BackgroundGradientAnimation } from '../Gradient';
 import NavBar from '../NavBar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
     email: '',
     password: '',
-  })
+  });
   const navigate = useNavigate();
+
   const handleChange = (e) => {
-    const { id, value, type } = e.target;
+    const { id, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [id]: value,
-    }))
-  }
+    }));
+  };
+
   const login = async (e) => {
     e.preventDefault();
-    if (formData.email === "" || formData.password === "") {
-      alert("All fields are required");
+    if (formData.email === '' || formData.password === '') {
+      toast.warn('All fields are required!', {
+        position: "top-right",
+        autoClose: 3000,
+      });
     } else {
       try {
         const response = await fetch('http://localhost/Flixie.io/server/login.php', {
           method: 'POST',
           headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
         });
         const result = await response.json();
-        if (response.ok && result.result === "Login Successful!") {
+        if (response.ok && result.result === 'Login Successful!') {
+          toast.success('Login successful!', {
+            position: "top-right",
+            autoClose: 3000,
+          });
           navigate('/');
         } else {
-          alert(result.result || "Login failed");
+          toast.error(result.result || 'Login failed', {
+            position: "top-right",
+            autoClose: 3000,
+          });
         }
       } catch (error) {
-        console.error('Error:', error);
-        alert("An error occurred while processing your request");
+        toast.error('An error occurred while processing your request!', {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
     }
   };
 
   return (
     <BackgroundGradientAnimation>
+      <ToastContainer />
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
         <form className="flex items-center justify-center  w-full h-full px-4 md:px-0" onSubmit={login}>
-          <div className="flex flex-col items-center justify-center w-full px-4 py-8  text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
-            <div className="w-full  border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
+          <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
+            <div className="w-full border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
               <div className="p-6 space-y-4 sm:p-8">
                 <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl">
                   Create an account
@@ -87,7 +104,7 @@ const Login = () => {
                     SignUp
                   </Link>
                 </p>
-                <p className='text-blue-400 hover:underline font-light text-center'>
+                <p className="text-blue-400 hover:underline font-light text-center">
                   Forgot Your Password?
                 </p>
               </div>
