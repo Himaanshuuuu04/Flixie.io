@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Favorite from '../assets/Favorite.png';
 import Play from '../assets/Play.png';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const TMDB_API_KEY = import.meta.env.VITE_API_KEY;
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -75,52 +75,52 @@ const Carousel = () => {
           {movies.map((movie) => (
             <div key={movie.id} className="flex-shrink-0 w-full h-[15rem] relative">
               <Link to={`/Moviedetails/${movie.id}`}>
-              {movie.backdrop_path && (
-                <img
-                  src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
-                  alt={movie.title}
-                  className="object-cover w-full h-full opacity-100 rounded-2xl"
-                />
-              )}
-              <div className="absolute inset-0 items-center justify-center p-3 hidden md:flex">
-                <div className="text-white text-center space-y-2">
-                  {movie.popularity > 50 && (
-                    <span className="absolute top-3 left-3 backdrop-blur-3xl bg-black/20 font-lighter text-xs px-2 py-1 rounded-full shadow-md">
-                      🔥 Popular
-                    </span>
-                  )}
-                  <div className='absolute bottom-5 left-5 text-left backdrop:filter backdrop-blur-3xl p-4 rounded-2xl border border-white/20 bg-black/20 mr-5 shadow-2xl'>
-                    <h2 className="text-lg font-bold">{movie.title}</h2>
-                    <p className="text-xs font-extralight">
-                      {movie.overview.slice(0, 95) + (movie.overview.length > 95 ? '...' : '')}
-                    </p>
-                    <div className="flex gap-2 mt-2">
-                     
-                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Watch Now">
-                        <img src={Play} alt="Play" className="w-4 h-4" /> <span className='-mb-1'>Watch Now</span>
-                      </button>
-                     
-                      <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Like">
-                        <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span className='-mb-1'>Like</span>
-                      </button>
+                {movie.backdrop_path && (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
+                    alt={movie.title}
+                    className="object-cover w-full h-full opacity-100 rounded-2xl"
+                  />
+                )}
+                <div className="absolute inset-0 items-center justify-center p-3 hidden md:flex">
+                  <div className="text-white text-center space-y-2">
+                    {movie.popularity > 50 && (
+                      <span className="absolute top-3 left-3 backdrop-blur-3xl bg-black/20 font-lighter text-xs px-2 py-1 rounded-full shadow-md">
+                        🔥 Popular
+                      </span>
+                    )}
+                    <div className='absolute bottom-5 left-5 text-left backdrop:filter backdrop-blur-3xl p-4 rounded-2xl border border-white/20 bg-black/20 mr-5 shadow-2xl'>
+                      <h2 className="text-lg font-bold">{movie.title}</h2>
+                      <p className="text-xs font-extralight">
+                        {movie.overview.slice(0, 95) + (movie.overview.length > 95 ? '...' : '')}
+                      </p>
+                      <div className="flex gap-2 mt-2">
+
+                        <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Watch Now">
+                          <img src={Play} alt="Play" className="w-4 h-4" /> <span className='-mb-1'>Watch Now</span>
+                        </button>
+
+                        <button className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1" aria-label="Like">
+                          <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span className='-mb-1'>Like</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="absolute bottom-0 h-[30%] bg-black/40 w-full flex flex-col justify-center p-4 md:hidden backdrop-blur-xl rounded-2xl border border-white/20 rounded-t-none text-white transition-opacity duration-300 ">
-                <h2 className="font-semibold text-nowrap text-lg">{movie.title}</h2>
-                <div className="flex gap-4">
-                  <button className="text-sm border border-white/20 px-2 py-[0.15rem] rounded-full flex items-center space-x-1" aria-label="Watch Now">
-                    <img src={Play} alt="Play" className="w-4 h-4" /> <span>Watch Now</span>
-                  </button>
-                  <button className="text-sm border border-white/20 px-2 rounded-full flex items-center space-x-1" aria-label="Like">
-                    <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span>Like</span>
-                  </button>
+                <div className="absolute bottom-0 h-[30%] bg-black/40 w-full flex flex-col justify-center p-4 md:hidden backdrop-blur-xl rounded-2xl border border-white/20 rounded-t-none text-white transition-opacity duration-300 ">
+                  <h2 className="font-semibold text-nowrap text-lg">{movie.title}</h2>
+                  <div className="flex gap-4">
+                    <button className="text-sm border border-white/20 px-2 py-[0.15rem] rounded-full flex items-center space-x-1" aria-label="Watch Now">
+                      <img src={Play} alt="Play" className="w-4 h-4" /> <span>Watch Now</span>
+                    </button>
+                    <button className="text-sm border border-white/20 px-2 rounded-full flex items-center space-x-1" aria-label="Like">
+                      <img src={Favorite} alt="Favorite" className="w-4 h-4" /> <span>Like</span>
+                    </button>
+                  </div>
                 </div>
-              </div>
               </Link>
             </div>
-            
+
           ))}
         </div>
       </div>
