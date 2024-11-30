@@ -61,7 +61,7 @@ At Flixie.io, we believe technology fuels creativity. Our platform elevates UI/U
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/flixie.io.git
+git clone https://github.com/Himaanshuuuu04/Flixie.io.git
 cd flixie.io
 
 # Install dependencies
