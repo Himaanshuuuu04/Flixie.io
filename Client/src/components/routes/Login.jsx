@@ -4,10 +4,12 @@ import { BackgroundGradientAnimation } from '../Gradient';
 import NavBar from '../NavBar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+import { useAuthContext } from '../contextAPI/AuthContext';
 
 const Login = () => {
+  const { loginDone } = useAuthContext();
   const [formData, setFormData] = React.useState({
-    email: '',
+    identifier: '',
     password: '',
   });
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-    if (formData.email === '' || formData.password === '') {
+    if (formData.identifier === '' || formData.password === '') {
       toast.warn('All fields are required!', {
         position: "top-right",
         autoClose: 3000,
@@ -39,11 +41,14 @@ const Login = () => {
         });
         const result = await response.json();
         if (response.ok && result.result === 'Login Successful!') {
+          loginDone();
           toast.success('Login successful!', {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1000,
           });
-          navigate('/');
+          setTimeout(() => {
+            navigate('/');
+          }, 1500);
         } else {
           toast.error(result.result || 'Login failed', {
             position: "top-right",
@@ -68,16 +73,16 @@ const Login = () => {
             <div className="w-full border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
               <div className="p-6 space-y-4 sm:p-8">
                 <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl">
-                  Create an account
+                  Log In
                 </p>
                 <div>
-                  <label className="block mb-1 text-sm md:text-md font-light">Your Email</label>
+                  <label className="block mb-1 text-sm md:text-md font-light">Email or Username</label>
                   <input
                     placeholder="JohnDoe"
                     className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
-                    id="email"
-                    type="email"
-                    value={formData.email}
+                    id="identifier"
+                    type="identifier"
+                    value={formData.identifier}
                     onChange={handleChange}
                   />
                 </div>
@@ -104,9 +109,12 @@ const Login = () => {
                     SignUp
                   </Link>
                 </p>
-                <p className="text-blue-400 hover:underline font-light text-center">
-                  Forgot Your Password?
-                </p>
+                <div className="text-center">
+                  <Link to="/Forgot" className="text-blue-400 hover:underline font-light">
+                    Forgot Your Password?
+                  </Link>
+                </div>
+
               </div>
             </div>
           </div>

@@ -3,9 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import { BackgroundGradientAnimation } from '../Gradient';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
+import { useAuthContext } from '../contextAPI/AuthContext';
 
 const Auth = () => {
+  const { loginDone } = useAuthContext();
   const [formData, setFormData] = React.useState({
+    username: '', // Added username
     email: '',
     password: '',
     confirmPassword: '',
@@ -27,6 +30,7 @@ const Auth = () => {
     e.preventDefault();
 
     if (
+      !formData.username ||
       !formData.email ||
       !formData.password ||
       !formData.confirmPassword ||
@@ -57,13 +61,17 @@ const Auth = () => {
           },
           body: JSON.stringify(formData),
         });
+
         const result = await response.json();
-        if (response.ok) {
+        if (response.ok && result.result === "Registration Successful!") {
+          loginDone();
           toast.success('Account created successfully!', {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1000,
           });
-          navigate('/');
+          setTimeout(() => {
+            navigate('/');
+          }, 1500);
         } else {
           toast.error(result.result || 'An error occurred.', {
             position: "top-right",
@@ -81,19 +89,30 @@ const Auth = () => {
 
   return (
     <BackgroundGradientAnimation>
-      <ToastContainer /> 
+      <ToastContainer />
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
-        <form className="flex items-center justify-center  w-full h-full px-4 md:px-0" onSubmit={SignIn}>
-          <div className="flex flex-col items-center justify-center w-full px-4 py-8  text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
-            <div className="w-full  border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
+        <form className="flex items-center justify-center w-full h-full px-4 md:px-0" onSubmit={SignIn}>
+          <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
+            <div className="w-full border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
               <div className="p-6 space-y-4 sm:p-8">
                 <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl">
                   Create an account
                 </p>
                 <div>
+                  <label className="block mb-1 text-sm md:text-md font-light">Username</label>
+                  <input
+                    placeholder="JohnDoe123"
+                    className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
+                    id="username"
+                    type="text"
+                    value={formData.username}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
                   <label className="block mb-1 text-sm md:text-md font-light">Your Email</label>
                   <input
-                    placeholder="JohnDoe"
+                    placeholder="example@mail.com"
                     className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
                     id="email"
                     type="email"

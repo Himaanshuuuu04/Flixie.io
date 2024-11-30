@@ -8,13 +8,15 @@ import Businessman from "../assets/Businessman.png";
 import Heart from "../assets/Heart.png";
 import Switch from "./Hamberger"; // Switch component acting as hamburger icon
 import { useMovieContext } from "./contextAPI/MovieContext.jsx";
+import { useEffect } from "react";
+import { useAuthContext } from "./contextAPI/AuthContext.jsx";
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const {setSearchActive} = useMovieContext();
+  const { setSearchActive } = useMovieContext();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  const { logged } = useAuthContext();
   return (
     <>
       {/* Blur Overlay */}
@@ -54,7 +56,7 @@ export default function NavBar() {
               </NavLink>
             </li>
             {/* Add other NavLinks similarly */}
-            <li className="text-lg">
+            {/* <li className="text-lg">
               <NavLink
                 to="/TopGrossing"
                 className={({ isActive }) =>
@@ -66,7 +68,7 @@ export default function NavBar() {
                 <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />
                 <span>Top Grossing</span>
               </NavLink>
-            </li>
+            </li> */}
             <li className="text-lg">
               <NavLink
                 to="/Favourite"
@@ -86,23 +88,33 @@ export default function NavBar() {
 
           <ul className="space-y-6 font-light">
             <li className="text-lg">
-              <NavLink
-                to="/Auth"
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
-                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
-                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
-                }
-              >
-                <img src={Businessman} alt="profile" className="h-6" />
-                <span>Profile</span>
-              </NavLink>
+              {logged ? (
+                < div
+                  className="flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 text-gray-500 cursor-not-allowed"
+                  title="You are already logged in. Profile cannot be accessed!"
+                >
+                  <img src={Businessman} alt="profile" className="h-6" />
+                  <span>Profile</span>
+                </div>
+              ) : (
+                <NavLink
+                  to="/Auth"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+        ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+        hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                  }
+                >
+                  <img src={Businessman} alt="profile" className="h-6" />
+                  <span>Profile</span>
+                </NavLink>
+              )}
             </li>
             <li className="text-lg">
               <NavLink
-                to="/Settings"
+                to="*"
                 className={({ isActive }) =>
-                 ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                  ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
                    hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
                 }
@@ -124,89 +136,99 @@ export default function NavBar() {
 
         {/* Mobile Menu */}
         <ul
-          className={`fixed inset-0 bg-black/20 backdrop-filter backdrop-blur-3xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${
-            isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-          }`}
+          className={`fixed inset-0 bg-black/20 backdrop-filter backdrop-blur-3xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+            }`}
         >
           <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-[60%] w-[80%] border-2 rounded-3xl border-white/20 p-10 bg-white/10">
-          <ul className="space-y-6 font-light">
+            <ul className="space-y-6 font-light">
 
-            {/* Link items */}
-            <li className="text-lg">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+              {/* Link items */}
+              <li className="text-lg">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
                    hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
-                }
-              >
-                <img src={Home} alt="home" className="h-6 -mt-1" />
-                <span>Home</span>
-              </NavLink>
-            </li>
-            {/* Add other NavLinks similarly */}
-            <li className="text-lg">
-              <NavLink
-                to="/TopGrossing"
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                  }
+                >
+                  <img src={Home} alt="home" className="h-6 -mt-1" />
+                  <span>Home</span>
+                </NavLink>
+              </li>
+              {/* Add other NavLinks similarly */}
+              {/* <li className="text-lg">
+                <NavLink
+                  to="/TopGrossing"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
                    hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
-                }
-              >
-                <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />
-                <span>Top Grossing</span>
-              </NavLink>
-            </li>
-            <li className="text-lg">
-              <NavLink
-                to="/Favourite"
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                  }
+                >
+                  <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />
+                  <span>Top Grossing</span>
+                </NavLink>
+              </li> */}
+              <li className="text-lg">
+                <NavLink
+                  to="/Favourite"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
                    hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
-                }
-              >
-                <img src={Heart} alt="favourite" className="h-6 -mt-1" />
-                <span>Favourite</span>
-              </NavLink>
-            </li>
-          </ul>
+                  }
+                >
+                  <img src={Heart} alt="favourite" className="h-6 -mt-1" />
+                  <span>Favourite</span>
+                </NavLink>
+              </li>
+            </ul>
 
-          <hr className="border-gray-600 h-1 w-full" />
+            <hr className="border-gray-600 h-1 w-full" />
 
-          <ul className="space-y-6 font-light">
-            <li className="text-lg">
-              <NavLink
-                to="/Auth"
-                className={({ isActive }) =>
-                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+            <ul className="space-y-6 font-light">
+              <li className="text-lg">
+                {logged ? (
+                  < div
+                    className="flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 text-gray-500 cursor-not-allowed"
+                    title="You are already logged in. Profile cannot be accessed!"
+                  >
+                    <img src={Businessman} alt="profile" className="h-6" />
+                    <span>Profile</span>
+                  </div>
+                ) : (
+                  <NavLink
+                    to="/Auth"
+                    className={({ isActive }) =>
+                      `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+        ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+        hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                    }
+                  >
+                    <img src={Businessman} alt="profile" className="h-6" />
+                    <span>Profile</span>
+                  </NavLink>
+                )}
+              </li>
+
+              <li className="text-lg">
+                <NavLink
+                  to="*"
+                  className={({ isActive }) =>
+                    ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
                    hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
-                }
-              >
-                <img src={Businessman} alt="profile" className="h-6" />
-                <span>Profile</span>
-              </NavLink>
-            </li>
-            <li className="text-lg">
-              <NavLink
-                to="/Settings"
-                className={({ isActive }) =>
-                 ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
-                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
-                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
-                }
-              >
-                <img src={Settings} alt="settings" className="h-6 -mt-1" />
-                <span>Settings</span>
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-        </ul>
-      </div>
+                  }
+                >
+                  <img src={Settings} alt="settings" className="h-6 -mt-1" />
+                  <span>Settings</span>
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+        </ul >
+      </div >
     </>
   );
 }
