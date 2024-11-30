@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'; // For runtime type checking
 const GenreContext = createContext({
   moviesByGenre: [],
   loading: false,
-  fetchMoviesByGenre: () => {}, // Default is an empty function
+  fetchMoviesByGenre: () => { }, // Default is an empty function
 });
 
 // Provider component
