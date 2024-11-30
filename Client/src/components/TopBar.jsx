@@ -110,7 +110,7 @@ export default function TopBar() {
                             className="h-8 rounded-full"
                             alt="Profile"
                         />
-                        <h2 className="ml-4">John Doe</h2>
+                        <h2 className="ml-4">Logout</h2>
                         <img src={Enter} className="h-6 ml-2" alt="Logout" />
                     </div>
                 </button>

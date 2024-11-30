@@ -22,7 +22,7 @@ function App() {
             <Route path="Login" element={<Login />} />
             <Route path="Moviedetails/:id" element={<Moviedetails />} />
             <Route path="Favourite" element={<Favourite />} />
-            {/* <Route path="*" element={<NotFound />} /> */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </HashRouter>
       </GenreProvider>
