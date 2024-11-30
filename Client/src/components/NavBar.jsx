@@ -112,7 +112,7 @@ export default function NavBar() {
             </li>
             <li className="text-lg">
               <NavLink
-                to="/Settings"
+                to="*"
                 className={({ isActive }) =>
                   ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
@@ -214,7 +214,7 @@ export default function NavBar() {
 
               <li className="text-lg">
                 <NavLink
-                  to="/Settings"
+                  to="*"
                   className={({ isActive }) =>
                     ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
