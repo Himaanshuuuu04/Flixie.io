@@ -35,6 +35,7 @@ export const GenreProvider = ({ children }) => {
       if (!res.ok) throw new Error(`API request failed with status: ${res.status}`);
       const data = await res.json();
       setMoviesByGenre(data.results || []);
+      console.log(data.results || []);
     } catch (err) {
       console.error("Failed to fetch movies by genre:", err);
     } finally {
