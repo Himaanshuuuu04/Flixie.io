@@ -2,21 +2,23 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { BackgroundGradientAnimation } from '../Gradient';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
-import { useAuthContext } from '../contextAPI/AuthContext';
+import 'react-toastify/dist/ReactToastify.css';
+import GithubButton from "../Github";
+import GoogleButton from "../Google";
+import { account } from '../Appwrite/Config'; // Import the Appwrite Account object
 
-const Auth = () => {
-  const { loginDone } = useAuthContext();
+
+const Signin = () => {
+ 
   const [formData, setFormData] = React.useState({
-    username: '', // Added username
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
-    securityQuestion: '',
-    securityAnswer: '',
     termsAccepted: false,
   });
   const navigate = useNavigate();
+  const  [method,setMethod] = React.useState('oauth');
 
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
@@ -26,72 +28,95 @@ const Auth = () => {
     }));
   };
 
-  const SignIn = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-
+  
+    // Validation checks
     if (
-      !formData.username ||
+      (!formData.username ||
       !formData.email ||
       !formData.password ||
-      !formData.confirmPassword ||
-      !formData.securityAnswer ||
-      !formData.securityQuestion
+      !formData.confirmPassword) && method === 'email'
     ) {
       toast.warn('All fields are required!', {
         position: "top-right",
         autoClose: 3000,
       });
-    } else if (formData.password !== formData.confirmPassword) {
+      return;
+    }
+  
+    if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords don't match!", {
         position: "top-right",
         autoClose: 3000,
       });
-    } else if (!formData.termsAccepted) {
+      return;
+    }
+  
+    if (!formData.termsAccepted) {
       toast.warn('Please accept the terms and conditions!', {
         position: "top-right",
         autoClose: 3000,
       });
-    } else {
-      try {
-        const response = await fetch('http://localhost/Flixie.io/server/SignUp.php', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const result = await response.json();
-        if (response.ok && result.result === "Registration Successful!") {
-          loginDone();
-          toast.success('Account created successfully!', {
-            position: "top-right",
-            autoClose: 1000,
-          });
-          setTimeout(() => {
-            navigate('/');
-          }, 1500);
-        } else {
-          toast.error(result.result || 'An error occurred.', {
-            position: "top-right",
-            autoClose: 3000,
-          });
-        }
-      } catch (error) {
-        toast.error('An error occurred while processing your request!', {
-          position: "top-right",
-          autoClose: 3000,
-        });
-      }
+      return;
+    }
+  
+    try {
+      // Create a new user
+      const user = await account.create(
+        'unique()', // Automatically generates a unique user ID
+        formData.email,
+        formData.password,
+        formData.username // Use the username as the name
+      );
+  
+      // Send verification email
+      await account.createMagicURLToken(
+        user.$id,
+        formData.email,
+        `${window.location.origin}/verify` // Redirect after verification
+      );
+  
+      // Success toast
+      toast.success('Account created successfully! Please check your email for verification.', {
+        position: "top-right",
+        autoClose: 3000,
+      });
+  
+      // Navigate to a 'check your email' or login page
+      navigate('/CheckEmail');
+    } catch (error) {
+      console.error('Error creating account:', error.message);
+      toast.error(`Failed to create account - ${error.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
+  const handleOAuthLogin = async (provider) => {
+    try {
+      // Redirect to OAuth login page
+      await account.createOAuth2Session(
+        provider,
+        `${window.location.origin}/Home`, // Success redirect
+        `${window.location.origin}/login` // Failure redirect
+      );
+      setMethod('oauth');
+    } catch (error) {
+      console.error(`OAuth login failed with ${provider}:`, error.message);
+      toast.error(`OAuth login failed with ${provider}: ${error.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+  
 
   return (
     <BackgroundGradientAnimation>
       <ToastContainer />
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
-        <form className="flex items-center justify-center w-full h-full px-4 md:px-0" onSubmit={SignIn}>
+        <form className="flex items-center justify-center w-full h-full px-4 md:px-0" onSubmit={submit}>
           <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
             <div className="w-full border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
               <div className="p-6 space-y-4 sm:p-8">
@@ -142,28 +167,8 @@ const Auth = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div>
-                  <label className="block mb-1 text-sm md:text-md font-light">Security Question</label>
-                  <input
-                    className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
-                    placeholder="What is your favorite color?"
-                    id="securityQuestion"
-                    type="text"
-                    value={formData.securityQuestion}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div>
-                  <label className="block mb-1 text-sm md:text-md font-light">Answer</label>
-                  <input
-                    className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
-                    placeholder="Answer"
-                    id="securityAnswer"
-                    type="text"
-                    value={formData.securityAnswer}
-                    onChange={handleChange}
-                  />
-                </div>
+                
+                
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
@@ -190,6 +195,23 @@ const Auth = () => {
                 >
                   Create an account
                 </button>
+                <div className="mt-6">
+                  <p className="text-sm md:text-md text-center mb-4">Or Signin with </p>
+                  <div className="flex justify-center gap-8">
+                  <button
+                    type="button" // Prevents the button from being treated as a form submit button
+                    onClick={() => handleOAuthLogin('google')}
+                  >
+                    <GoogleButton />
+                  </button>
+                  <button
+                    type="button" // Prevents the button from being treated as a form submit button
+                    onClick={() => handleOAuthLogin('github')}
+                  >
+                    <GithubButton />
+                  </button>
+                  </div>
+                </div>
                 <p className="text-sm md:text-md text-center mt-4">
                   Already have an account?{' '}
                   <Link to="/login" className="font-light text-blue-400 hover:underline">
@@ -205,4 +227,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Signin;

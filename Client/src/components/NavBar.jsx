@@ -31,7 +31,7 @@ export default function NavBar() {
       <nav className="hidden md:flex flex-col items-center md:w-64 w-40 h-[calc(100vh-5rem)] border-2 p-8 rounded-3xl border-white/20 backdrop-blur-3xl shadow-xl text-white float-left sticky ml-10 mt-10 mr-10 opacity-90 md:z-40 z-50 overflow-auto">
         {/* Logo Section */}
         <div className="flex flex-col items-center space-y-2 mt-4" onClick={() => setSearchActive(false)}>
-          <NavLink to="/" className="flex items-center -space-x-1">
+          <NavLink to="/Home" className="flex items-center -space-x-1">
             <img src={Logo} alt="logo" className="h-12 -ml-2" />
             <h2 className="text-4xl font-semibold mt-2">Flixie</h2>
           </NavLink>
@@ -44,7 +44,7 @@ export default function NavBar() {
             {/* Link items */}
             <li className="text-lg">
               <NavLink
-                to="/"
+                to="/Home"
                 className={({ isActive }) =>
                   `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
@@ -145,7 +145,7 @@ export default function NavBar() {
               {/* Link items */}
               <li className="text-lg">
                 <NavLink
-                  to="/"
+                  to="/Home"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 

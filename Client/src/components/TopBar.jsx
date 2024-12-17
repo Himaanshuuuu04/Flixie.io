@@ -17,7 +17,7 @@ export default function TopBar() {
     const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive } = useMovieContext();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState("All");
-    const options = ["All", "Option 1", "Option 2", "Option 3"];
+    
 
     const toggleDropdown = () => setIsOpen(!isOpen);
     const handleOptionClick = (option) => {
