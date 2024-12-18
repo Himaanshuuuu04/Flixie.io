@@ -65,7 +65,7 @@ console.log(liked);
   const isLiked = liked.includes(movieDetails.id);
 
   return (
-    <BackgroundGradientAnimation>
+    
       <div className="min-h-screen flex flex-col items-center justify-center overflow-y-auto">
         <div className="bg-white/10 backdrop-blur-3xl border-2 border-white/20 h-auto md:h-[90vh] md:m-10 m-5 flex flex-col md:flex-row rounded-2xl relative md:overflow-hidden">
           {/* Left Column */}
@@ -215,7 +215,7 @@ console.log(liked);
         </div>
         
       </div>
-    </BackgroundGradientAnimation>
+   
   );
 };
 

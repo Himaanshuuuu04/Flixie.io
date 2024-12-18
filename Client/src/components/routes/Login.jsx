@@ -74,7 +74,7 @@ const Login = () => {
   };
 
   return (
-    <BackgroundGradientAnimation>
+    <>
       <ToastContainer />
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
         <div className="flex items-center justify-center w-full h-full px-4 md:px-0">
@@ -136,7 +136,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </BackgroundGradientAnimation>
+      </>
   );
 };
 

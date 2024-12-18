@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const NotFound = () => {
   return (
+    <div className='bg-white/10 border border-white/20 backdrop-filter backdrop-blur-3xl  w-min rounded-3xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
     <StyledWrapper>
       <div className="main_wrapper">
         <div className="main">
@@ -62,6 +63,7 @@ const NotFound = () => {
         </div>
       </div>
     </StyledWrapper>
+    </div>
   );
 }
 
@@ -499,8 +501,9 @@ const StyledWrapper = styled.div`
     margin-bottom: 2em;
     align-items: center;
     justify-content: center;
-    opacity: 0.5;
-    font-family: Montserrat;
+    opacity: 0.3;
+    font-family: 'Gilroy';
+    color:#ffffff;
   }
   .text_4041 {
     transform: scaleY(24.5) scaleX(9);

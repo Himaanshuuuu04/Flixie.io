@@ -6,9 +6,9 @@ const Favourite = () => {
   let a=localStorage.getItem("likedMovies");
   console.log(a);
   return (
-    <BackgroundGradientAnimation> 
+    
     <FavouriteLayout />
-    </BackgroundGradientAnimation>
+    
 
   )
 }

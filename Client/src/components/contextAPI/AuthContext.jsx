@@ -1,50 +1,83 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { account } from '../Appwrite/Config'; // Removed 'client' as it's unused
+import { account } from '../Appwrite/Config';
 import Loading from '../Loading';
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [logged, setLogged] = useState(false); // Initially, assume not logged in
-    const [loading, setLoading] = useState(true); // Initially true since session check is pending
-    const [loginWithOAuth, setLoginWithOAuth] = useState(false);
+    const [userData, setUserData] = useState({
+        logged: false,
+        profileCompleted: false,
+        loading: true,
+    });
 
-    // Check if the user is already logged in
+    // Check if the user is already logged in and check for profile completion
     useEffect(() => {
         const checkSession = async () => {
             try {
-                await account.get(); // If this succeeds, the user is logged in
-                setLogged(true);
+                // Check if the user has a session
+                const session = await account.getSession('current'); // Fetch the current session
+                if (!session) {
+                    throw new Error('No active session found');
+                }
+        
+                // If the session exists, fetch user data and preferences
+                const currentUser = await account.get();
+                const prefs = await account.getPrefs();
+        
+                const profileCompleted = prefs?.profileCompleted === true;
+        
+                setUserData({
+                    logged: true,
+                    profileCompleted,
+                    loading: false,
+                });
             } catch (error) {
-                setLogged(false); // If there's an error, the user is not logged in
+                // Handle case where no session exists or an error occurs
+                setUserData({
+                    logged: false,
+                    profileCompleted: false,
+                    loading: false,
+                });
                 console.error('Session check failed:', error);
-            } finally {
-                setLoading(false); // Set loading to false after check
             }
         };
+        
 
         checkSession();
-    }, []);
+    }, []); // Empty dependency array to run once when the component mounts
 
-    // Log in user
-    
+    // Exportable function to update profileCompleted state
+    const setProfileCompleted = (status) => {
+        setUserData((prev) => ({
+            ...prev,
+            profileCompleted: status,
+        }));
+    };
 
     // Log out user
     const logout = async () => {
         try {
             await account.deleteSession('current');
-            setLogged(false);
+            setUserData({ logged: false, profileCompleted: false, loading: false });
         } catch (error) {
             console.error('Logout failed:', error.message);
         }
     };
 
-    if (loading) {
+    if (userData.loading) {
         return <Loading />; // Optional: Show a loading indicator while checking the session
     }
 
     return (
         <AuthContext.Provider
-            value={{ logged,setLogged, loginWithOAuth, setLoginWithOAuth,  logout }}
+            value={{
+                logged: userData.logged,
+                setLogged: (status) => setUserData((prev) => ({ ...prev, logged: status })),
+                logout,
+                profileCompleted: userData.profileCompleted,
+                setProfileCompleted, // Expose the function to update profileCompleted
+            }}
         >
             {children}
         </AuthContext.Provider>

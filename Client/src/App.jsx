@@ -9,8 +9,11 @@ import { GenreProvider } from "./components/contextAPI/GenreContext.jsx";
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./components/contextAPI/AuthContext.jsx";
 import AuthenticatedRoutes from "./Utils/AuthenticatedRoutes.jsx";
+import { BackgroundGradientAnimation } from "./components/Gradient.jsx";
+import ProfileComplete from "./components/routes/ProfileComplete.jsx";
 function App() {
   return (
+    <BackgroundGradientAnimation>
     <MovieProvider>
       <GenreProvider>
         <AuthProvider>
@@ -18,9 +21,11 @@ function App() {
             <Routes>
            
             <Route path="/Login" element={<Login />} />
+            <Route path="/ProfileComplete" element={<ProfileComplete />} />
           
             <Route path="*" element={<NotFound />} />
             <Route element={<AuthenticatedRoutes />}>
+              
               <Route path="/" element={<Home />}/ >
               <Route path="/Home" element={<Home />}/ >
               <Route path="/Moviedetails/:id" element={<Moviedetails />} />
@@ -32,6 +37,7 @@ function App() {
         </AuthProvider>
       </GenreProvider>
     </MovieProvider>
+    </BackgroundGradientAnimation>
   );
 }
 
