@@ -1,6 +1,8 @@
 # 🚀 Flixie.io: Redefining Streaming UI/UX
 
-Welcome to Flixie.io, where cutting-edge design meets the magic of entertainment. This is not just another streaming platform—it's a revolutionary approach to creating delightful, user-centric digital experiences.
+Welcome to **Flixie.io**, where cutting-edge design meets the magic of entertainment. This is not just another streaming platform—it's a revolutionary approach to creating delightful, user-centric digital experiences.
+
+🔗 **Live Demo**: [flixie-io.vercel.app](https://flixie-io.vercel.app/)
 
 ## 🌟 UI/UX Revolution: Beyond Traditional Streaming
 
