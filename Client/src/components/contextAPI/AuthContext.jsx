@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
         logged: false,
         profileCompleted: false,
         loading: true,
+        currentUser: null,
     });
 
     // Check if the user is already logged in and check for profile completion
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }) => {
                     logged: true,
                     profileCompleted,
                     loading: false,
+                    currentUser,
                 });
             } catch (error) {
                 // Handle case where no session exists or an error occurs
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
                     logged: false,
                     profileCompleted: false,
                     loading: false,
+                    currentUser: null,  
                 });
                 console.error('Session check failed:', error);
             }
@@ -76,7 +79,8 @@ export const AuthProvider = ({ children }) => {
                 setLogged: (status) => setUserData((prev) => ({ ...prev, logged: status })),
                 logout,
                 profileCompleted: userData.profileCompleted,
-                setProfileCompleted, // Expose the function to update profileCompleted
+                setProfileCompleted,
+                currentUser: userData.currentUser, // Expose the function to update profileCompleted
             }}
         >
             {children}
