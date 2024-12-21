@@ -7,12 +7,12 @@ import Arrow from "../assets/Arrow.png";
 import Businessman from "../assets/Businessman.png";
 import Heart from "../assets/Heart.png";
 import Switch from "./Hamberger"; // Switch component acting as hamburger icon
-import { useMovieContext } from "./contextAPI/MovieContext.jsx";
+import { useSearchContext } from "./contextAPI/SearchContext.jsx";
 import { useEffect } from "react";
 import { useAuthContext } from "./contextAPI/AuthContext.jsx";
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { setSearchActive } = useMovieContext();
+  const { setSearchActive } = useSearchContext();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -56,7 +56,7 @@ export default function NavBar() {
               </NavLink>
             </li>
             {/* Add other NavLinks similarly */}
-            {/* <li className="text-lg">
+            <li className="text-lg">
               <NavLink
                 to="/TopGrossing"
                 className={({ isActive }) =>
@@ -68,7 +68,7 @@ export default function NavBar() {
                 <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />
                 <span>Top Grossing</span>
               </NavLink>
-            </li> */}
+            </li>
             <li className="text-lg">
               <NavLink
                 to="/Favourite"
@@ -157,7 +157,7 @@ export default function NavBar() {
                 </NavLink>
               </li>
               {/* Add other NavLinks similarly */}
-              {/* <li className="text-lg">
+              <li className="text-lg">
                 <NavLink
                   to="/TopGrossing"
                   className={({ isActive }) =>
@@ -169,7 +169,7 @@ export default function NavBar() {
                   <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />
                   <span>Top Grossing</span>
                 </NavLink>
-              </li> */}
+              </li>
               <li className="text-lg">
                 <NavLink
                   to="/Favourite"

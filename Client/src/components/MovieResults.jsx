@@ -1,12 +1,12 @@
 // src/components/MovieList.js
 import React from 'react';
 
-import { useMovieContext} from "./contextAPI/MovieContext.jsx"
+import { useSearchContext} from "./contextAPI/SearchContext.jsx"
 import Loader from './Loading.jsx';
 import {Link } from "react-router-dom";
 
 function MovieResults() {
-    const { movies, loading, searchTerm,setSearchActive } = useMovieContext();
+    const { movies, loading, searchTerm,setSearchActive } = useSearchContext();
 
     return (
         <div className="">

@@ -1,6 +1,6 @@
 // src/components/TopBar.js
 import React, { useState } from 'react';
-import { useMovieContext } from "./contextAPI/MovieContext.jsx"
+import { useSearchContext } from "./contextAPI/SearchContext.jsx"
 import { useGenreContext } from './contextAPI/GenreContext.jsx';
 import ExpandArrow from '../assets/ExpandArrow.png';
 import Search from '../assets/Search.png';
@@ -14,7 +14,7 @@ import { useAuthContext } from './contextAPI/AuthContext.jsx';
 export default function TopBar() {
     const { logout, logged } = useAuthContext();
     const { fetchMoviesByGenre } = useGenreContext();
-    const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive } = useMovieContext();
+    const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive } = useSearchContext();
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState("All");
     

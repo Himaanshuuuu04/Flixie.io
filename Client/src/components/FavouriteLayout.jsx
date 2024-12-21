@@ -4,13 +4,13 @@ import NavBar from "./NavBar";
 import Logo from "./Logo";
 import MovieResults from "./MovieResults";
 import FavouriteMovies from "./FavouriteMovies";
-import { useMovieContext } from "./contextAPI/MovieContext.jsx";
+import { useSearchContext } from "./contextAPI/SearchContext.jsx";
 import GenreResults from "./GenreResults.jsx";
 import { useGenreContext } from "./contextAPI/GenreContext.jsx";
 
 export default function MainLayout() {
   const { movieByGenre } = useGenreContext();
-  const { searchActive, setSearchActive, searchTerm } = useMovieContext();
+  const { searchActive, setSearchActive, searchTerm } = useSearchContext();
 
   useEffect(() => {
     if (!searchTerm) {

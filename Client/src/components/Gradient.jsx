@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from "react";
 export const BackgroundGradientAnimation = ({
   gradientBackgroundStart = "rgb(0, 17, 45)",    // Dark blue
   gradientBackgroundEnd = "rgb(50, 0, 30)",      // Darker shade of red (reduced intensity)
-  firstColor = "18, 73, 255",                    // Bright blue
-  secondColor = "100, 51, 102",                  // Darker blue
-  thirdColor = "100, 30, 70",                    // Darker red (reduced intensity)
-  fourthColor = "100, 0, 0",                     // Less intense dark red
-  fifthColor = "100, 0, 50",                     // Very dark blue
-  pointerColor = "75, 50, 155",                  // Brighter red for visibility (reduced intensity)
-  size = "90%",
+  firstColor = "25, 100, 255",                 // Vibrant sky blue
+  secondColor = "250, 75, 125",                // Bright rose pink
+  thirdColor = "40, 80, 150",                  // Muted cobalt blue
+  fourthColor = "120, 55, 150",                // Deep lavender purple
+  fifthColor = "200, 160, 70",                 // Sunset orange
+  pointerColor = "85, 40, 155",         // Dark violet
+  size = "75%",
   blendingValue = "hard-light",
   children,
   className,

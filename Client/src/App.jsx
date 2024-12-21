@@ -4,7 +4,7 @@ import NotFound from "./components/routes/NotFound.jsx";
 import Login from "./components/routes/Login.jsx";
 import Moviedetails from "./components/routes/Moviedetails.jsx";
 import Favourite from "./components/routes/Favourite.jsx";
-import { MovieProvider } from "./components/contextAPI/MovieContext.jsx";
+import { SearchProvider } from "./components/contextAPI/SearchContext.jsx";
 import { GenreProvider } from "./components/contextAPI/GenreContext.jsx";
 import { LikedMoviesProvider } from "./components/contextAPI/LikeContext.jsx";
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,10 +15,11 @@ import ProfileComplete from "./components/routes/ProfileComplete.jsx";
 function App() {
   return (
     <BackgroundGradientAnimation>
-      <MovieProvider>
+     
         <GenreProvider>
           <AuthProvider>
             <LikedMoviesProvider>
+            <SearchProvider>
               <HashRouter>
                 <Routes>
                   <Route path="/Login" element={<Login />} />
@@ -29,13 +30,15 @@ function App() {
                     <Route path="/Home" element={<Home />}/ >
                     <Route path="/Moviedetails/:id" element={<Moviedetails />} />
                     <Route path="/Favourite" element={<Favourite />} />
+                    <Route path="TopGrossing" element={<Home />} />
                   </Route>
                 </Routes>
               </HashRouter>
-              </LikedMoviesProvider>
+              </SearchProvider>
+            </LikedMoviesProvider>
           </AuthProvider>
         </GenreProvider>
-      </MovieProvider>
+      
     </BackgroundGradientAnimation>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams,useNavigate } from "react-router-dom";
-import Loader from "../Loading";
+
 import {
   ClockIcon,
   StarIcon,
@@ -9,21 +9,15 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useLikedMoviesContext } from "../contextAPI/LikeContext";
-
-
-
-
-const API_KEY_TMDB = import.meta.env.VITE_API_KEY;
 const VIDSRCS_ME_API = "https://vidsrc.xyz/embed/movie?tmdb=";
-
+import { useSearchContext } from "../contextAPI/SearchContext";
+import SkeletonLoaderMoviedetails from "../SkeletonLoaderMoviedetils";
 const Moviedetails = () => { 
   const { likedMovies, addLikedMovie,removeLikedMovie } = useLikedMoviesContext(); // Access the context
   const { id } = useParams();
   const navigate = useNavigate();
-  const [movieDetails, setMovieDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [trailerUrl, setTrailerUrl] = useState("");
-  const [isLiked, setIsLiked] = useState(false); // State for dynamic liked status
+  const [isLiked, setIsLiked] = useState(false);
+  const { movieDetails, trailerUrl,fetchMovieDetails,loading} = useSearchContext(); // Access the context} // State for dynamic liked status
 
   const toggleLike = () => {
     const movieId = id; // Use id directly as a string
@@ -47,39 +41,18 @@ const Moviedetails = () => {
   
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY_TMDB}&append_to_response=videos,credits,reviews`
-        );
-        const data = await response.json();
-        setMovieDetails(data);
-
-        const trailers = data.videos.results.filter(
-          (video) => video.type === "Trailer" && video.site === "YouTube"
-        );
-        if (trailers.length > 0) {
-          setTrailerUrl(`https://www.youtube.com/embed/${trailers[0].key}?autoplay=1&mute=1`);
-        }
-      } catch (error) {
-        console.error("Error fetching movie details:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMovieDetails();
+    fetchMovieDetails(id);
   }, [id]);
 
   
 
-  if (loading) {
-    return <Loader />;
+  // if (false) {
+  //   return <SkeletonLoaderMoviedetails/>;
+  // }
+  if (!movieDetails&&!loading || loading) {
+    return <SkeletonLoaderMoviedetails/>;
   }
 
-  if (!movieDetails) {
-    return <div className="text-white text-center mt-10">Movie not found.</div>;
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center overflow-y-auto ">
@@ -164,7 +137,7 @@ const Moviedetails = () => {
         <div className="flex flex-col gap-2">
           <p className="text-white text-base font-thin flex items-center">
             <FilmIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
-            <strong>Genres : </strong> {movieDetails.genres.map((genre) => genre.name).join(", ")}
+            <strong>Genres : </strong> {movieDetails.genres.slice(0, 2).map((genre) => genre.name).join(", ")}
           </p>
           <p className="text-white text-base font-thin flex items-center ">
             <CalendarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
@@ -223,7 +196,7 @@ const Moviedetails = () => {
      
        {/* Back Button */}
     <svg
-      className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute top-3 right-8 cursor-pointer rounded-full p-2 z-50 hidden md:flex"
+      className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute top-3 right-8 cursor-pointer rounded-full p-2 z-50 hidden md:flex hover:bg-white/30"
       onClick={() => navigate(-1)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
