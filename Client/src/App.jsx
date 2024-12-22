@@ -12,6 +12,7 @@ import { AuthProvider } from "./components/contextAPI/AuthContext.jsx";
 import AuthenticatedRoutes from "./Utils/AuthenticatedRoutes.jsx";
 import { BackgroundGradientAnimation } from "./components/Gradient.jsx";
 import ProfileComplete from "./components/routes/ProfileComplete.jsx";
+import TopRated from "./components/routes/TopRated.jsx";
 function App() {
   return (
     <BackgroundGradientAnimation>
@@ -30,7 +31,7 @@ function App() {
                     <Route path="/Home" element={<Home />}/ >
                     <Route path="/Moviedetails/:id" element={<Moviedetails />} />
                     <Route path="/Favourite" element={<Favourite />} />
-                    <Route path="TopGrossing" element={<Home />} />
+                    <Route path="/TopRated" element={<TopRated />} />
                   </Route>
                 </Routes>
               </HashRouter>

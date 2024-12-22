@@ -9,6 +9,7 @@ export const LikedMoviesProvider = ({ children }) => {
     const [likedMovies, setLikedMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const { currentUser } = useAuthContext();
+    
 
     // Utility function to validate critical variables
     const validateEnvironment = () => {
@@ -59,6 +60,7 @@ export const LikedMoviesProvider = ({ children }) => {
     };
 
     const addLikedMovie = async (movieId) => {
+       
         try {
             if (!currentUser) {
                 console.error('Cannot add liked movie: User is not logged in.');
@@ -71,7 +73,7 @@ export const LikedMoviesProvider = ({ children }) => {
 
             const env = validateEnvironment();
             if (!env) return;
-            console.log(movieId);
+           
             // Add movie to database
             await databases.createDocument(
                 env.databaseId,
@@ -103,6 +105,7 @@ export const LikedMoviesProvider = ({ children }) => {
 
 
     const removeLikedMovie = async (movieId) => {
+        
         try {
             if (!currentUser) {
                 console.error('Cannot remove liked movie: User is not logged in.');

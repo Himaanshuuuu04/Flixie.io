@@ -12,7 +12,7 @@ export default function FavouriteMovies() {
         fetchMovies();
   }, [likedMovies]); // Trigger fetch when likedMovies changes
 
-  if(!movies&& !loading ||  loading) return <SkeletonLoaderCard/>
+ 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:gap-6">
       {movies.length > 0 ? (

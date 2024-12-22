@@ -13,6 +13,7 @@ export const SearchProvider = ({ children }) => {
     const[searchActive,setSearchActive] = useState(false);
     const [movieDetails, setMovieDetails] = useState(null);
     const [trailerUrl, setTrailerUrl] = useState("");
+    const [carouselMovies,setCarouselMovies]= useState([]);
    
 
     const fetchData = async (term) => {
@@ -110,11 +111,60 @@ export const SearchProvider = ({ children }) => {
             setLoading(false);
         }
     };
+
+
+    const CarouselFetchMovies = async () => {
+        setLoading(true);
+        const url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1';
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+            },};
+        try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                if (data && Array.isArray(data.results)) {
+                    setCarouselMovies(data.results);
+                } else {
+                console.warn('No movies found or data format is incorrect.');
+                }
+        } catch (error) {
+                console.error("Error fetching movie details:", error);
+        } finally {
+                setLoading(false);
+        }
+      };
+      const topRatedFetchMovies = async () => {
+        setLoading(true);
+        const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+            },};
+        try {
+                const response = await fetch(url, options);
+                const data = await response.json();
+                if (data && Array.isArray(data.results)) {
+                    setCarouselMovies(data.results);
+                } else {
+                console.warn('No movies found or data format is incorrect.');
+                }
+        } catch (error) {
+                console.error("Error fetching movie details:", error);
+        } finally {
+                setLoading(false);
+        }
+      };
+
     
     
 
     return (
-        <SearchContext.Provider value={{ movies, loading, setSearchTerm, fetchData,searchTerm,searchActive,setSearchActive,movieDetails,fetchMovieDetails,trailerUrl,fetchMovies }}>
+        <SearchContext.Provider value={{ movies, loading, setSearchTerm, fetchData,searchTerm,searchActive,setSearchActive,movieDetails,fetchMovieDetails,trailerUrl,fetchMovies,carouselMovies,CarouselFetchMovies }}>
             {children}
         </SearchContext.Provider>
     );

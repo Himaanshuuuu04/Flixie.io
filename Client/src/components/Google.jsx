@@ -52,7 +52,8 @@ const StyledWrapper = styled.div`
     content: "";
     width: 100%;
     height: 100%;
-    background: #292929;
+    background: #ffffff;
+    opacity:0.1;
     z-index: -1;
     border-radius: 10px;
     pointer-events: none;
@@ -66,7 +67,7 @@ const StyledWrapper = styled.div`
   }
 
   .Btn:hover .svgContainer {
-    background-color: rgba(256, 256, 256, 0.4);
+    background-color: rgba(256, 256, 256, 0);
     backdrop-filter: blur(4px);
   }`;
 

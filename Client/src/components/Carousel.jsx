@@ -2,35 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Favorite from '../assets/Favorite.png';
 import Play from '../assets/Play.png';
 import { Link } from 'react-router-dom';
-const TMDB_API_KEY = import.meta.env.VITE_API_KEY;
-const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+import { useSearchContext } from './contextAPI/SearchContext';
+import Carouselskeleton from './Carouselskeleton';
 
 const Carousel = () => {
-  const [movies, setMovies] = useState([]);
+  const { carouselMovies,CarouselFetchMovies,loading } = useSearchContext();
+  const movies=carouselMovies;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState(null);
 
   useEffect(() => {
-    if (TMDB_API_KEY) {
-      const fetchMovies = async () => {
-        try {
-          const response = await fetch(`${TMDB_BASE_URL}/trending/movie/week?api_key=${TMDB_API_KEY}`);
-          const data = await response.json();
-          if (data && Array.isArray(data.results)) {
-            setMovies(data.results);
-          } else {
-            console.warn('No movies found or data format is incorrect.');
-          }
-        } catch (error) {
-          console.error('Error fetching movies:', error);
-        }
-      };
-
-      fetchMovies();
-    } else {
-      console.error('TMDB API key is missing');
-    }
+      CarouselFetchMovies();
   }, []);
 
   const nextSlide = () => {
@@ -60,6 +43,8 @@ const Carousel = () => {
   };
 
   return (
+    loading?<Carouselskeleton/>:
+  (
     <div className="overflow-hidden">
       <div
         className="relative w-full rounded-2xl shadow-2xl"
@@ -134,7 +119,7 @@ const Carousel = () => {
         ))}
       </div>
     </div>
-  );
+  ));
 };
 
 export default Carousel;

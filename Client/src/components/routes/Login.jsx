@@ -79,7 +79,7 @@ const Login = () => {
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
         <div className="flex items-center justify-center w-full h-full px-4 md:px-0">
           <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
-            <div className="w-full border border-slate-700 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
+            <div className="w-full border border-white/20 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
               <div className="p-6 space-y-4 sm:p-8">
                 <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl">
                   Login to Flixie
@@ -88,40 +88,55 @@ const Login = () => {
                   <label className="block mb-1 text-sm md:text-md font-light">Email</label>
                   <input
                     placeholder="Your email"
-                    className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
+                    className="bg-white/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
                     id="email"
                     type="email"
                     name="email"
                     value={formdata.email}
                     onChange={handleChange}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                          generateOTP();
+                         }
+                    }}
                   />
-                  <button
-                    className="mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-900 hover:from-blue-700 hover:to-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm md:text-md px-5 py-2.5 text-center text-white"
-                    onClick={generateOTP}
-                  >
-                    Get OTP
-                  </button>
+                  
                 </div>
                 <div>
                   <label className="block mb-1 text-sm md:text-md font-light">OTP</label>
+                  <div className='flex gap-8'>
                   <input
                     placeholder="Enter OTP"
-                    className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
+                    className="bg-white/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
                     id="otp"
                     type="text"
                     name="otp"
                     value={formdata.otp}
                     onChange={handleChange}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                          verifyOTP();
+                        
+                      }
+                  }}
+                    
                   />
                   <button
-                    className="mt-4 w-full bg-gradient-to-r from-blue-500 to-purple-900 hover:from-blue-700 hover:to-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-800 font-bold rounded-lg text-sm md:text-md px-5 py-2.5 text-center text-white"
+                    className=" md:w-[40%] w-[50%] border border-white/20 bg-white/20 hover:bg-white/10 focus:ring-2 focus:outline-none focus:ring-white/50  rounded-lg text-xs md:text-sm px-5 py-2.5 text-center text-white transition-all duration-300"
+                    onClick={generateOTP}
+                  >
+                    Get OTP
+                  </button>
+                  </div>
+                  <button
+                    className="mt-8 w-full  bg-white/20 border border-white/20 hover:bg-white/10 focus:ring-2 focus:outline-none focus:ring-white/50  rounded-lg text-sm md:text-base px-5 py-2.5 text-center text-white transition-all duration-300"
                     onClick={verifyOTP}
                   >
                     Login
                   </button>
                 </div>
                 <div className="mt-6">
-                  <p className="text-sm md:text-md text-center mb-4">Or login with:</p>
+                  <p className="text-sm md:text-md text-center mb-4">or login with</p>
                   <div className="flex justify-center gap-8">
                     <button onClick={() => handleOAuthLogin('google')}>
                       <GoogleButton />

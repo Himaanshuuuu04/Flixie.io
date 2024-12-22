@@ -58,7 +58,7 @@ export default function NavBar() {
             {/* Add other NavLinks similarly */}
             <li className="text-lg">
               <NavLink
-                to="/TopGrossing"
+                to="/TopRated"
                 className={({ isActive }) =>
                   `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
@@ -66,7 +66,7 @@ export default function NavBar() {
                 }
               >
                 <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />
-                <span>Top Grossing</span>
+                <span>Top Rated</span>
               </NavLink>
             </li>
             <li className="text-lg">
