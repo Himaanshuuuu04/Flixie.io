@@ -43,15 +43,18 @@ export default function MainLayout() {
       </div>
 
       {/* Mobile Navigation */}
-      <div className="md:hidden flex flex-col h-full overflow-y-auto">
+      <div className="md:hidden flex flex-col  overflow-y-auto h-screen">
         {/* Mobile Header */}
-        <div className="flex flex-row w-full justify-around mt-5 mb-5">
+        <div className="flex flex-row w-full justify-around mt-5 mb-5   ">
           <Logo />
           <TopBar />
           <NavBar />
         </div>
         {/* Scrollable Content */}
-        <div className="flex flex-col gap-5 px-5">
+        <div className="flex flex-col gap-5 px-5 items-center justify-items-center">
+          <div className="bg-white/10 p-2 px-4 border border-white/20 w-fit backdrop:filter backdrop-blur-sm rounded-xl mb-5">
+            <h2 className="text-xl font-light text-white ">Favourites</h2>
+          </div>
           {movieByGenre && <GenreResults />}
           {searchActive ? (
             <MovieResults />

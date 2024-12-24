@@ -52,7 +52,36 @@ export default {
         },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+        ".scrollbar-hide::-webkit-scrollbar": {
+          display: "none",
+        },
+        ".scrollbar-thin": {
+          scrollbarWidth: "thin",
+          scrollbarColor: "#b3b3b3 #f2f0f0",
+        },
+        ".scrollbar-webkit::-webkit-scrollbar": {
+          width: "8px",
+        },
+        ".scrollbar-webkit::-webkit-scrollbar-track": {
+          background: "#b3b3b3",
+        },
+        ".scrollbar-webkit::-webkit-scrollbar-thumb": {
+          backgroundColor: "#f2f0f0",
+          borderRadius: "20px",
+          border: "1px solid white",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
+  ],
+  
+}   
 }
 
-}

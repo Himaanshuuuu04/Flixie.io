@@ -17,9 +17,11 @@ export const SearchProvider = ({ children }) => {
    
 
     const fetchData = async (term) => {
-        if (!term.trim()) return; // Prevent empty search
+        if (!term.trim()) return;
+        const searchTerm = term.replaceAll(' ', '%20');
+        console.log(searchTerm); // Prevent empty search
         setLoading(true);
-        const url = `https://api.themoviedb.org/3/search/movie?query=${term}&include_adult=false&language=en-US&region=US&page=1&with_original_language=en`;
+        const url = `https://api.themoviedb.org/3/search/multi?query=${searchTerm}&include_adult=false&language=en-US&page=1`;
 
         const options = {
             method: 'GET',
@@ -32,7 +34,8 @@ export const SearchProvider = ({ children }) => {
         try {
             const res = await fetch(url, options);
             const data = await res.json();
-            setMovies(data.results || []); // Update movies state with results
+            setMovies(data.results || []);
+            console.log(data.results || []); // Update movies state with results
         } catch (err) {
             console.error(err);
         } finally {
@@ -42,9 +45,10 @@ export const SearchProvider = ({ children }) => {
 
 
 
-    const fetchMovieDetails = async (id) => {
+    const fetchMovieDetails = async (id,mediaType) => {
+    
         setLoading(true);
-        const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=videos,credits,reviews`;
+        const url = `https://api.themoviedb.org/3/${mediaType}/${id}?append_to_response=videos,credits,reviews`;
     
         const options = {
             method: 'GET',
@@ -58,6 +62,7 @@ export const SearchProvider = ({ children }) => {
             const response = await fetch(url, options);
             const data = await response.json();
             setMovieDetails(data);
+            console.log(data);
             const trailers = data.videos.results.filter(
                 (video) => video.type === "Trailer" && video.site === "YouTube"
             );
@@ -115,7 +120,7 @@ export const SearchProvider = ({ children }) => {
 
     const CarouselFetchMovies = async () => {
         setLoading(true);
-        const url = 'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1';
+        const url = 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
         const options = {
             method: 'GET',
             headers: {

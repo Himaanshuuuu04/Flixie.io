@@ -41,16 +41,19 @@ function ProfileComplete() {
         try {
             const createdOn = new Date().toISOString();
             const user = await account.get(); // Retrieve current user's details
-
-            await databases.createDocument(
+            const profilePicture =formData.profilePicture ||(formData.gender === 'male'
+                                                        ? 'https://images.nightcafe.studio/jobs/fbL1FdyjoypfdrWqbpND/fbL1FdyjoypfdrWqbpND--0--ixbsv.jpg?tr=w-1600,c-at_max'
+                                                        : 'https://images.nightcafe.studio/jobs/1jGQl3zOyHYaHjADwGzI/1jGQl3zOyHYaHjADwGzI--0--xvcdg.jpg?tr=w-1600,c-at_max');
+            const email=formData.email.toLocaleLowerCase();
+                await databases.createDocument(
                 import.meta.env.VITE_APPWRITE_DATABASE_ID, // Database ID
                 import.meta.env.VITE_APPWRITE_COLLECTION_USERS_ID, // Collection ID
                 ID.unique(), // Unique document ID
                 {
                     userId: user.$id,
                     fullName,
-                    email,
-                    profilePicture: formData.profilePicture || '', // Optional field
+                    email: email,
+                    profilePicture: profilePicture ,// Optional field
                     dateOfBirth,
                     gender,
                     createdOn,
@@ -160,9 +163,9 @@ function ProfileComplete() {
                                                 <option value="" disabled>
                                                     Select a gender
                                                 </option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
+                                                <option value="male" className='text-black'>Male</option>
+                                                <option value="female" className='text-black'>Female</option>
+                                                <option value="other" className='text-black'>Other</option>
                                             </select>
                                         </div>
                                         <button

@@ -1,0 +1,330 @@
+{
+    "page": 1,
+    "results": [
+      {
+        "backdrop_path": "/f3cin9kOz4nOrlYEMxGFQhv4bdN.jpg",
+        "id": 71712,
+        "name": "The Good Doctor",
+        "original_name": "The Good Doctor",
+        "overview": "Shaun Murphy, a young surgeon with autism and savant syndrome, relocates from a quiet country life to join a prestigious hospital's surgical unit. Unable to personally connect with those around him, Shaun uses his extraordinary medical gifts to save lives and challenge the skepticism of his colleagues.",
+        "poster_path": "/luhKkdD80qe62fwop6sdrXK9jUT.jpg",
+        "media_type": "tv",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          18
+        ],
+        "popularity": 500.113,
+        "first_air_date": "2017-09-25",
+        "vote_average": 8.5,
+        "vote_count": 12398,
+        "origin_country": [
+          "US"
+        ]
+      },
+      {
+        "backdrop_path": "/uH24pUgaB9NWJYQxFrCqTCblHGe.jpg",
+        "id": 57647,
+        "name": "Good Doctor",
+        "original_name": "굿 닥터",
+        "overview": "A man, who is an autistic savant, aspires to become a paediatrician. He overcomes societal discrimination and uses his exceptional abilities to achieve his dreams.",
+        "poster_path": "/4pR9FCgtCj8mYFLh7tb2avCwdOy.jpg",
+        "media_type": "tv",
+        "adult": false,
+        "original_language": "ko",
+        "genre_ids": [
+          18
+        ],
+        "popularity": 36.916,
+        "first_air_date": "2013-08-05",
+        "vote_average": 8.1,
+        "vote_count": 61,
+        "origin_country": [
+          "KR"
+        ]
+      },
+      {
+        "backdrop_path": "/kCN2L0VAdFRpmlvxCwg2KDu2VtV.jpg",
+        "id": 79983,
+        "name": "Good Doctor",
+        "original_name": "グッド・ドクター",
+        "overview": "Minato Shindo has savant syndrome. His memory is amazing, but he has difficulty communicating with other people. When Minato was little, he dreamed of becoming a doctor. He met Doctor Akira Shiga and he wanted to become a pediatric surgeon. Akira was surprised by the 7-year-old's memory of the human organs and he decided to support Minato in achieving his dream. Eventually, Minato graduated from medical school and passed the national exam for medical practitioners. Now, Akira works as a director at a large hospital. He suggests to Minato to work in the pediatric surgery department at the hospital where he works.",
+        "poster_path": "/wtFhU1PXSdDryZDH009dBkILJhI.jpg",
+        "media_type": "tv",
+        "adult": false,
+        "original_language": "ja",
+        "genre_ids": [
+          18,
+          10751
+        ],
+        "popularity": 16.588,
+        "first_air_date": "2018-07-12",
+        "vote_average": 8,
+        "vote_count": 6,
+        "origin_country": [
+          "JP",
+          "US"
+        ]
+      },
+      {
+        "backdrop_path": "/it3j7UOyoKIHviYjlhAXrACv0Sx.jpg",
+        "id": 274230,
+        "name": "Good Doctor",
+        "original_name": "หมอใจพิเศษ",
+        "overview": "A man with autistic disorder and a savant syndrome overcomes bias and discrimination by the society and becomes a paediatrician by utilizing his exceptional abilities that the disorder brings.",
+        "poster_path": "/9RKqT2nKPmGRA9Rx2nIhK4Fi5c5.jpg",
+        "media_type": "tv",
+        "adult": false,
+        "original_language": "th",
+        "genre_ids": [
+          18
+        ],
+        "popularity": 16.959,
+        "first_air_date": "2024-10-11",
+        "vote_average": 0,
+        "vote_count": 0,
+        "origin_country": [
+          "TH"
+        ]
+      },
+      {
+        "backdrop_path": "/70zanWt7TxBCZJCdMYhCMFDdGQr.jpg",
+        "id": 613349,
+        "title": "A Good Doctor",
+        "original_title": "Docteur ?",
+        "overview": "On Christmas eve, Serge is the only on-call emergency doctor available. Struck by a crippling back-ache, he gets help from a pizza delivery boy who will need to step in the doctor's shoes.",
+        "poster_path": "/7wx7VMj4eoJUXR4ZVdYVDzFStNd.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "fr",
+        "genre_ids": [
+          35
+        ],
+        "popularity": 7.107,
+        "release_date": "2019-12-11",
+        "video": false,
+        "vote_average": 6.5,
+        "vote_count": 313
+      },
+      {
+        "backdrop_path": "/jPlyFmmh9rHQqIuRtEv0gCsOVPK.jpg",
+        "id": 65650,
+        "title": "The Good Doctor",
+        "original_title": "The Good Doctor",
+        "overview": "Dr. Martin Blake, who has spent his life looking for respect, meets an 18-year-old patient named Diane, suffering from a kidney infection, and gets a much-needed boost of self-esteem. However, when her health starts improving, Martin fears losing her, so he begins tampering with her treatment, keeping Diane sick and in the hospital right next to him.",
+        "poster_path": "/fJSdqHzpMeCkXMrILYt1SdGN2sL.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          18,
+          53,
+          9648
+        ],
+        "popularity": 15.117,
+        "release_date": "2011-04-23",
+        "video": false,
+        "vote_average": 6.2,
+        "vote_count": 245
+      },
+      {
+        "backdrop_path": null,
+        "id": 820509,
+        "title": "The Good Doctor",
+        "original_title": "The Good Doctor",
+        "overview": "A writer (made to resemble Russian playwright Anton Chekhov) narrates a collection of his stories, all of which are written in the style of Chekhov.",
+        "poster_path": "/aCgeGyHA1ZqQ7E3jzfDhTq5859K.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          18
+        ],
+        "popularity": 2.381,
+        "release_date": "1978-11-08",
+        "video": false,
+        "vote_average": 0.5,
+        "vote_count": 1
+      },
+      {
+        "backdrop_path": null,
+        "id": 1137406,
+        "title": "A Good Doctor",
+        "original_title": "Хороший доктор",
+        "overview": "According to the state program, a young paramedic is sent to the village of Novenke Konstantin Kolpakov. It is hard to work, there are not enough medicines, there is no necessary equipment. However, the young paramedic remains not only to treat people, but also to try to bring life back to the gradually fading village.",
+        "poster_path": "/bdyGxDs1ymtLvSCWzHmY5PomWHI.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "ru",
+        "genre_ids": [
+          99
+        ],
+        "popularity": 0.096,
+        "release_date": "2023-06-22",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "backdrop_path": null,
+        "id": 506759,
+        "title": "The Good Doctor Bodkin-Adams",
+        "original_title": "The Good Doctor Bodkin-Adams",
+        "overview": "In 1956, the ultra-respectable seaside resort of Eastbourne was shocked when a local doctor, John Bodkin Adams, was arrested for murdering one of his elderly patients.",
+        "poster_path": "/zVH5okJJVTG9qBjkDxIv7o1CDQp.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          80,
+          18
+        ],
+        "popularity": 1.536,
+        "release_date": "1986-10-12",
+        "video": false,
+        "vote_average": 5.3,
+        "vote_count": 3
+      },
+      {
+        "backdrop_path": "/7HgqTRSudmELdbJLFtGGK0yRkUb.jpg",
+        "id": 1206885,
+        "title": "Doctor Who - Night and the Doctor: Good Night",
+        "original_title": "Doctor Who - Night and the Doctor: Good Night",
+        "overview": "When Amy wakes to find the Doctor carrying a euphonium guiltily, she uses the opportunity to ask a question that has been bothering her for a long time.",
+        "poster_path": "/sgYkEIsbm7jiBnad8GJlnKRBa3S.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          12,
+          35,
+          878
+        ],
+        "popularity": 0.657,
+        "release_date": "2012-11-21",
+        "video": false,
+        "vote_average": 6,
+        "vote_count": 2
+      },
+      {
+        "backdrop_path": null,
+        "id": 248790,
+        "name": "The Good Doctor: Bac Si Hanh Phuc",
+        "original_name": "The Good Doctor: Bac Si Hanh Phuc",
+        "overview": "It is a a doctor who has a disability who learns to adapt to becoming a good doctor",
+        "poster_path": "/pGgZPc6YPXg2OlP3ijRYnZnP2Ey.jpg",
+        "media_type": "tv",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          18
+        ],
+        "popularity": 2.593,
+        "first_air_date": "2023-01-01",
+        "vote_average": 6,
+        "vote_count": 1,
+        "origin_country": [
+          "US"
+        ]
+      },
+      {
+        "backdrop_path": "/mQPSPNXuH05CXqWzbnRrLfbWxt.jpg",
+        "id": 1212859,
+        "title": "Doctor Who: Good as Gold",
+        "original_title": "Doctor Who: Good as Gold",
+        "overview": "Rebecca, Emily, and Libby of Ashdene Primary School present a by-the-book TARDIS adventure!",
+        "poster_path": "/wI3UwElEaRPP4q6OGlRLpe715kA.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          878
+        ],
+        "popularity": 0.673,
+        "release_date": "2012-05-24",
+        "video": false,
+        "vote_average": 10,
+        "vote_count": 1
+      },
+      {
+        "backdrop_path": null,
+        "id": 1390194,
+        "title": "The Good Doctor",
+        "original_title": "The Good Doctor",
+        "overview": "Documentary about Dwight Gooden; The Doc. Doc came up as a 19-year old phenom who within a year became the best pitcher in baseball. Unfortunately, he had his demons and his career would derail for periods of time as his effectiveness slowly disappeared. This is his story.",
+        "poster_path": null,
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          99
+        ],
+        "popularity": 0.479,
+        "release_date": "2014-08-29",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      },
+      {
+        "backdrop_path": null,
+        "id": 1206910,
+        "title": "Doctor Who: A Good Man Goes To War Prequel",
+        "original_title": "Doctor Who: A Good Man Goes To War Prequel",
+        "overview": "Dorium meets three cloaked figures, informing them that his agents have procured the exact security software they have requested. Dorium has extracted it from the memory of a Judoon trooper, admitting he decided that it was quicker to take the whole brain. He gives them the brain in exchange for a bag of sentient money. Dorium doesn't understand why they are doing all this to imprison one child, and says he's heard rumours about whose child they've taken. He asks if they are mad and if they've heard the stories about the Doctor. Dorium warns them \"God help us if you've made him angry\".",
+        "poster_path": "/4Q7PpRMKtwIiaqQGaee4lY3J1cT.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [],
+        "popularity": 0.884,
+        "release_date": "2011-05-28",
+        "video": false,
+        "vote_average": 10,
+        "vote_count": 1
+      },
+      {
+        "backdrop_path": "/haF1XXlbeqeufjkETKQ5ti6Ptjo.jpg",
+        "id": 68398,
+        "name": "Dr. Romantic",
+        "original_name": "낭만닥터 김사부",
+        "overview": "An eccentric, triple board-certified virtuoso surgeon leaves a top job in Seoul and ends up at a provincial hospital, where he mentors young doctors.",
+        "poster_path": "/9fbRJgZ2zDTnSUId1bOwsllHNr7.jpg",
+        "media_type": "tv",
+        "adult": false,
+        "original_language": "ko",
+        "genre_ids": [
+          18
+        ],
+        "popularity": 138.458,
+        "first_air_date": "2016-11-07",
+        "vote_average": 8.3,
+        "vote_count": 97,
+        "origin_country": [
+          "KR"
+        ]
+      },
+      {
+        "backdrop_path": null,
+        "id": 646778,
+        "title": "The Making of a Hollywood Madam",
+        "original_title": "The Making of a Hollywood Madam",
+        "overview": "The real-life California family doctor -- facing a jail sentence for money laundering and tax evasion -- recalls the events leading to the arrest of his  notorious daughter, Hollywood madam Heidi Fleiss.",
+        "poster_path": "/7R6LyWxsTih6NhwHNqmDklr65bT.jpg",
+        "media_type": "movie",
+        "adult": false,
+        "original_language": "en",
+        "genre_ids": [
+          80,
+          18,
+          10770
+        ],
+        "popularity": 1.775,
+        "release_date": "1996-02-21",
+        "video": false,
+        "vote_average": 0,
+        "vote_count": 0
+      }
+    ],
+    "total_pages": 1,
+    "total_results": 16
+  }

@@ -6,7 +6,10 @@ import { useAuthContext } from './AuthContext';
 const LikedMoviesContext = createContext();
 
 export const LikedMoviesProvider = ({ children }) => {
-    const [likedMovies, setLikedMovies] = useState([]);
+    const [likedMovies, setLikedMovies] = useState([{
+            movieId: '',
+            type: ''
+    }]);
     const [loading, setLoading] = useState(true);
     const { currentUser } = useAuthContext();
     
@@ -33,19 +36,23 @@ export const LikedMoviesProvider = ({ children }) => {
                 console.warn('User is not logged in. Skipping liked movies fetch.');
                 return;
             }
-
+    
             const env = validateEnvironment();
             if (!env) return;
-
+    
             setLoading(true);
-
+    
             const response = await databases.listDocuments(
                 env.databaseId,
                 env.collectionId,
                 [Query.equal('userId', currentUser.$id)]
             );
-
-            const movies = response?.documents?.map((doc) => doc.movieId) || [];
+    
+            const movies =
+                response?.documents?.map((doc) => ({
+                    movieId: doc.movieId,
+                    type: doc.type,
+                })) || [];
             setLikedMovies(movies);
             console.log('Fetched liked movies:', movies);
         } catch (error) {
@@ -59,7 +66,7 @@ export const LikedMoviesProvider = ({ children }) => {
         }
     };
 
-    const addLikedMovie = async (movieId) => {
+    const addLikedMovie = async (movieId,media_type) => {
        
         try {
             if (!currentUser) {
@@ -82,13 +89,17 @@ export const LikedMoviesProvider = ({ children }) => {
                 {   
                     
                     userId: currentUser.$id,
-                    movieId: movieId
+                    movieId: movieId,
+                    type: media_type
                     
                 }
             );
 
             // Update local state without refetching
-            setLikedMovies((prev) => [...prev, movieId]);
+            setLikedMovies((prev) => [...prev, {
+                movieId: movieId,
+                type: media_type
+            }]);
 
             toast.success('Movie added to your liked list!', {
                 position: 'top-right',
@@ -104,8 +115,7 @@ export const LikedMoviesProvider = ({ children }) => {
     };
 
 
-    const removeLikedMovie = async (movieId) => {
-        
+    const removeLikedMovie = async (movieId, media_type) => {
         try {
             if (!currentUser) {
                 console.error('Cannot remove liked movie: User is not logged in.');
@@ -119,13 +129,14 @@ export const LikedMoviesProvider = ({ children }) => {
             const env = validateEnvironment();
             if (!env) return;
     
-            // Query the database for the document with the specified movieId and userId
+            // Query the database for the document with the specified movieId, userId, and type
             const existingMovies = await databases.listDocuments(
                 env.databaseId,
                 env.collectionId,
                 [
                     Query.equal('userId', currentUser.$id),
                     Query.equal('movieId', movieId),
+                    Query.equal('type', media_type),
                 ]
             );
     
@@ -143,7 +154,11 @@ export const LikedMoviesProvider = ({ children }) => {
             await databases.deleteDocument(env.databaseId, env.collectionId, movieDocId);
     
             // Update local state without refetching
-            setLikedMovies((prev) => prev.filter((id) => id !== movieId));
+            setLikedMovies((prev) =>
+                prev.filter(
+                    (movie) => movie.movieId !== movieId || movie.type !== media_type
+                )
+            );
     
             toast.success('Movie removed from your liked list.', {
                 position: 'top-right',
@@ -157,7 +172,6 @@ export const LikedMoviesProvider = ({ children }) => {
             });
         }
     };
-    
     
 
     useEffect(() => {

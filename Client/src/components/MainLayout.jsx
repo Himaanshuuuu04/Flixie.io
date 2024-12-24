@@ -28,8 +28,8 @@ export default function MainLayout() {
           <NavBar />
         </div>
         {/* Main Content */}
-        <div className="flex flex-col flex-grow overflow-y-auto">
-          <div className="mt-10 mb-10 flex flex-col gap-10 px-5">
+        <div className="flex flex-col flex-grow overflow-y-auto overflow-x-visible">
+          <div className="mt-10 mb-10 flex flex-col gap-5 mr-10">
             <TopBar />
             {movieByGenre && <GenreResults />}
             {searchActive ? (

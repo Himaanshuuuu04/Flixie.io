@@ -1,12 +1,12 @@
 export default function Carouselskeleton() {
     return (
         <div className="overflow-hidden">
-            <div className="relative w-full rounded-2xl shadow-2xl bg-white/20 animate-pulse">
+            <div className="relative w-full rounded-xl  bg-white/20 animate-pulse">
                 <div
-                className="flex rounded-2xl transition-transform duration-1000 ease-in-out"
+                className="flex rounded-xl transition-transform duration-1000 ease-in-out"
                 >
                 
-                <div className="flex-shrink-0 w-full h-[15rem] relative">
+                <div className="flex-shrink-0 w-full h-[13rem] relative">
                     <div className="bg-white/20 w-full h-full rounded-2xl"></div>
                     <div className="absolute inset-0  items-center justify-center p-3 hidden md:flex">
                     <div className="text-white text-center space-y-2">

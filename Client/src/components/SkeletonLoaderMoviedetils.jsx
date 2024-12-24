@@ -10,14 +10,14 @@ export default function SkeletonLoaderMoviedetils() {
             {/* Title Placeholder */}
             <div className="h-8 bg-white/30 rounded w-3/4"></div>
       
+            {/* Overview Placeholder */}
+            <div className="h-16 bg-white/30 rounded w-full"></div>
+
             {/* Buttons Placeholder */}
             <div className="flex gap-4">
               <div className="h-10 w-24 bg-white/30 rounded-2xl"></div>
               <div className="h-10 w-24 bg-white/30 rounded-2xl"></div>
             </div>
-      
-            {/* Overview Placeholder */}
-            <div className="h-16 bg-white/30 rounded w-full"></div>
       
             {/* Divider */}
             <hr className="border-gray-600" />

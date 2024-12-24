@@ -76,7 +76,7 @@ const Login = () => {
   return (
     <>
       <ToastContainer />
-      <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto pt-20 md:pb-20 z-50">
+      <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto z-50">
         <div className="flex items-center justify-center w-full h-full px-4 md:px-0">
           <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
             <div className="w-full border border-white/20 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
@@ -88,7 +88,7 @@ const Login = () => {
                   <label className="block mb-1 text-sm md:text-md font-light">Email</label>
                   <input
                     placeholder="Your email"
-                    className="bg-white/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
+                    className="bg-black/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
                     id="email"
                     type="email"
                     name="email"
@@ -107,7 +107,7 @@ const Login = () => {
                   <div className='flex gap-8'>
                   <input
                     placeholder="Enter OTP"
-                    className="bg-white/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
+                    className="bg-black/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
                     id="otp"
                     type="text"
                     name="otp"

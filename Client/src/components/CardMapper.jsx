@@ -44,10 +44,10 @@ export default function CardMapper() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center">
         {/* Display skeletons when loading */}
         {loading &&
-          Array.from({ length: 10 }).map((_, index) => (
+          Array.from({ length: 14 }).map((_, index) => (
             <SkeletonLoaderCard key={index} />
           ))}
 
@@ -59,19 +59,22 @@ export default function CardMapper() {
               id={movie.id}
               img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               title={movie.title}
-              link={`/movie/${movie.id}`} // Customize this link
+              link={`/movie/${movie.id}`}
+              year={movie.release_date}
+              rating={movie.vote_average}
+              media_type="movie" // Customize this link
             />
           ))}
       </div>
 
       {/* Show loading text while fetching */}
-      {loading && (
-        <div className="text-center my-4 text-gray-500">Loading more movies...</div>
-      )}
+      {loading && Array.from({ length: 14 }).map((_, index) => (
+            <SkeletonLoaderCard key={index} />
+          ))}
 
       {/* Show load more button when there's more content to load */}
       {hasMore && !loading && (
-        <div className="text-center mt-8">
+        <div className="text-center mt-8 md:mb-0 mb-10">
           <button
             onClick={loadMoreMovies}
             className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-full hover:bg-white/40 transition duration-300 ease-in-out backdrop-blur-2xl"

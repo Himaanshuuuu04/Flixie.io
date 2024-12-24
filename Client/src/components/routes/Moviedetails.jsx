@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams,useNavigate } from "react-router-dom";
-
+import { useParams,useNavigate } from "react-router-dom"
 import {
   ClockIcon,
   StarIcon,
@@ -9,23 +8,25 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useLikedMoviesContext } from "../contextAPI/LikeContext";
-const VIDSRCS_ME_API = "https://vidsrc.xyz/embed/movie?tmdb=";
+const VIDSRCS_ME_API = "https://vidsrc.xyz/embed/";
 import { useSearchContext } from "../contextAPI/SearchContext";
 import SkeletonLoaderMoviedetails from "../SkeletonLoaderMoviedetils";
 const Moviedetails = () => { 
   const { likedMovies, addLikedMovie,removeLikedMovie } = useLikedMoviesContext(); // Access the context
-  const { id } = useParams();
+  const { media_type,id } = useParams();
+ 
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
   const { movieDetails, trailerUrl,fetchMovieDetails,loading} = useSearchContext(); // Access the context} // State for dynamic liked status
 
   const toggleLike = () => {
-    const movieId = id; // Use id directly as a string
-    if (likedMovies.includes(movieId)) {
-      removeLikedMovie(movieId); // Remove the movie from likedMovies
+    const movieId = id;
+    const mediaType=media_type; // Use id directly as a string
+    if (likedMovies.includes(movieId,mediaType)) {
+      removeLikedMovie(movieId,mediaType); // Remove the movie from likedMovies
       setIsLiked(false); // Update state immediately
     } else {
-      addLikedMovie(movieId); // Add the movie to likedMovies
+      addLikedMovie(movieId,mediaType); // Add the movie to likedMovies
       setIsLiked(true); // Update state immediately
     }
   };
@@ -41,7 +42,7 @@ const Moviedetails = () => {
   
 
   useEffect(() => {
-    fetchMovieDetails(id);
+    fetchMovieDetails(id,media_type);
   }, [id]);
 
   
@@ -55,18 +56,18 @@ const Moviedetails = () => {
 
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center overflow-y-auto ">
-    <div className="bg-white/10 backdrop-blur-3xl border-2 border-white/20 h-auto md:h-[90vh] md:w-[95vw] md:m-10 m-5 flex flex-col md:flex-row rounded-2xl relative md:overflow-hidden">
+    <div className="min-h-screen  flex flex-col items-center justify-center overflow-y-auto ">
+    <div className="bg-white/5 backdrop-blur-3xl border border-white/20 h-[95vh] md:h-[90vh] md:w-[95vw] md:m-10 m-5 flex flex-col md:flex-row rounded-2xl relative md:overflow-hidden overflow-auto">
       {/* Left Column */}
-      <div className="w-full md:w-1/2 h-48 md:h-full">
+      <div className="w-full md:w-1/2 h-72 md:h-full border-r-0 md:border-r md:border-white/20">
         {trailerUrl ? (
           <iframe
             src={trailerUrl}
             title="Movie Trailer"
             className="w-full h-full rounded-t-2xl md:rounded-none z-40"
             allowFullScreen
-            loading="eager"
-            allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
+            loading="earger"
+            allow="accelerometer;  gyroscope; picture-in-picture"
           ></iframe>
         ) : (
           <img
@@ -78,11 +79,16 @@ const Moviedetails = () => {
       </div>
 
       {/* Right Column */}
-      <div className="flex flex-col p-4 md:p-8 gap-6 w-full md:w-1/2 overflow-y-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-white">{movieDetails.title}</h1>
+      <div className="flex flex-col p-4 md:p-8 gap-6 w-full md:w-1/2 overflow-y-auto scrollbar-hide">
+        <h1 className="text-3xl md:text-4xl font-bold text-white">{movieDetails.title || movieDetails.name}</h1>
+        
+
+        <p className="text-white text-base font-light -mt-4">
+          <strong>Overview :</strong> {movieDetails.overview} 
+        </p>
         <div className="flex gap-4 -mt-2">
           <a
-            href={VIDSRCS_ME_API + movieDetails.id}
+            href={VIDSRCS_ME_API + media_type+"?tmdb="+id}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center bg-white/10 border border-white/20 text-white font-medium py-2 px-4 rounded-2xl shadow-sm transition-transform transform hover:scale-105 hover:bg-blue-500 focus:outline-none duration-200 ease-in-out"
@@ -106,9 +112,9 @@ const Moviedetails = () => {
           </a>
 
           <button
-            onClick={() => toggleLike(movieDetails.id)}
-            className={`flex items-center py-2 px-4 rounded-2xl shadow-sm transition-transform transform hover:scale-105 focus:outline-none duration-200 ease-in-out ${
-              isLiked ? "bg-red-500 text-white" : "bg-white/10 border border-white/20 text-white"
+            onClick={() => toggleLike(movieDetails.id,media_type)}
+            className={`flex items-center py-2 px-4 rounded-2xl shadow-sm transition-all transform hover:scale-105 focus:outline-none duration-200 ease-in-out ${
+              isLiked ? "bg-red-500 border border-red-500 text-white" : "bg-white/10 border border-white/20 text-white"
             }`}
           >
             <svg
@@ -129,11 +135,7 @@ const Moviedetails = () => {
             <span className="text-sm -mb-1">{isLiked ? "Liked" : "Like"}</span>
           </button>
         </div>
-
-        <p className="text-white text-base font-light">
-          <strong>Overview :</strong> {movieDetails.overview}
-        </p>
-        <hr />
+        <hr className="border-white/30" />
         <div className="flex flex-col gap-2">
           <p className="text-white text-base font-thin flex items-center">
             <FilmIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
@@ -141,7 +143,7 @@ const Moviedetails = () => {
           </p>
           <p className="text-white text-base font-thin flex items-center ">
             <CalendarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
-            <strong>Release Date : </strong> {movieDetails.release_date}
+            <strong>Release Date : </strong> {movieDetails.release_date || movieDetails.first_air_date}
           </p>
           <p className="text-white text-base font-thin flex items-center">
             <ClockIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
@@ -163,30 +165,31 @@ const Moviedetails = () => {
 
           {/* Cast */}
           <div>
-            <h2 className="text-white text-xl font-semibold">Cast:</h2>
-            <div className="flex flex-wrap gap-4 mt-4 justify-center md:justify-start">
+            <h2 className="text-white text-base font-semibold">Cast:</h2>
+            <div className="flex flex-wrap gap-4 mt-2 justify-center md:justify-evenly">
               {movieDetails.credits.cast.length === 0 ? (
                 <p className="text-white">No cast information available.</p>
               ) : (
                 movieDetails.credits.cast.slice(0, 5).map((cast) => (
                   <div
                     key={cast.id}
-                    className="bg-white/10 border border-white/20 rounded-2xl p-2 flex flex-col items-center w-[120px] sm:w-[140px] md:w-[100px]"
+                    onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(cast.name)}`, '_blank')}
+                    className="cursor-pointer bg-white/10 border border-white/20 rounded-2xl flex flex-col items-center w-[90px] sm:w-[140px] md:w-[110px] overflow-hidden"
                   >
                     {cast.profile_path ? (
                       <img
                         src={`https://image.tmdb.org/t/p/w200${cast.profile_path}`}
                         alt={cast.name}
-                        className="w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 rounded-full object-cover"
+                        className="w-full h-20 sm:h-24 md:h-24 rounded-xl object-cover"
                       />
                     ) : (
-                     
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 bg-gray-400 rounded-full" />
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-full md:h-24 bg-gray-400 rounded-full" />
                     )}
-                    <p className="text-white text-xs sm:text-sm md:text-base mt-2 text-center">
+                    <p className="text-white font-light text-xs sm:text-sm md:text-sm m-2 text-center">
                       {cast.name}
                     </p>
                   </div>
+
                 ))
               )}
             </div>
@@ -196,7 +199,7 @@ const Moviedetails = () => {
      
        {/* Back Button */}
     <svg
-      className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute top-3 right-8 cursor-pointer rounded-full p-2 z-50 hidden md:flex hover:bg-white/30"
+      className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute top-5 right-8  cursor-pointer rounded-full p-2 z-50 hidden md:flex hover:scale-110 transition-all duration-300 ease-in-out"
       onClick={() => navigate(-1)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

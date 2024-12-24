@@ -14,7 +14,7 @@ export default function FavouriteMovies() {
 
  
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center">
       {movies.length > 0 ? (
         movies.map((movie) => (
           <Card
@@ -22,6 +22,8 @@ export default function FavouriteMovies() {
             id={movie.id}
             img={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "https://via.placeholder.com/500x750"}
             title={movie.title || "Untitled"}
+            year={movie.release_date}
+            rating={movie.vote_average}
             link={`/movie/${movie.id}`}
           />
         ))

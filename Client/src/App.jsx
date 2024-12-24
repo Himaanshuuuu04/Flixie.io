@@ -29,7 +29,7 @@ function App() {
                   <Route element={<AuthenticatedRoutes />}>
                     <Route path="/" element={<Home />}/ >
                     <Route path="/Home" element={<Home />}/ >
-                    <Route path="/Moviedetails/:id" element={<Moviedetails />} />
+                    <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
                     <Route path="/Favourite" element={<Favourite />} />
                     <Route path="/TopRated" element={<TopRated />} />
                   </Route>

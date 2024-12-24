@@ -25,10 +25,10 @@ function MovieResults() {
                                     className="bg-white/10 rounded-2xl text-white border-2 border-white/20 overflow-hidden backdrop-filter backdrop-blur-3xl shadow-xl  hover:bg-blue-400 transition-all duration-300 "
                                     onClick={() => setSearchActive(false)}
                                 >
-                                <Link to={`/Moviedetails/${movie.id}`}>
+                                <Link to={`/Moviedetails/${movie.media_type}/${movie.id}`}>
                                     <img
                                         src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                                        alt={movie.title}
+                                        alt={movie.title || movie.name}
                                         className="h-[70%] w-full object-cover"
                                         onError={(e) => e.currentTarget.classList.add('hidden')}
                                     />
@@ -36,26 +36,20 @@ function MovieResults() {
                                         {/* Title */}
                                         <h3
                                             className="font-bold truncate max-w-full"
-                                            title={movie.title} // Tooltip for full title
+                                            title={movie.title || movie.name} // Tooltip for full title
                                         >
-                                            {movie.title}
+                                            {movie.title || movie.name}
                                         </h3>
 
                                         {/* Release Year */}
                                         <p className="text-sm opacity-60">
-                                            Year: {movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}
+                                            Year: { movie.release_date || movie.first_air_date}
                                         </p>
 
                                         {/* Rating */}
                                         <p className="text-sm opacity-60">Rating: {movie.vote_average}</p>
 
-                                        {/* Overview */}
-                                        <p
-                                            className="text-xs opacity-50 truncate"
-                                            title={movie.overview} // Tooltip for full overview
-                                        >
-                                            {movie.overview ? movie.overview.substring(0, 60) + '...' : 'No overview available'}
-                                        </p>
+                                        
                                     </div>
                                     </Link>
                                 </div>

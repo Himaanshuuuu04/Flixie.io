@@ -16,7 +16,9 @@ export default function TopBar() {
     const { fetchMoviesByGenre } = useGenreContext();
     const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive } = useSearchContext();
     const [isOpen, setIsOpen] = useState(false);
+   
     const [selectedOption, setSelectedOption] = useState("All");
+    
     
 
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -25,6 +27,8 @@ export default function TopBar() {
         setIsOpen(false);
         fetchMoviesByGenre(option.id);
     };
+    
+  
     const genresObject = {
         genres: [
             { id: 28, name: "Action" },
@@ -81,6 +85,8 @@ export default function TopBar() {
                         </div>
                     )}
                 </div>
+
+              
 
                 {/* Search Bar */}
                 <div className="flex items-center w-full md:w-[40%] h-full p-2 border-2 border-white/20 rounded-2xl">
