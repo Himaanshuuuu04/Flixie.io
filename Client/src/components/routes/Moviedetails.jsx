@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams,useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom";
 import {
   ClockIcon,
   StarIcon,
@@ -11,50 +11,52 @@ import { useLikedMoviesContext } from "../contextAPI/LikeContext";
 const VIDSRCS_ME_API = "https://vidsrc.xyz/embed/";
 import { useSearchContext } from "../contextAPI/SearchContext";
 import SkeletonLoaderMoviedetails from "../SkeletonLoaderMoviedetils";
-const Moviedetails = () => { 
-  const { likedMovies, addLikedMovie,removeLikedMovie } = useLikedMoviesContext(); // Access the context
-  const { media_type,id } = useParams();
- 
+
+const Moviedetails = () => {
+  const { likedMovies, addLikedMovie, removeLikedMovie } = useLikedMoviesContext();
+  const { media_type, id } = useParams();
   const navigate = useNavigate();
+
   const [isLiked, setIsLiked] = useState(false);
-  const { movieDetails, trailerUrl,fetchMovieDetails,loading} = useSearchContext(); // Access the context} // State for dynamic liked status
+  const { movieDetails, trailerUrl, fetchMovieDetails, loading } = useSearchContext();
 
   const toggleLike = () => {
     const movieId = id;
-    const mediaType=media_type; // Use id directly as a string
-    if (likedMovies.includes(movieId,mediaType)) {
-      removeLikedMovie(movieId,mediaType); // Remove the movie from likedMovies
+    const mediaType = media_type;
+
+    const isAlreadyLiked = likedMovies.some(
+      (movie) => movie.movieId === movieId && movie.type === mediaType
+    );
+
+    if (isAlreadyLiked) {
+      removeLikedMovie(movieId, mediaType); // Remove the movie from likedMovies
       setIsLiked(false); // Update state immediately
     } else {
-      addLikedMovie(movieId,mediaType); // Add the movie to likedMovies
+      addLikedMovie(movieId, mediaType); // Add the movie to likedMovies
       setIsLiked(true); // Update state immediately
     }
   };
-  
+
   useEffect(() => {
     // Update the liked state whenever likedMovies or movieDetails change
     if (movieDetails && likedMovies) {
-      setIsLiked(likedMovies.includes(movieDetails.id.toString())); // Ensure movieDetails.id is a string
+      const isAlreadyLiked = likedMovies.some(
+        (movie) =>
+          movie.movieId === movieDetails.id.toString() &&
+          movie.type === media_type
+      );
+      setIsLiked(isAlreadyLiked);
     }
-  }, [movieDetails, likedMovies]);
-  
-  
-  
+  }, [movieDetails, likedMovies, media_type]);
 
   useEffect(() => {
-    fetchMovieDetails(id,media_type);
-  }, [id]);
+    fetchMovieDetails(id, media_type);
+  }, [id, media_type]);
 
-  
-
-  // if (false) {
-  //   return <SkeletonLoaderMoviedetails/>;
-  // }
-  if (!movieDetails&&!loading || loading) {
-    return <SkeletonLoaderMoviedetails/>;
+  if (loading || !movieDetails) {
+    return <SkeletonLoaderMoviedetails />;
   }
-
-
+  console.log( movieDetails.episode_run_time.length);
   return (
     <div className="min-h-screen  flex flex-col items-center justify-center overflow-y-auto ">
     <div className="bg-white/5 backdrop-blur-3xl border border-white/20 h-[95vh] md:h-[90vh] md:w-[95vw] md:m-10 m-5 flex flex-col md:flex-row rounded-2xl relative md:overflow-hidden overflow-auto">
@@ -147,7 +149,7 @@ const Moviedetails = () => {
           </p>
           <p className="text-white text-base font-thin flex items-center">
             <ClockIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
-            <strong>Runtime : </strong> {movieDetails.runtime} minutes
+            <strong>Runtime : </strong> {movieDetails.runtime || movieDetails.episode_run_time} minutes
           </p>
           <p className="text-white text-base font-thin flex items-center">
             <StarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />

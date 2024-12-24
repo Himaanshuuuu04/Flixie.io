@@ -12,19 +12,29 @@ export default function FavouriteMovies() {
         fetchMovies();
   }, [likedMovies]); // Trigger fetch when likedMovies changes
 
- 
+  const addMediaType = (movies) => {
+    return movies.map((movie) => {
+      const likedMovie = likedMovies.find((liked) => liked.movieId == movie.id);
+      return {
+        ...movie,
+        media_type: likedMovie?.type,
+      };
+    });
+  };
+  console.log("modifies",addMediaType(movies));
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center">
       {movies.length > 0 ? (
-        movies.map((movie) => (
+        addMediaType(movies).map((movie) => (
           <Card
             key={movie.id}
             id={movie.id}
             img={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "https://via.placeholder.com/500x750"}
-            title={movie.title || "Untitled"}
-            year={movie.release_date}
+            title={movie.title || movie.name}
+            year={movie.release_date || movie.first_air_date}
             rating={movie.vote_average}
-            link={`/movie/${movie.id}`}
+            media_type={movie.media_type}
           />
         ))
       ) : (
@@ -38,3 +48,4 @@ export default function FavouriteMovies() {
     </div>
   );
 }
+

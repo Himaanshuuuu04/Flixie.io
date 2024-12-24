@@ -19,7 +19,7 @@ export const SearchProvider = ({ children }) => {
     const fetchData = async (term) => {
         if (!term.trim()) return;
         const searchTerm = term.replaceAll(' ', '%20');
-        console.log(searchTerm); // Prevent empty search
+       
         setLoading(true);
         const url = `https://api.themoviedb.org/3/search/multi?query=${searchTerm}&include_adult=false&language=en-US&page=1`;
 
@@ -62,7 +62,7 @@ export const SearchProvider = ({ children }) => {
             const response = await fetch(url, options);
             const data = await response.json();
             setMovieDetails(data);
-            console.log(data);
+      
             const trailers = data.videos.results.filter(
                 (video) => video.type === "Trailer" && video.site === "YouTube"
             );
@@ -84,14 +84,15 @@ export const SearchProvider = ({ children }) => {
     
         try {
             // If there are no liked movie IDs, return early
-            if (likedMovies.length === 0) {
+            if (!likedMovies || likedMovies.length === 0) {
+                setMovies([]); // Ensure the state is cleared
                 setLoading(false);
                 return;
             }
     
-            // Create an array of promises to fetch each movie by its ID
-            const moviePromises = likedMovies.map((movieId) => {
-                const url = `https://api.themoviedb.org/3/movie/${movieId}`;
+            // Create an array of promises to fetch each movie by its ID and type
+            const moviePromises = likedMovies.map(({ movieId, type }) => {
+                const url = `https://api.themoviedb.org/3/${type}/${movieId}`;
                 const options = {
                     method: 'GET',
                     headers: {
@@ -99,28 +100,40 @@ export const SearchProvider = ({ children }) => {
                         Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
                     },
                 };
-                return fetch(url, options).then((response) => response.json());
+                return fetch(url, options)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to fetch movie with ID ${movieId}`);
+                        }
+                        return response.json();
+                    })
+                    .catch((error) => {
+                        console.error(`Error fetching movie ID ${movieId}:`, error);
+                        return null; // Return null for failed fetches
+                    });
             });
     
             // Wait for all promises to resolve
             const fetchedMovies = await Promise.all(moviePromises);
     
             // Filter out any invalid movie data (e.g., failed fetches)
-            const validMovies = fetchedMovies.filter((movie) => movie.id);
+            const validMovies = fetchedMovies.filter((movie) => movie && movie.id);
     
             // Update the state with the fetched movies
             setMovies(validMovies);
+            console.log(validMovies);
         } catch (error) {
             console.error("Error fetching movies:", error);
         } finally {
             setLoading(false);
         }
     };
+    
 
 
     const CarouselFetchMovies = async () => {
         setLoading(true);
-        const url = 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
+        const url = 'https://api.themoviedb.org/3/trending/all/day?language=en-US';
         const options = {
             method: 'GET',
             headers: {

@@ -59,11 +59,11 @@ const Carousel = () => {
         >
           {movies.map((movie) => (
             <div key={movie.id} className="flex-shrink-0 w-full h-[13rem] relative">
-              <Link to={`/Moviedetails/${movie.id}`}>
+              <Link to={`/Moviedetails/${movie.media_type}/${movie.id}`}>
                 {movie.backdrop_path && (
                   <img
                     src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
-                    alt={movie.title}
+                    alt={movie.title || movie.name}
                     className="object-cover w-full h-full opacity-90 rounded-xl"
                   />
                 )}
@@ -75,7 +75,7 @@ const Carousel = () => {
                       </span>
                     )}
                     <div className='absolute bottom-5 left-5 text-left backdrop:filter backdrop-blur-3xl p-4 rounded-3xl border border-white/20 bg-black/50 mr-5 shadow-2xl'>
-                      <h2 className="text-lg font-bold">{movie.title}</h2>
+                      <h2 className="text-lg font-bold">{movie.title || movie.name}</h2>
                       <p className="text-xs font-extralight">
                         {movie.overview.slice(0, 95) + (movie.overview.length > 95 ? '...' : '')}
                       </p>
@@ -93,7 +93,7 @@ const Carousel = () => {
                   </div>
                 </div>
                 <div className="absolute bottom-0 h-[40%] bg-black/50 w-full flex flex-col justify-center p-4 md:hidden backdrop-blur-xl rounded-xl border border-white/20 rounded-t-none text-white transition-opacity duration-300 ">
-                  <h2 className="font-light text-nowrap text-lg mb-1">{movie.title} - {movie.release_date.slice(0, 4)}</h2>
+                  <h2 className="font-light text-nowrap text-lg mb-1">{movie.title || movie.name} - {movie.release_date || movie.first_air_date}</h2>
                   <div className="flex gap-4">
                     <button className="text-sm border font-extralight  bg-white/10 border-white/20 px-2 py-[0.20rem] rounded-lg flex items-center space-x-1" aria-label="Watch Now">
                       <img src={Play} alt="Play" className="w-4 h-4" /> <span>Watch Now</span>
