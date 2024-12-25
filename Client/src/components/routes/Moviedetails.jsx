@@ -19,6 +19,9 @@ const Moviedetails = () => {
 
   const [isLiked, setIsLiked] = useState(false);
   const { movieDetails, trailerUrl, fetchMovieDetails, loading } = useSearchContext();
+  const [seasons, setSeasons] = useState([]);
+  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [selectedEpisode, setSelectedEpisode] = useState(null);
 
   const toggleLike = () => {
     const movieId = id;
@@ -29,16 +32,15 @@ const Moviedetails = () => {
     );
 
     if (isAlreadyLiked) {
-      removeLikedMovie(movieId, mediaType); // Remove the movie from likedMovies
-      setIsLiked(false); // Update state immediately
+      removeLikedMovie(movieId, mediaType);
+      setIsLiked(false);
     } else {
-      addLikedMovie(movieId, mediaType); // Add the movie to likedMovies
-      setIsLiked(true); // Update state immediately
+      addLikedMovie(movieId, mediaType);
+      setIsLiked(true);
     }
   };
 
   useEffect(() => {
-    // Update the liked state whenever likedMovies or movieDetails change
     if (movieDetails && likedMovies) {
       const isAlreadyLiked = likedMovies.some(
         (movie) =>
@@ -53,10 +55,35 @@ const Moviedetails = () => {
     fetchMovieDetails(id, media_type);
   }, [id, media_type]);
 
+  useEffect(() => {
+    if (movieDetails) {
+      if (movieDetails.seasons) {
+        // If the media has seasons (a series), initialize state accordingly
+        setSeasons(movieDetails.seasons);
+        setSelectedSeason(movieDetails.seasons[0]);
+        setSelectedEpisode(null);
+      } else {
+        // If the media is a movie, clear seasons and reset state
+        setSeasons([]);
+        setSelectedSeason(null);
+        setSelectedEpisode(null);
+      }
+    }
+  }, [movieDetails]);
+
+  const handleSeasonChange = (seasonId) => {
+    const season = seasons.find((s) => s.id === parseInt(seasonId));
+    setSelectedSeason(season);
+    setSelectedEpisode(null);
+  };
+
+  const handleEpisodeChange = (episodeNumber) => {
+    setSelectedEpisode(episodeNumber);
+  };
+
   if (loading || !movieDetails) {
     return <SkeletonLoaderMoviedetails />;
   }
-  console.log( movieDetails.episode_run_time.length);
   return (
     <div className="min-h-screen  flex flex-col items-center justify-center overflow-y-auto ">
     <div className="bg-white/5 backdrop-blur-3xl border border-white/20 h-[95vh] md:h-[90vh] md:w-[95vw] md:m-10 m-5 flex flex-col md:flex-row rounded-2xl relative md:overflow-hidden overflow-auto">
@@ -89,8 +116,61 @@ const Moviedetails = () => {
           <strong>Overview :</strong> {movieDetails.overview} 
         </p>
         <div className="flex gap-4 -mt-2">
+          {seasons.length > 0 && (
+            <div className="flex flex-col">
+              <label htmlFor="season-select" className="text-white font-light mb-1 text-sm">
+                Select Season:
+              </label>
+              <select
+                id="season-select"
+                className="flex items-center bg-white/10 border border-white/20 text-white font-medium py-2 px-4 rounded-2xl shadow-sm transition-transform transform hover:scale-105 hover:bg-blue-500 focus:outline-none duration-200 ease-in-out text-sm -mb-1"
+                value={selectedSeason?.id || ""}
+                onChange={(e) => handleSeasonChange(e.target.value)}
+              >
+                {seasons.map((season) => (
+                  <option
+                    key={season.id}
+                    value={season.id}
+                    className="text-white bg-black/60"
+                  >
+                    {season.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {selectedSeason && selectedSeason.episode_count > 0 && (
+            <div className="flex flex-col">
+              <label htmlFor="episode-select" className="text-white  font-light mb-1 text-sm">
+                Select Episode:
+              </label>
+              <select
+                id="episode-select"
+                className="flex items-center bg-white/10 border border-white/20 text-white font-medium py-2 px-4 rounded-2xl shadow-sm transition-transform transform hover:scale-105 hover:bg-blue-500 focus:outline-none duration-200 ease-in-out text-sm -mb-1"
+                value={selectedEpisode || ""}
+                onChange={(e) => handleEpisodeChange(e.target.value)}
+              >
+                {[...Array(selectedSeason.episode_count)].map((_, index) => (
+                  <option
+                    key={index + 1}
+                    value={index + 1}
+                    className="text-white bg-black/60"
+                  >
+                    Episode {index + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+        <div className="flex gap-4 -mt-2">
           <a
-            href={VIDSRCS_ME_API + media_type+"?tmdb="+id}
+            href={
+              selectedSeason && selectedEpisode
+                ? `${VIDSRCS_ME_API}${media_type}?tmdb=${id}&season=${selectedSeason.season_number}&episode=${selectedEpisode}`
+                : `${VIDSRCS_ME_API}${media_type}?tmdb=${id}`
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center bg-white/10 border border-white/20 text-white font-medium py-2 px-4 rounded-2xl shadow-sm transition-transform transform hover:scale-105 hover:bg-blue-500 focus:outline-none duration-200 ease-in-out"
@@ -112,7 +192,7 @@ const Moviedetails = () => {
             </svg>
             <span className="text-sm -mb-1 text-white">Watch Now</span>
           </a>
-
+            
           <button
             onClick={() => toggleLike(movieDetails.id,media_type)}
             className={`flex items-center py-2 px-4 rounded-2xl shadow-sm transition-all transform hover:scale-105 focus:outline-none duration-200 ease-in-out ${
@@ -137,6 +217,7 @@ const Moviedetails = () => {
             <span className="text-sm -mb-1">{isLiked ? "Liked" : "Like"}</span>
           </button>
         </div>
+        
         <hr className="border-white/30" />
         <div className="flex flex-col gap-2">
           <p className="text-white text-base font-thin flex items-center">
@@ -225,3 +306,4 @@ const Moviedetails = () => {
 };
 
 export default Moviedetails;
+

@@ -54,7 +54,7 @@ export const LikedMoviesProvider = ({ children }) => {
                     type: doc.type,
                 })) || [];
             setLikedMovies(movies);
-            console.log('Fetched liked movies:', movies);
+           
         } catch (error) {
             console.error('Error fetching liked movies:', error);
             toast.error('Unable to load liked movies. Please try again.', {

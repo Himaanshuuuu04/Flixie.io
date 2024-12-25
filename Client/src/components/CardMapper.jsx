@@ -44,7 +44,7 @@ export default function CardMapper() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center ">
         {/* Display skeletons when loading */}
         {loading &&
           Array.from({ length: 14 }).map((_, index) => (
@@ -67,11 +67,7 @@ export default function CardMapper() {
           ))}
       </div>
 
-      {/* Show loading text while fetching */}
-      {loading && Array.from({ length: 14 }).map((_, index) => (
-            <SkeletonLoaderCard key={index} />
-          ))}
-
+      
       {/* Show load more button when there's more content to load */}
       {hasMore && !loading && (
         <div className="text-center mt-8 md:mb-0 mb-10">

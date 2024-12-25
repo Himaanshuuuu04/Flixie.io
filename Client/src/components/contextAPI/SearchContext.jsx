@@ -35,7 +35,7 @@ export const SearchProvider = ({ children }) => {
             const res = await fetch(url, options);
             const data = await res.json();
             setMovies(data.results || []);
-            console.log(data.results || []); // Update movies state with results
+             // Update movies state with results
         } catch (err) {
             console.error(err);
         } finally {
@@ -121,7 +121,7 @@ export const SearchProvider = ({ children }) => {
     
             // Update the state with the fetched movies
             setMovies(validMovies);
-            console.log(validMovies);
+           
         } catch (error) {
             console.error("Error fetching movies:", error);
         } finally {

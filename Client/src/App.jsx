@@ -13,6 +13,8 @@ import AuthenticatedRoutes from "./Utils/AuthenticatedRoutes.jsx";
 import { BackgroundGradientAnimation } from "./components/Gradient.jsx";
 import ProfileComplete from "./components/routes/ProfileComplete.jsx";
 import TopRated from "./components/routes/TopRated.jsx";
+import Friends from "./components/routes/Friends.jsx";
+import WatchHistroy from "./components/routes/WatchHistroy.jsx";
 function App() {
   return (
     <BackgroundGradientAnimation>
@@ -32,6 +34,8 @@ function App() {
                     <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
                     <Route path="/Favourite" element={<Favourite />} />
                     <Route path="/TopRated" element={<TopRated />} />
+                    <Route path="/Friends" element={<Friends />} />
+                    <Route path="WatchHistory" element={<WatchHistroy />} />
                   </Route>
                 </Routes>
               </HashRouter>

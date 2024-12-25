@@ -7,6 +7,8 @@ import Arrow from "../assets/Arrow.png";
 import Businessman from "../assets/Businessman.png";
 import Heart from "../assets/Heart.png";
 import Switch from "./Hamberger"; // Switch component acting as hamburger icon
+import TimeMachine from "../assets/TimeMachine.png";
+import Group from "../assets/Group.png";
 import { useSearchContext } from "./contextAPI/SearchContext.jsx";
 import { useEffect } from "react";
 import { useAuthContext } from "./contextAPI/AuthContext.jsx";
@@ -82,6 +84,32 @@ export default function NavBar() {
                 <span>Favourite</span>
               </NavLink>
             </li>
+            <li className="text-lg">
+              <NavLink
+                to="/WatchHistory"
+                className={({ isActive }) =>
+                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                }
+              >
+                <img src={TimeMachine} alt="Watch History" className="h-6 -mt-1" />
+                <span>Watch History</span>
+              </NavLink>
+            </li>
+            <li className="text-lg">
+              <NavLink
+                to="/Friends"
+                className={({ isActive }) =>
+                  `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                }
+              >
+                <img src={Group} alt="Friends" className="h-6 -mt-1" />
+                <span>Friends</span>
+              </NavLink>
+            </li>
           </ul>
 
           <hr className="border-white/30 h-1 w-full" />
@@ -123,6 +151,7 @@ export default function NavBar() {
                 <span>Settings</span>
               </NavLink>
             </li>
+            
           </ul>
         </div>
       </nav>
