@@ -165,10 +165,10 @@ export default function NavBar() {
 
         {/* Mobile Menu */}
         <ul
-          className={`fixed inset-0 bg-black/20 backdrop-filter backdrop-blur-3xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+          className={`fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-2xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${isOpen ? "-translate-y-0 opacity-100" : "translate-y-full opacity-0"
             }`}
         >
-          <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-[60%] w-[80%] border-2 rounded-3xl border-white/20 p-10 bg-white/10">
+          <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-[60%] w-[80%] border rounded-3xl  border-white/20 p-10 bg-white/10">
             <ul className="space-y-6 font-light">
 
               {/* Link items */}
@@ -212,9 +212,35 @@ export default function NavBar() {
                   <span>Favourite</span>
                 </NavLink>
               </li>
+              <li className="text-lg">
+                <NavLink
+                  to="/WatchHistory"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                  }
+                >
+                  <img src={TimeMachine} alt="Watch History" className="h-6 -mt-1" />
+                  <span>Watch History</span>
+                </NavLink>
+              </li>
+              <li className="text-lg">
+                <NavLink
+                  to="/Friends"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                  }
+                >
+                  <img src={Group} alt="friends" className="h-6 -mt-1" />
+                  <span>Friends</span>
+                </NavLink>
+              </li>
             </ul>
 
-            <hr className="border-gray-600 h-1 w-full" />
+            <hr className="border-white/20 h-1 w-full" />
 
             <ul className="space-y-6 font-light">
               <li className="text-lg">
