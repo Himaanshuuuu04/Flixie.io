@@ -30,7 +30,7 @@ export default function NavBar() {
       )}
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex bg-white/5 flex-col items-center md:w-64 w-40 h-[calc(100vh-5rem)] border p-8 rounded-3xl border-white/20 backdrop-blur-3xl shadow-xl text-white float-left sticky ml-10 mt-10 mr-10  md:z-40 z-50 overflow-auto">
+      <nav className="hidden md:flex bg-white/5 flex-col items-center md:w-64 w-40 h-[calc(100vh-5rem)] border p-8 rounded-3xl border-white/20 backdrop-blur-3xl shadow-xl text-white float-left sticky ml-10 mt-10 mr-5  md:z-40 z-50 overflow-auto">
         {/* Logo Section */}
         <div className="flex flex-col items-center space-y-2 mt-4 hover:scale-105 transition-all duration-300" onClick={() => setSearchActive(false)}>
           <NavLink to="/Home" className="flex items-center -space-x-1">

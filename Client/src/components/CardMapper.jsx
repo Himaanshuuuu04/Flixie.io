@@ -32,6 +32,7 @@ export default function CardMapper() {
 
   // Fetch movies when the page state changes
   useEffect(() => {
+   
     fetchMovies(page);
   }, [page]);
 

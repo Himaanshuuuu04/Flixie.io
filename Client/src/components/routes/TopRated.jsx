@@ -26,16 +26,8 @@ export default function MainLayout() {
         </div>
         {/* Main Content */}
         <div className="flex flex-col flex-grow overflow-y-auto">
-          <div className="mt-10 mb-10 flex flex-col gap-10 px-5">
-            <TopBar />
-            {movieByGenre && <GenreResults />}
-            {searchActive ? (
-              <MovieResults />
-            ) : (
-              <>
+          <div className="mt-10 mb-10 flex flex-col gap-5 px-5 mr-5">
                 <TopRatedLogic />
-              </>
-            )}
           </div>
         </div>
       </div>
@@ -50,9 +42,9 @@ export default function MainLayout() {
         </div>
         {/* Scrollable Content */}
         <div className="flex flex-col gap-5 px-5 items-center justify-items-center">
-          <div className="bg-white/10 p-2 px-4 border border-white/20 w-fit backdrop:filter backdrop-blur-sm rounded-xl mb-5">
+          {/* <div className="bg-white/10 p-2 px-4 border border-white/20 w-fit backdrop:filter backdrop-blur-sm rounded-xl mb-5">
             <h2 className="text-xl font-light text-white ">Favourites</h2>
-          </div>
+          </div> */}
           {movieByGenre && <GenreResults />}
           {searchActive ? (
             <MovieResults />

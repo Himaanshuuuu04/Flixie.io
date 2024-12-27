@@ -13,6 +13,7 @@ const Carousel = () => {
   const [touchStartX, setTouchStartX] = useState(null);
 
   useEffect(() => {
+    if(movies.length===0)
       CarouselFetchMovies();
   }, []);
 

@@ -15,6 +15,7 @@ export const SearchProvider = ({ children }) => {
     const [trailerUrl, setTrailerUrl] = useState("");
     const [carouselMovies,setCarouselMovies]= useState([]);
     const [topRatedMovies,setTopRatedMovies]= useState([]);
+    
    
 
     const fetchData = async (term) => {
@@ -156,9 +157,9 @@ export const SearchProvider = ({ children }) => {
         }
       };
       const fetchTopRatedMovies = async (userOptions = {}, page = 1) => {
+        if (loading) return; // Prevent duplicate requests
         setLoading(true);
     
-        // Helper function to format date to YYYY-MM-DD
         const formatDate = (date) => {
             const year = date.getFullYear();
             const month = `0${date.getMonth() + 1}`.slice(-2);
@@ -166,36 +167,32 @@ export const SearchProvider = ({ children }) => {
             return `${year}-${month}-${day}`;
         };
     
-        // Default options
         const defaultOptions = {
             include_adult: false,
             include_video: false,
             language: "en-US",
             sort_by: "vote_average.desc",
-            vote_count: "5000", // Minimum votes for relevance
+            vote_count: "5000",
             primary_release_date: {
-                gte: "2010-01-01", // Default start date
-                lte: formatDate(new Date()), // Default end date (today)
+                gte: "2010-01-01",
+                lte: formatDate(new Date()),
             },
-            with_genres: "", // Default to no specific genres
+            with_genres: "",
         };
     
-        // Merge user-provided options with default options
         const options = {
             ...defaultOptions,
-            ...userOptions, // User options override defaults
+            ...userOptions,
             primary_release_date: {
                 ...defaultOptions.primary_release_date,
-                ...userOptions.primary_release_date, // Handle nested date ranges
+                ...userOptions.primary_release_date,
             },
         };
     
-        // Replace commas with '%2C' in the genres string
         if (options.with_genres) {
             options.with_genres = options.with_genres.replace(/,/g, "%2C");
         }
     
-        // Build query parameters
         const queryParams = new URLSearchParams({
             page,
             include_adult: options.include_adult,
@@ -207,15 +204,11 @@ export const SearchProvider = ({ children }) => {
             [`primary_release_date.lte`]: options.primary_release_date.lte,
         });
     
-        // Add genres to query if provided
         if (options.with_genres) {
             queryParams.append("with_genres", options.with_genres);
         }
     
-        // API URL
         const url = `https://api.themoviedb.org/3/discover/movie?${queryParams.toString()}`;
-        console.log(url);
-    
         const fetchOptions = {
             method: "GET",
             headers: {
@@ -227,13 +220,24 @@ export const SearchProvider = ({ children }) => {
         try {
             const response = await fetch(url, fetchOptions);
             const data = await response.json();
-            setTopRatedMovies(data.results);
+    
+            if (data.results) {
+                setTopRatedMovies((prevMovies) => [...prevMovies, ...data.results]);
+    
+                if (page >= data.total_pages) {
+                    setHasMore(false); // No more pages to fetch
+                }
+            } else {
+                setHasMore(false); // Handle case where no results are returned
+            }
         } catch (error) {
             console.error("Error fetching movie details:", error);
+            setHasMore(false); // Stop loading on error
         } finally {
             setLoading(false);
         }
     };
+    
     
     
     
