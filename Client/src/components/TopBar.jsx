@@ -8,13 +8,15 @@ import Notification from '../assets/Notification.png';
 import Enter from '../assets/Enter.png';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from './contextAPI/AuthContext.jsx';
-
-
+import ChatGPT from "../assets//ChatGPT.png";
+import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext.jsx';
 
 export default function TopBar() {
     const { logout, logged } = useAuthContext();
     const { fetchMoviesByGenre } = useGenreContext();
-    const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive } = useSearchContext();
+    const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive,fetch
+     } = useSearchContext();
+    const {fetchAiRecommendations, movieRecommendations, aiLoading  } = useAiRecommendationContext();
     const [isOpen, setIsOpen] = useState(false);
    
     const [selectedOption, setSelectedOption] = useState("All");
@@ -45,7 +47,7 @@ export default function TopBar() {
             { id: 10402, name: "Music" },
             { id: 9648, name: "Mystery" },
             { id: 10749, name: "Romance" },
-            { id: 878, name: "Science Fiction" },
+            { id: 878, name: "Sci-Fi" },
             { id: 53, name: "Thriller" },
             { id: 10752, name: "War" },
             { id: 37, name: "Western" }
@@ -65,19 +67,19 @@ export default function TopBar() {
                 {/* Dropdown */}
                 <div className="relative md:flex items-center hidden">
                     <div
-                        className={`${isOpen ? "border-blue-400" : "border-white/20"} flex items-center justify-center w-fit xl:w-36 h-full p-2 border-2 rounded-2xl cursor-pointer`}
+                        className={`${isOpen ? "border-blue-400" : "border-white/20"} flex items-center justify-center w-fit xl:w-36 h-full p-2 border rounded-2xl cursor-pointer bg-white/5`}
                         onClick={toggleDropdown}
                     >
                         <h2 className="ml-2">{selectedOption}</h2>
                         <img src={ExpandArrow} alt="arrow" className={`ml-2 h-3 ${isOpen ? 'rotate-180' : ''}`} />
                     </div>
                     {isOpen && (
-                        <div className="absolute top-16 w-40 border border-white/20 rounded-xl backdrop-blur-3xl shadow-lg text-white z-50 text-center tansition-transform duration-300">
+                        <div className="absolute top-16 bg-white/5 border border-white/20 rounded-xl backdrop-blur-3xl  text-white z-50 text-center tansition-all duration-200">
                             {genresObject.genres.map((option) => (
                                 <div
                                     key={option.id}
                                     onClick={() => handleOptionClick(option)}
-                                    className="px-4 py-1 hover:bg-blue-400 cursor-pointer rounded-lg transition-all duration-300 transform hover:scale-105"
+                                    className="px-4 hover:bg-black/30 cursor-pointer  transition-all duration-300 transform hover:scale-105"
                                 >
                                     {option.name}
                                 </div>
@@ -89,7 +91,7 @@ export default function TopBar() {
               
 
                 {/* Search Bar */}
-                <div className="flex items-center w-full md:w-[40%] h-full p-2 border-2 border-white/20 rounded-2xl">
+                <div className="flex items-center w-full md:w-[60%] h-full p-2 border border-white/20 bg-white/5 rounded-2xl">
                     <input
                         type="text"
                         placeholder="Search"
@@ -107,28 +109,39 @@ export default function TopBar() {
                         }}
                     />
                     <button type="submit" onClick={() => {
+                        fetchAiRecommendations(searchTerm);
+                        setSearchActive(true);
+                    }
+                    }>
+                        <img src={ChatGPT} className="ml-2 mr-2 h-6" alt="search" />
+                    </button>
+
+
+                    <button type="submit" onClick={() => {
                         fetchData(searchTerm);
                         setSearchActive(true);
                     }
                     }>
                         <img src={Search} className="ml-2 mr-2 h-6" alt="search" />
                     </button>
+                    
+
                 </div>
 
                 {/* Notification Button */}
-                <button className="hidden md:flex justify-center items-center h-12 p-2 border-2 border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400">
+                <button className="hidden md:flex justify-center items-center h-12 p-2 border border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400">
                     <img src={Notification} className="h-6" alt="Notification" />
                 </button>
 
                 {/* Profile Section */}
                 <button onClick={loggingout} className="hidden md:flex h-12">
-                    <div className="flex items-center h-full p-2 border-2 border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400">
+                    <div className="flex items-center h-full p-2 border border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400">
                         <img
                             src="https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj"
                             className="h-8 rounded-full"
                             alt="Profile"
                         />
-                        {/* <h2 className="ml-4">John Doe</h2> */}
+                        <h2 className="ml-4">John Doe</h2>
                         <img src={Enter} className="h-6 ml-2" alt="Logout" />
                     </div>
                 </button>

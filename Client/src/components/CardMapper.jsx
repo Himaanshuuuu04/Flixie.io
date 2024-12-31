@@ -48,7 +48,7 @@ export default function CardMapper() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center ">
         {/* Display skeletons when loading */}
         {loading &&
-          Array.from({ length: 14 }).map((_, index) => (
+          Array.from({ length: 21 }).map((_, index) => (
             <SkeletonLoaderCard key={index} />
           ))}
 
@@ -56,7 +56,7 @@ export default function CardMapper() {
         {!loading &&
           movies.map((movie) => (
             <Card
-              key={movie.id + Math.random()} // Ensure key is unique
+              key={movie.id} // Ensure key is unique
               id={movie.id}
               img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               title={movie.title}

@@ -15,37 +15,38 @@ import ProfileComplete from "./components/routes/ProfileComplete.jsx";
 import TopRated from "./components/routes/TopRated.jsx";
 import Friends from "./components/routes/Friends.jsx";
 import WatchHistroy from "./components/routes/WatchHistroy.jsx";
-function App() {
+import { AiRecommendationProvider } from "./components/contextAPI/AiRecommendationContext.jsx";
+export default function App(){
   return (
     <BackgroundGradientAnimation>
-     
-        <GenreProvider>
-          <AuthProvider>
-            <LikedMoviesProvider>
+      <GenreProvider>
+        <AuthProvider>
+          <LikedMoviesProvider>
             <SearchProvider>
-              <HashRouter>
-                <Routes>
-                  <Route path="/Login" element={<Login />} />
-                  <Route path="/ProfileComplete" element={<ProfileComplete />} />
-                  <Route path="*" element={<NotFound />} />
-                  <Route element={<AuthenticatedRoutes />}>
-                    <Route path="/" element={<Home />}/ >
-                    <Route path="/Home" element={<Home />}/ >
-                    <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
-                    <Route path="/Favourite" element={<Favourite />} />
-                    <Route path="/TopRated" element={<TopRated />} />
-                    <Route path="/Friends" element={<Friends />} />
-                    <Route path="WatchHistory" element={<WatchHistroy />} />
-                  </Route>
-                </Routes>
-              </HashRouter>
-              </SearchProvider>
-            </LikedMoviesProvider>
-          </AuthProvider>
-        </GenreProvider>
-      
+              <AiRecommendationProvider>
+                <HashRouter>
+                  <Routes>
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="/ProfileComplete" element={<ProfileComplete />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route element={<AuthenticatedRoutes />}>
+                      <Route path="/" element={<Home />}/ >
+                      <Route path="/Home" element={<Home />}/ >
+                      <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
+                      <Route path="/Favourite" element={<Favourite />} />
+                      <Route path="/TopRated" element={<TopRated />} />
+                      <Route path="/Friends" element={<Friends />} />
+                      <Route path="WatchHistory" element={<WatchHistroy />} />
+                    </Route>
+                  </Routes>
+                </HashRouter>
+              </AiRecommendationProvider>
+            </SearchProvider>
+          </LikedMoviesProvider>
+        </AuthProvider>
+      </GenreProvider> 
     </BackgroundGradientAnimation>
   );
 }
 
-export default App;
+

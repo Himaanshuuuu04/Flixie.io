@@ -6,7 +6,7 @@ const SearchContext = createContext();
 // Provider component
 export const SearchProvider = ({ children }) => {
     
-    const { likedMovies } = useLikedMoviesContext();
+    // const { likedMovies } = useLikedMoviesContext();
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -15,6 +15,9 @@ export const SearchProvider = ({ children }) => {
     const [trailerUrl, setTrailerUrl] = useState("");
     const [carouselMovies,setCarouselMovies]= useState([]);
     const [topRatedMovies,setTopRatedMovies]= useState([]);
+    const [hasMore, setHasMore] = useState(true); 
+    const [page, setPage] = useState(1);
+
     
    
 
@@ -81,19 +84,19 @@ export const SearchProvider = ({ children }) => {
 
 
 
-    const fetchMovies = async () => {
+    const fetchMovies = async (movies) => {
         setLoading(true);
     
         try {
             // If there are no liked movie IDs, return early
-            if (!likedMovies || likedMovies.length === 0) {
+            if (!movies || movies.length === 0) {
                 setMovies([]); // Ensure the state is cleared
                 setLoading(false);
                 return;
             }
     
             // Create an array of promises to fetch each movie by its ID and type
-            const moviePromises = likedMovies.map(({ movieId, type }) => {
+            const moviePromises =  movies.map(async({ movieId, type }) => {
                 const url = `https://api.themoviedb.org/3/${type}/${movieId}`;
                 const options = {
                     method: 'GET',
@@ -102,7 +105,7 @@ export const SearchProvider = ({ children }) => {
                         Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
                     },
                 };
-                return fetch(url, options)
+                return await fetch(url, options)
                     .then((response) => {
                         if (!response.ok) {
                             throw new Error(`Failed to fetch movie with ID ${movieId}`);
@@ -156,44 +159,53 @@ export const SearchProvider = ({ children }) => {
                 setLoading(false);
         }
       };
-      const fetchTopRatedMovies = async (userOptions = {}, page = 1) => {
+
+
+
+    const fetchTopRatedMovies = async (userOptions = {}, page = 1) => {
         if (loading) return; // Prevent duplicate requests
         setLoading(true);
-    
+        
+        // Helper function to format dates
         const formatDate = (date) => {
             const year = date.getFullYear();
             const month = `0${date.getMonth() + 1}`.slice(-2);
             const day = `0${date.getDate()}`.slice(-2);
             return `${year}-${month}-${day}`;
         };
-    
-        const defaultOptions = {
+        
+        // Default options for the API request
+        const getDefaultOptions = () => ({
             include_adult: false,
             include_video: false,
             language: "en-US",
             sort_by: "vote_average.desc",
             vote_count: "5000",
             primary_release_date: {
-                gte: "2010-01-01",
-                lte: formatDate(new Date()),
+            gte: "2010-01-01",
+            lte: formatDate(new Date()),
             },
             with_genres: "",
-        };
-    
-        const options = {
+        });
+        
+        // Merging user options with defaults
+        const mergeOptions = (defaultOptions, userOptions) => ({
             ...defaultOptions,
             ...userOptions,
             primary_release_date: {
-                ...defaultOptions.primary_release_date,
-                ...userOptions.primary_release_date,
+            ...defaultOptions.primary_release_date,
+            ...userOptions.primary_release_date,
             },
-        };
-    
-        if (options.with_genres) {
-            options.with_genres = options.with_genres.replace(/,/g, "%2C");
-        }
-    
-        const queryParams = new URLSearchParams({
+        });
+        
+        const defaultOptions = getDefaultOptions();
+        const options = mergeOptions(defaultOptions, userOptions);
+        
+        console.log("Fetching top rated movies with options:", options);
+        
+        // Build query parameters
+        const buildQueryParams = (options, page) => {
+            const params = new URLSearchParams({
             page,
             include_adult: options.include_adult,
             include_video: options.include_video,
@@ -202,33 +214,43 @@ export const SearchProvider = ({ children }) => {
             [`vote_count.gte`]: options.vote_count,
             [`primary_release_date.gte`]: options.primary_release_date.gte,
             [`primary_release_date.lte`]: options.primary_release_date.lte,
-        });
-    
-        if (options.with_genres) {
-            queryParams.append("with_genres", options.with_genres);
-        }
-    
+            });
+        
+            if (options.with_genres) {
+            params.append("with_genres", options.with_genres);
+            }
+        
+            return params;
+        };
+        
+        const queryParams = buildQueryParams(options, page);
         const url = `https://api.themoviedb.org/3/discover/movie?${queryParams.toString()}`;
         const fetchOptions = {
             method: "GET",
             headers: {
-                accept: "application/json",
-                Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+            accept: "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
             },
-        };
-    
+        }; 
+        
+        console.log("Fetching URL:", url);
+        
         try {
             const response = await fetch(url, fetchOptions);
             const data = await response.json();
-    
-            if (data.results) {
-                setTopRatedMovies((prevMovies) => [...prevMovies, ...data.results]);
-    
-                if (page >= data.total_pages) {
-                    setHasMore(false); // No more pages to fetch
-                }
+        
+            console.log("Received data:", data);
+        
+            if (data.results && Array.isArray(data.results)) {
+            // Append new movies to the existing list
+            setTopRatedMovies((prevMovies) => [...prevMovies, ...data.results]);
+        
+            // Check if there are more pages
+            const hasMorePages = page < (data.total_pages || 0);
+            setHasMore(hasMorePages);
             } else {
-                setHasMore(false); // Handle case where no results are returned
+            // No results returned, stop fetching
+            setHasMore(false);
             }
         } catch (error) {
             console.error("Error fetching movie details:", error);
@@ -240,13 +262,8 @@ export const SearchProvider = ({ children }) => {
     
     
     
-    
-
-    
-    
-
     return (
-        <SearchContext.Provider value={{ movies, loading, setSearchTerm, fetchData,searchTerm,searchActive,setSearchActive,movieDetails,fetchMovieDetails,trailerUrl,fetchMovies,carouselMovies,CarouselFetchMovies,topRatedMovies,fetchTopRatedMovies }}>
+        <SearchContext.Provider value={{ movies, loading, setSearchTerm, fetchData,searchTerm,searchActive,setSearchActive,movieDetails,fetchMovieDetails,trailerUrl,fetchMovies,carouselMovies,CarouselFetchMovies,topRatedMovies,fetchTopRatedMovies,setHasMore,hasMore,setPage,page }}>
             {children}
         </SearchContext.Provider>
     );

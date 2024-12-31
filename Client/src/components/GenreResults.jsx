@@ -3,17 +3,9 @@ import { useGenreContext } from './contextAPI/GenreContext';
 import Loader from './Loading'; // Assuming you have a Loader component
 
 const GenreResults = ({ genreId }) => {
-  const { moviesByGenre, loading, fetchMoviesByGenre } = useGenreContext();
+  const { moviesByGenre, loading,  } = useGenreContext();
 
-  useEffect(() => {
-    if (genreId) {
-      fetchMoviesByGenre(genreId);
-    }
-  }, [genreId, fetchMoviesByGenre]);
-
-  if (!genreId) {
-    return <p className="text-white">Please select a genre to view results.</p>;
-  }
+  
 
   return (
     <div>

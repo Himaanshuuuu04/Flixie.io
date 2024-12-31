@@ -64,7 +64,7 @@ export default function NavBar() {
                 className={({ isActive }) =>
                   `flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
                    ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
-                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 `
                 }
               >
                 <img src={Arrow} alt="top grossing" className="h-6 -mt-1" />

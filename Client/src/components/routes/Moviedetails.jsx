@@ -13,11 +13,14 @@ import { useSearchContext } from "../contextAPI/SearchContext";
 import SkeletonLoaderMoviedetails from "../SkeletonLoaderMoviedetils";
 
 const Moviedetails = () => {
-  const { likedMovies, addLikedMovie, removeLikedMovie } = useLikedMoviesContext();
+  const { likedMovies, addLikedMovie, removeLikedMovie ,watchedMovies,addWatchedMovie,} = useLikedMoviesContext();
   const { media_type, id } = useParams();
   const navigate = useNavigate();
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isTouched, setIsTouched] = useState({
+    Liked:false,
+    Watched:false
+  });
   const { movieDetails, trailerUrl, fetchMovieDetails, loading } = useSearchContext();
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState(null);
@@ -26,17 +29,28 @@ const Moviedetails = () => {
   const toggleLike = () => {
     const movieId = id;
     const mediaType = media_type;
-
     const isAlreadyLiked = likedMovies.some(
       (movie) => movie.movieId === movieId && movie.type === mediaType
     );
-
     if (isAlreadyLiked) {
       removeLikedMovie(movieId, mediaType);
-      setIsLiked(false);
+      setIsTouched(prev => ({ ...prev, Liked: true }));
     } else {
       addLikedMovie(movieId, mediaType);
-      setIsLiked(true);
+      setIsTouched(prev => ({ ...prev, Liked: false }));
+    }
+  };
+
+  const toggleWatch = () => {
+    const movieId = id;
+    const mediaType = media_type;
+    const isAlreadyWatched = watchedMovies.some(
+      (movie) => movie.movieId === movieId && movie.type === mediaType && movie.playedOn
+    );
+    if (isAlreadyWatched) {
+      setIsTouched(prev => ({ ...prev, Watched: true }));
+    } else {
+      addWatchedMovie(movieId, mediaType);
     }
   };
 
@@ -47,9 +61,20 @@ const Moviedetails = () => {
           movie.movieId === movieDetails.id.toString() &&
           movie.type === media_type
       );
-      setIsLiked(isAlreadyLiked);
+      setIsTouched(prev => ({ ...prev, Liked: isAlreadyLiked }));
     }
-  }, [movieDetails, likedMovies, media_type]);
+    if (movieDetails && watchedMovies) {
+      const isAlreadyWatched = watchedMovies.some(
+        (movie) =>
+          movie.movieId === movieDetails.id.toString() &&
+          movie.type === media_type &&
+          movie.playedOn
+      );
+      setIsTouched(prev => ({ ...prev, Watched: isAlreadyWatched }));
+    }
+
+  
+  }, [movieDetails, likedMovies, media_type,watchedMovies,]);
 
   useEffect(() => {
     fetchMovieDetails(id, media_type);
@@ -166,6 +191,7 @@ const Moviedetails = () => {
         </div>
         <div className="flex gap-4 -mt-2">
           <a
+            onClick={() => toggleWatch(movieDetails.id,media_type)}
             href={
               selectedSeason && selectedEpisode
                 ? `${VIDSRCS_ME_API}${media_type}?tmdb=${id}&season=${selectedSeason.season_number}&episode=${selectedEpisode}`
@@ -190,13 +216,13 @@ const Moviedetails = () => {
                 d="M5 3l14 9-14 9V3z"
               ></path>
             </svg>
-            <span className="text-sm -mb-1 text-white">Watch Now</span>
+            <span className="text-sm -mb-1 text-white">{isTouched.Watched ? "Already Watched" : "Watch Now"}</span>
           </a>
             
           <button
             onClick={() => toggleLike(movieDetails.id,media_type)}
             className={`flex items-center py-2 px-4 rounded-2xl shadow-sm transition-all transform hover:scale-105 focus:outline-none duration-200 ease-in-out ${
-              isLiked ? "bg-red-500 border border-red-500 text-white" : "bg-white/10 border border-white/20 text-white"
+              isTouched.Liked ? "bg-red-500 border border-red-500 text-white" : "bg-white/10 border border-white/20 text-white"
             }`}
           >
             <svg
@@ -214,7 +240,7 @@ const Moviedetails = () => {
                 d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C12.09 3.81 13.76 3 15.5 3 18.58 3 21 5.42 21 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
               ></path>
             </svg>
-            <span className="text-sm -mb-1">{isLiked ? "Liked" : "Like"}</span>
+            <span className="text-sm -mb-1">{isTouched.Liked ? "Liked" : "Like"}</span>
           </button>
         </div>
         

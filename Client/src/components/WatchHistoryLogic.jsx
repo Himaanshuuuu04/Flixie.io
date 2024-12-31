@@ -4,20 +4,21 @@ import { useLikedMoviesContext } from "./contextAPI/LikeContext";
 import { useSearchContext } from "./contextAPI/SearchContext";
 import Loader from "./Loading";
 import SkeletonLoaderCard from "./SkeletonLoaderCard";
-export default function FavouriteMovies() {
-  const { likedMovies } = useLikedMoviesContext(); 
-  const {movies,fetchMovies,loading}=useSearchContext();
+export default function WatchHistoryLogic() {
+  const { watchedMovies } = useLikedMoviesContext(); 
+  const {movies,fetchMovies}=useSearchContext();
 
   useEffect(() => {
-        fetchMovies(likedMovies);
-  }, [likedMovies]); // Trigger fetch when likedMovies changes
+        fetchMovies(watchedMovies);
+  }, [watchedMovies]); // Trigger fetch when likedMovies changes
 
   const addMediaType = (movies) => {
     return movies.map((movie) => {
-      const likedMovie = likedMovies.find((liked) => liked.movieId == movie.id);
+      const watchedMovie = watchedMovies.find((watched) => watched.movieId == movie.id);
       return {
         ...movie,
-        media_type: likedMovie?.type,
+        media_type: watchedMovie?.type,
+        playedOn: watchedMovie?.playedOn,
       };
     });
   };
@@ -35,11 +36,12 @@ export default function FavouriteMovies() {
             year={movie.release_date || movie.first_air_date}
             rating={movie.vote_average}
             media_type={movie.media_type}
+            playedOn={movie.playedOn || null}
           />
         ))
       ) : (
         <>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {Array.from({ length: 7 }).map((_, index) => (
           <SkeletonLoaderCard key={index} />
         ))}
 

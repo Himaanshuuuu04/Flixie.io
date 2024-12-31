@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Card from "./Card";
 import { useSearchContext } from "./contextAPI/SearchContext";
 import SkeletonLoaderCard from "./SkeletonLoaderCard";
 
-
 export default function TopRatedLogic() {
-  const { topRatedMovies, fetchTopRatedMovies, loading } = useSearchContext();
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
+  const { topRatedMovies, fetchTopRatedMovies, loading, setHasMore, hasMore, page, setPage } = useSearchContext();
 
   // State to handle user inputs
   const [userInputs, setUserInputs] = useState({
@@ -18,34 +15,28 @@ export default function TopRatedLogic() {
     with_genres: "", // New genre input
   });
 
-  // Fetch movies on page load or when `page` changes
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const newMovies = await fetchTopRatedMovies(
-        {
-          sort_by: userInputs.sort_by,
-          vote_count: userInputs.vote_count,
-          primary_release_date: {
-            gte: userInputs.start_date,
-            lte: userInputs.end_date,
-          },
-          with_genres: userInputs.with_genres,
+  // Centralized fetch logic
+  const fetchMovies = (overridePage = 1) => {
+    fetchTopRatedMovies(
+      {
+        sort_by: userInputs.sort_by,
+        vote_count: userInputs.vote_count,
+        primary_release_date: {
+          gte: userInputs.start_date,
+          lte: userInputs.end_date,
         },
-        page
-      );
+        with_genres: userInputs.with_genres,
+      },
+      overridePage
+    );
+  };
 
-      // Update `hasMore` based on the fetched data
-      if (newMovies.length === 0) {
-        setHasMore(false); // No more movies to load
-      }
-    };
+  useEffect(() => {
+    if (loading) return;
+    console.log("Fetching top rated movies with options:", userInputs);
+    fetchMovies(1); // Initial fetch
+  }, []); // Add `userInputs` here if you want to re-fetch on changes
 
-    if (!loading) {
-      fetchMovies();
-    }
-  }, [page, userInputs]); // Add dependencies
-
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserInputs((prev) => ({
@@ -54,29 +45,22 @@ export default function TopRatedLogic() {
     }));
   };
 
-  // Load more movies
   const loadMoreMovies = () => {
     if (hasMore && !loading) {
-      setPage((prevPage) => prevPage + 1); // Increment page for the next fetch
+      setPage((prevPage) => prevPage + 1);
+      fetchMovies(page + 1); // Fetch next page
     }
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
+    if (loading) return;
     e.preventDefault();
     setPage(1); // Reset to the first page
     setHasMore(true); // Reset `hasMore` in case new filters allow more data
-    fetchTopRatedMovies({
-      sort_by: userInputs.sort_by,
-      vote_count: userInputs.vote_count,
-      primary_release_date: {
-        gte: userInputs.start_date,
-        lte: userInputs.end_date,
-      },
-      with_genres: userInputs.with_genres,
-    }, 1);
+    fetchMovies(1); // Fetch with updated filters
   };
 
+  
   return (
     <div className="flex flex-col items-center ">
       {/* Form for user inputs */}
@@ -168,7 +152,7 @@ export default function TopRatedLogic() {
       {/* Movies Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5  justify-items-center w-full">
         {loading ? (
-          Array.from({ length: 20 }).map((_, index) => (
+          Array.from({ length: 42 }).map((_, index) => (
             <SkeletonLoaderCard key={index} />
           ))
         ) : (
@@ -188,7 +172,7 @@ export default function TopRatedLogic() {
             />
           ))
         )}
-      </div>                                                                                    szx
+      </div>                                                                                   
       {hasMore && !loading && (
         <div className="text-center mt-8 md:mb-0 mb-10">
           <button
