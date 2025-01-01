@@ -19,15 +19,9 @@ const formatISODate = (isoDate) => {
 
 
 export default function Card({ id, img, title, link, year, rating, media_type, playedOn }) {
-    const maxTitleLength = 16;
     const media = media_type || "movie";
-    const truncatedTitle = title.length > maxTitleLength 
-        ? `${title.slice(0, maxTitleLength)}...` 
-        : title;
     const yearSliced = new Date(year).getFullYear();
-
     const formattedPlayedOn = playedOn ? formatISODate(playedOn) : null;
-
     return (
         <Link 
             to={`/Moviedetails/${media}/${id}`} 

@@ -1,18 +1,18 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useState, useContext, createContext } from "react";
-
+import { useSearchContext } from "./SearchContext";
 // Create context for AI Recommendations
 const AiRecommendationContext = createContext();
 
 export const AiRecommendationProvider = ({ children }) => {
     const [movieRecommendations, setMovieRecommendations] = useState([]);
     const [aiLoading, setAiLoading] = useState(false);
-
+    const { fetchMovies } = useSearchContext();
     const API_KEY = import.meta.env.VITE_GEMINI_API_KEY; // Ensure your API key is set in the environment
 
     async function fetchAiRecommendations(query) {
         const schema = {
-            description: "List of at least 5 or more recommendations of movies related to description or keywords",
+            description: "List of at least 5 or more recommendations of movies or series related to description or keywords",
             type: "array",
             items: {
                 type: "object",
@@ -22,8 +22,13 @@ export const AiRecommendationProvider = ({ children }) => {
                         description: "ID of the movie from TMDB",
                         nullable: false,
                     },
+                    type: {
+                        type: "string",
+                        description: "movie or tv",
+                        nullable: false,
+                    },
                 },
-                required: ["movieId"],
+                required: ["movieId", "type"],
             },
         };
     
@@ -45,7 +50,7 @@ export const AiRecommendationProvider = ({ children }) => {
             const result = await model.generateContent(query);
     
             // Log the full response for debugging
-            console.log("Full response:", result);
+         
     
             // Extract recommendations from the response
             const rawText = result.response?.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -65,13 +70,15 @@ export const AiRecommendationProvider = ({ children }) => {
     
             // Update state with recommendations
             setMovieRecommendations(recommendations);
-            console.log("Parsed recommendations:", recommendations);
+            
+            fetchMovies(recommendations);
             return { success: true, query, recommendations };
         } catch (error) {
             console.error("Error fetching recommendations:", error);
             return { success: false, query, error: error.message || "An error occurred while fetching recommendations" };
         } finally {
             setAiLoading(false);
+            
         }
     }
     

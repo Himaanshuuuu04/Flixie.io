@@ -26,7 +26,8 @@ export const SearchProvider = ({ children }) => {
         const searchTerm = term.replaceAll(' ', '%20');
        
         setLoading(true);
-        const url = `https://api.themoviedb.org/3/search/multi?query=${searchTerm}&include_adult=false&language=en-US&page=1`;
+        setMovies([]);
+        const url = `https://api.themoviedb.org/3/search/multi?query=${searchTerm}&include_adult=false&language=en-US&page=1&sort_by=popularity.desc`;
 
         const options = {
             method: 'GET',
@@ -86,7 +87,8 @@ export const SearchProvider = ({ children }) => {
 
     const fetchMovies = async (movies) => {
         setLoading(true);
-    
+        setMovies([]);
+        
         try {
             // If there are no liked movie IDs, return early
             if (!movies || movies.length === 0) {
@@ -127,10 +129,13 @@ export const SearchProvider = ({ children }) => {
             // Update the state with the fetched movies
             setMovies(validMovies);
            
+           
         } catch (error) {
             console.error("Error fetching movies:", error);
         } finally {
             setLoading(false);
+
+            
         }
     };
     

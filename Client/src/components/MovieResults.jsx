@@ -1,67 +1,61 @@
 // src/components/MovieList.js
 import React from 'react';
-
+import Card from "./Card.jsx";
 import { useSearchContext} from "./contextAPI/SearchContext.jsx"
-import Loader from './Loading.jsx';
-import {Link } from "react-router-dom";
+import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext.jsx';
+import SkeletonLoaderCard from "./SkeletonLoaderCard.jsx";
 
 function MovieResults() {
-    const { movies, loading, searchTerm,setSearchActive } = useSearchContext();
-
+    const { movies, loading, searchTerm, setSearchActive } = useSearchContext();
+    const { aiLoading } = useAiRecommendationContext();
+    
     return (
         <div className="">
-            {loading ? (
-                <div className="flex justify-center items-center h-screen">
-                <Loader/>
-                </div>
-            ) : (
-                movies.length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-6 gap-5 ">
-                        {movies.map((movie) => (
-                            (movie.poster_path&&movie.vote_average>4) ? (
-                               
-                                <div
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-5 md:gap-5 justify-items-center bg-white/5 border border-white/20 rounded-xl p-6 ">
+                {loading || aiLoading ? (
+                    Array.from({ length: 21 }).map((_, index) => (
+                        <SkeletonLoaderCard key={index} />
+                    ))
+                ) : (
+                    <>
+                        <svg
+                            className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute  right-24  cursor-pointer rounded-full p-2 z-50 hidden md:flex hover:scale-110 transition-all duration-300 ease-in-out"
+                            onClick={() => setSearchActive(false)}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            aria-hidden="true"
+                        >
+                            <path
+                                className="fill-white"
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10.5858 12L2.29291 3.70706L3.70712 2.29285L12 10.5857L20.2929 2.29285L21.7071 3.70706L13.4142 12L21.7071 20.2928L20.2929 21.7071L12 13.4142L3.70712 21.7071L2.29291 20.2928L10.5858 12Z"
+                            ></path>
+                        </svg>
+                        {movies.map((movie) =>
+                            movie.poster_path && movie.vote_average > 4 ? (
+                                <Card
                                     key={movie.id}
-                                    className="bg-white/10 rounded-2xl text-white border-2 border-white/20 overflow-hidden backdrop-filter backdrop-blur-3xl shadow-xl  hover:bg-blue-400 transition-all duration-300 "
-                                    onClick={() => setSearchActive(false)}
-                                >
-                                <Link to={`/Moviedetails/${movie.media_type}/${movie.id}`}>
-                                    <img
-                                        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                                        alt={movie.title || movie.name}
-                                        className="h-[70%] w-full object-cover"
-                                        onError={(e) => e.currentTarget.classList.add('hidden')}
-                                    />
-                                    <div className="p-4 bg-white/10 h-[30%] flex flex-col justify-between">
-                                        {/* Title */}
-                                        <h3
-                                            className="font-bold truncate max-w-full"
-                                            title={movie.title || movie.name} // Tooltip for full title
-                                        >
-                                            {movie.title || movie.name}
-                                        </h3>
-
-                                        {/* Release Year */}
-                                        <p className="text-sm opacity-60">
-                                            Year: { movie.release_date || movie.first_air_date}
-                                        </p>
-
-                                        {/* Rating */}
-                                        <p className="text-sm opacity-60">Rating: {movie.vote_average}</p>
-
-                                        
-                                    </div>
-                                    </Link>
-                                </div>
-                                
+                                    id={movie.id}
+                                    img={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                    title={movie.title || movie.name}
+                                    link={`/Moviedetails${movie.media_type}/${movie.id}`}
+                                    year={movie.release_date || movie.first_air_date}
+                                    rating={movie.vote_average}
+                                    media_type={movie.media_type}
+                                />
                             ) : null
-                        ))}
-                    </div>
-                )
-            )}
-            {movies.length === 0 && !loading && searchTerm && (
-                <p className="text-white">No results found for "{searchTerm}".</p>
-            )}
+                        )}
+                    </>
+                )}
+                {movies.length === 0 && !loading && searchTerm && !aiLoading && (
+                    <p className="text-white">No results found for "{searchTerm}".</p>
+                )}
+            </div>
         </div>
     );
 }

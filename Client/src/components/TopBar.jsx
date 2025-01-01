@@ -14,9 +14,8 @@ import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext
 export default function TopBar() {
     const { logout, logged } = useAuthContext();
     const { fetchMoviesByGenre } = useGenreContext();
-    const { movies, loading, setSearchTerm, fetchData, searchTerm, setSearchActive,fetch
-     } = useSearchContext();
-    const {fetchAiRecommendations, movieRecommendations, aiLoading  } = useAiRecommendationContext();
+    const {  setSearchTerm, fetchData, searchTerm, setSearchActive } = useSearchContext();
+    const {fetchAiRecommendations } = useAiRecommendationContext();
     const [isOpen, setIsOpen] = useState(false);
    
     const [selectedOption, setSelectedOption] = useState("All");
