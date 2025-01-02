@@ -216,7 +216,7 @@ const Moviedetails = () => {
                 d="M5 3l14 9-14 9V3z"
               ></path>
             </svg>
-            <span className="text-sm -mb-1 text-white">{isTouched.Watched ? "Already Watched" : "Watch Now"}</span>
+            <span className="text-sm -mb-1 text-white">{isTouched.Watched ? "Watch Again" : "Watch Now"}</span>
           </a>
             
           <button
@@ -258,10 +258,7 @@ const Moviedetails = () => {
             <ClockIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
             <strong>Runtime : </strong> {movieDetails.runtime || movieDetails.episode_run_time} minutes
           </p>
-          <p className="text-white text-base font-thin flex items-center">
-            <StarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
-            <strong>Rating : </strong> {movieDetails.vote_average} / 10 ({movieDetails.vote_count} votes)
-          </p>
+          
           <p className="text-white text-base font-thin flex items-center">
               <StarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
               <strong>Rating : </strong> {movieDetails.vote_average} / 10

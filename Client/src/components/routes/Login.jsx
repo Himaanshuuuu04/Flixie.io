@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { SparklesCore } from "../SparkleText";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuthContext } from '../contextAPI/AuthContext';
 import GithubButton from "../Github";
 import GoogleButton from "../Google";
 import { account,ID } from '../Appwrite/Config';
-
+import TextGenerateEffect from "../TextGenerate";
 const Login = () => {
   const { setLogged } = useAuthContext();
   const [formdata, setFormData] = React.useState({
@@ -77,18 +77,25 @@ const Login = () => {
     <>
       <ToastContainer />
       <div className="flex flex-col items-center justify-center w-screen h-screen overflow-auto z-50">
-        <div className="flex items-center justify-center w-full h-full px-4 md:px-0">
+      
+        <div className="flex items-center justify-center w-full h-full px-4 md:px-0 z-20">
+          
           <div className="flex flex-col items-center justify-center w-full px-4 py-8 text-white font-sans lg:py-0 md:w-2/3 lg:w-1/3 mt-10 mb-10">
-            <div className="w-full border border-white/20 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl">
+
+
+          
+          
+
+            <div className="w-full border border-white/20 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl  ">
               <div className="p-6 space-y-4 sm:p-8">
-                <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl">
-                  Login to Flixie
+                <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl ">
+                <TextGenerateEffect duration={2} filter={true} words={"Login to Flixie"} />
                 </p>
                 <div>
                   <label className="block mb-1 text-sm md:text-md font-light">Email</label>
                   <input
-                    placeholder="Your email"
-                    className="bg-black/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
+                    placeholder="eternalfaith@gmail.com"
+                    className="bg-black/20 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/50 outline-none text-center"
                     id="email"
                     type="email"
                     name="email"
@@ -106,8 +113,8 @@ const Login = () => {
                   <label className="block mb-1 text-sm md:text-md font-light">OTP</label>
                   <div className='flex gap-8'>
                   <input
-                    placeholder="Enter OTP"
-                    className="bg-black/10 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none"
+                    placeholder="One Time Password"
+                    className="bg-black/20 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/60 outline-none text-center"
                     id="otp"
                     type="text"
                     name="otp"
@@ -122,14 +129,14 @@ const Login = () => {
                     
                   />
                   <button
-                    className=" md:w-[40%] w-[50%] border border-white/20 bg-white/20 hover:bg-white/10 focus:ring-2 focus:outline-none focus:ring-white/50  rounded-lg text-xs md:text-sm px-5 py-2.5 text-center text-white transition-all duration-300"
+                    className=" md:w-[40%] w-[50%] border border-white/20 bg-white/10 hover:bg-white/5 focus:ring-1 focus:outline-none focus:ring-white/50  rounded-lg text-xs md:text-sm px-5 py-2.5 text-center text-white transition-all duration-300"
                     onClick={generateOTP}
                   >
                     Get OTP
                   </button>
                   </div>
                   <button
-                    className="mt-8 w-full  bg-white/20 border border-white/20 hover:bg-white/10 focus:ring-2 focus:outline-none focus:ring-white/50  rounded-lg text-sm md:text-base px-5 py-2.5 text-center text-white transition-all duration-300"
+                    className="mt-8 w-full  bg-white/10 border border-white/10 hover:bg-white/5 focus:ring-1 focus:outline-none focus:ring-white/50  rounded-lg text-sm md:text-base px-5 py-2.5 text-center text-white transition-all duration-300"
                     onClick={verifyOTP}
                   >
                     Login
@@ -138,10 +145,10 @@ const Login = () => {
                 <div className="mt-6">
                   <p className="text-sm md:text-md text-center mb-4">or login with</p>
                   <div className="flex justify-center gap-8">
-                    <button onClick={() => handleOAuthLogin('google')}>
+                    <button onClick={() => handleOAuthLogin('google')} className='animate-third'>
                       <GoogleButton />
                     </button>
-                    <button onClick={() => handleOAuthLogin('github')}>
+                    <button onClick={() => handleOAuthLogin('github')} className='animate-fifth'>
                       <GithubButton />
                     </button>
                   </div>
@@ -150,6 +157,8 @@ const Login = () => {
             </div>
           </div>
         </div>
+
+        
       </div>
       </>
   );

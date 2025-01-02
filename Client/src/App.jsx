@@ -16,9 +16,22 @@ import TopRated from "./components/routes/TopRated.jsx";
 import Friends from "./components/routes/Friends.jsx";
 import WatchHistroy from "./components/routes/WatchHistroy.jsx";
 import { AiRecommendationProvider } from "./components/contextAPI/AiRecommendationContext.jsx";
+import {SparklesCore} from "./components/SparkleText.jsx";
 export default function App(){
   return (
     <BackgroundGradientAnimation>
+      <div className='w-full absolute inset-0 h-screen'>
+                <SparklesCore
+                    id="tsparticlesfullpage"
+                    background="transparent"
+                    minSize={0.2}
+                    maxSize={1}
+                    particleDensity={40}
+                    className="w-full h-full "
+                    particleColor="#FFFFFF"
+                    speed={1}
+                />
+        </div>
       <GenreProvider>
         <AuthProvider>
           <LikedMoviesProvider>

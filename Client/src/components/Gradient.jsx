@@ -1,21 +1,42 @@
 import { cn } from "../lib/utils";
 import { useEffect, useRef, useState } from "react";
-
+import { SparklesCore } from "./SparkleText";
 export const BackgroundGradientAnimation = ({
-  gradientBackgroundStart = "rgb(0, 17, 45)",    // Dark blue
-  gradientBackgroundEnd = "rgb(50, 0, 30)",      // Darker shade of red (reduced intensity)
-  firstColor = "25, 100, 255",                 // Vibrant sky blue
-  secondColor = "250, 75, 125",                // Bright rose pink
-  thirdColor = "40, 80, 150",                  // Muted cobalt blue
-  fourthColor = "120, 55, 150",                // Deep lavender purple
-  fifthColor = "200, 160, 70",                 // Sunset orange
-  pointerColor = "85, 40, 155",         // Dark violet
-  size = "75%",
+  gradientBackgroundStart = "rgb(5, 5, 15)",      // Almost black with a hint of navy
+  gradientBackgroundEnd = "rgb(20, 5, 25)",       // Deep eggplant
+  firstColor = "10, 90, 200",                    // Muted sapphire blue
+  secondColor = "200, 40, 80",                   // Dark cherry red
+  thirdColor = "20, 50, 90",                     // Shadowy cobalt blue
+  fourthColor = "100, 30, 150",                  // Dusky violet
+  fifthColor = "180, 10, 100",                   // Dim golden amber
+  pointerColor = "70, 20, 140",                  // Shadowy purple
+  size = "60%",
   blendingValue = "hard-light",
   children,
   className,
   interactive = false,
   containerClassName
+  
+  
+
+
+
+
+
+  // gradientBackgroundStart = "rgb(0, 17, 45)",    // Dark blue
+  // gradientBackgroundEnd = "rgb(50, 0, 30)",      // Darker shade of red (reduced intensity)
+  // firstColor = "25, 100, 255",                 // Vibrant sky blue
+  // secondColor = "250, 75, 125",                // Bright rose pink
+  // thirdColor = "40, 80, 150",                  // Muted cobalt blue
+  // fourthColor = "120, 55, 150",                // Deep lavender purple
+  // fifthColor = "200, 160, 70",                 // Sunset orange
+  // pointerColor = "85, 40, 155",         // Dark violet
+  // size = "75%",
+  // blendingValue = "hard-light",
+  // children,
+  // className,
+  // interactive = false,
+  // containerClassName
 }) => {
   const interactiveRef = useRef(null);
 
@@ -77,6 +98,7 @@ export const BackgroundGradientAnimation = ({
           isSafari ? "blur-3xl" : "[filter:url(#blurMe)_blur(50px)]"
         )}
       >
+        
         <div
           className={cn(
             `absolute [background:radial-gradient(circle_at_center,_var(--first-color)_0,_var(--first-color)_50%)_no-repeat]`,
@@ -122,6 +144,7 @@ export const BackgroundGradientAnimation = ({
             `opacity-100`
           )}
         ></div>
+        
 
         {interactive && (
           <div
