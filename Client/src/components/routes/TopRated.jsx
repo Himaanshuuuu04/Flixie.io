@@ -6,7 +6,7 @@ import MovieResults from "../MovieResults";
 import { useSearchContext } from "../contextAPI/SearchContext.jsx";
 import { useGenreContext } from "../contextAPI/GenreContext.jsx";
 import TopRatedLogic from "../TopRatedLogic.jsx";
-export default function MainLayout() {
+export default function TopRated() {
   const { movieByGenre } = useGenreContext();
   const { searchActive, setSearchActive, searchTerm } = useSearchContext();
 

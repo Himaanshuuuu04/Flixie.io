@@ -88,7 +88,7 @@ const Login = () => {
 
             <div className="w-full border border-white/20 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl  ">
               <div className="p-6 space-y-4 sm:p-8">
-                <p className="text-2xl font-semibold leading-tight tracking-tight text-center md:text-3xl ">
+                <p className="text-3xl font-semibold leading-tight tracking-tight text-center md:text-3xl ">
                 <TextGenerateEffect duration={2} filter={true} words={"Login to Flixie"} />
                 </p>
                 <div>

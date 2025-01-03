@@ -16,49 +16,54 @@ import TopRated from "./components/routes/TopRated.jsx";
 import Friends from "./components/routes/Friends.jsx";
 import WatchHistroy from "./components/routes/WatchHistroy.jsx";
 import { AiRecommendationProvider } from "./components/contextAPI/AiRecommendationContext.jsx";
+import { FriendProvider } from "./components/contextAPI/FriendContext.jsx";
 import {SparklesCore} from "./components/SparkleText.jsx";
 export default function App(){
   return (
-    <BackgroundGradientAnimation>
+    <>
+     <BackgroundGradientAnimation>
       <div className='w-full absolute inset-0 h-screen'>
-                <SparklesCore
-                    id="tsparticlesfullpage"
-                    background="transparent"
-                    minSize={0.2}
-                    maxSize={1}
-                    particleDensity={40}
-                    className="w-full h-full "
-                    particleColor="#FFFFFF"
-                    speed={1}
-                />
-        </div>
+        <SparklesCore
+          id="tsparticlesfullpage"
+          background="transparent"
+          minSize={0.2}
+          maxSize={1}
+          particleDensity={40}
+          className="w-full h-full "
+          particleColor="#FFFFFF"
+          speed={1}
+        />
+      </div>
       <GenreProvider>
         <AuthProvider>
           <LikedMoviesProvider>
             <SearchProvider>
               <AiRecommendationProvider>
-                <HashRouter>
-                  <Routes>
-                    <Route path="/Login" element={<Login />} />
-                    <Route path="/ProfileComplete" element={<ProfileComplete />} />
-                    <Route path="*" element={<NotFound />} />
-                    <Route element={<AuthenticatedRoutes />}>
-                      <Route path="/" element={<Home />}/ >
-                      <Route path="/Home" element={<Home />}/ >
-                      <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
-                      <Route path="/Favourite" element={<Favourite />} />
-                      <Route path="/TopRated" element={<TopRated />} />
-                      <Route path="/Friends" element={<Friends />} />
-                      <Route path="WatchHistory" element={<WatchHistroy />} />
-                    </Route>
-                  </Routes>
-                </HashRouter>
+                <FriendProvider>
+                  <HashRouter>
+                    <Routes>
+                      <Route path="/Login" element={<Login />} />
+                      <Route path="/ProfileComplete" element={<ProfileComplete />} />
+                      <Route path="*" element={<NotFound />} />
+                      <Route element={<AuthenticatedRoutes />}>
+                        <Route path="/" element={<Home />}/ >
+                        <Route path="/Home" element={<Home />}/ >
+                        <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
+                        <Route path="/Favourite" element={<Favourite />} />
+                        <Route path="/TopRated" element={<TopRated />} />
+                        <Route path="/Friends" element={<Friends />} />
+                        <Route path="WatchHistory" element={<WatchHistroy />} />
+                      </Route>
+                    </Routes>
+                  </HashRouter>
+                </FriendProvider>
               </AiRecommendationProvider>
             </SearchProvider>
           </LikedMoviesProvider>
         </AuthProvider>
       </GenreProvider> 
     </BackgroundGradientAnimation>
+    </>
   );
 }
 

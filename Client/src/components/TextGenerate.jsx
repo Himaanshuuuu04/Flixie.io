@@ -43,7 +43,7 @@ export default function TextGenerateEffect({
     (<div className={cn("font-bold", className)}>
       <div >
         <div
-          className=" dark:text-white text-black text-2xl leading-snug tracking-wide">
+          className=" dark:text-white text-black text-2xl md:text-3xl leading-snug tracking-normal">
           {renderWords()}
         </div>
       </div>

@@ -60,13 +60,13 @@ export default function TopBar() {
     };
     const navigate = useNavigate();
     return (
-        <div className="flex flex-col w-full md:mr-0 md:ml-0 mr-5 ml-5 z-40">
+        <div className="flex flex-col w-full md:mr-0 md:ml-0 mr-5 ml-5 z-40 ">
             {/* TopBar */}
             <div className="flex items-center justify-between w-full h-12 px-0 font-sans font-light text-white text-lg">
                 {/* Dropdown */}
                 <div className="relative md:flex items-center hidden">
                     <div
-                        className={`${isOpen ? "border-blue-400" : "border-white/20"} flex items-center justify-center w-fit xl:w-36 h-full p-2 border rounded-2xl cursor-pointer bg-white/5`}
+                        className={`${isOpen ? "border-blue-400" : "border-white/20"} flex items-center justify-center w-fit xl:w-36 h-full p-2 border rounded-2xl cursor-pointer bg-white/5 backdrop-blur-xl`}
                         onClick={toggleDropdown}
                     >
                         <h2 className="ml-2">{selectedOption}</h2>
@@ -90,7 +90,7 @@ export default function TopBar() {
               
 
                 {/* Search Bar */}
-                <div className="flex items-center w-full md:w-[60%] h-full p-2 border border-white/20 bg-white/5 rounded-2xl">
+                <div className="flex items-center w-full md:w-[60%] h-full p-2 border border-white/20 bg-white/5 rounded-2xl backdrop-blur-xl  ">
                     <input
                         type="text"
                         placeholder="Search"
