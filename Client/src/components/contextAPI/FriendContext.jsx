@@ -16,33 +16,66 @@ export const FriendProvider = ({ children }) => {
 
     useEffect(() => {
         if (!currentUser) return;
-
-        // Subscribe to real-time updates for friend requests involving the current user
+    
+        async function fetchFriendRequests() {
+            if(userLoading) return;
+            setUserLoading(true);
+            try {
+                const response = await databases.listDocuments(
+                    DATABASE_ID,
+                    FRIEND_REQUESTS_COLLECTION_ID,
+                    [
+                        Query.or([
+                            Query.equal("senderId", currentUser.$id),
+                            Query.equal("receiverId", currentUser.$id)
+                        ])
+                    ]
+                );
+                
+                setFriendRequests(response.documents);
+                console.log("Fetched existing friend requests:", response.documents);
+            } catch (error) {
+                console.error("Error fetching friend requests:", error);
+            } finally {
+                setUserLoading(false);
+            }
+        }
+    
+        fetchFriendRequests();
+    
+        // Subscribe to real-time updates for friend requests
         const unsubscribe = client.subscribe(
             `databases.${DATABASE_ID}.collections.${FRIEND_REQUESTS_COLLECTION_ID}.documents`,
             (response) => {
-                const event = response.events[0];
-                const payload = response.payload;
-
-                // Check if the update involves the current user
-                if (payload.sender_id === currentUser.$id || payload.receiver_id === currentUser.$id) {
-                    if (event.includes("create")) {
+                const { events, payload } = response;
+                console.log(currentUser.$id);
+                // Check if the event involves the current user
+                if (
+                    payload.senderId === currentUser.$id ||
+                    payload.receiverId === currentUser.$id
+                ) {
+                    if (events.includes("databases.*.collections.*.documents.create")) {
                         console.log("New friend request received:", payload);
                         setFriendRequests((prev) => [...prev, payload]);
-                    } else if (event.includes("update")) {
+                    } else if (events.includes("databases.*.collections.*.documents.update")) {
                         console.log("Friend request updated:", payload);
                         setFriendRequests((prev) =>
                             prev.map((req) =>
-                                req.$id === payload.$id ? { ...req, status: payload.status } : req
+                                req.$id === payload.$id
+                                    ? { ...req, status: payload.status }
+                                    : req
                             )
                         );
                     }
                 }
             }
         );
-
-        return () => unsubscribe(); // Clean up subscription when component unmounts
+    
+        // Cleanup function to unsubscribe on unmount
+        return () => unsubscribe();
     }, [currentUser]);
+    
+    
 
     async function searchUsers(queryString) {
         if (userLoading) return;
@@ -69,10 +102,10 @@ export const FriendProvider = ({ children }) => {
             const response = await databases.createDocument(
                 DATABASE_ID,
                 FRIEND_REQUESTS_COLLECTION_ID,
-                ID.unique(), // Auto-generate a unique ID
+                (receiverId+currentUser.$id).slice(0, 36), // Auto-generate a unique ID with a maximum length of 20
                 {
-                    sender_id: currentUser.$id,
-                    receiver_id: receiverId,
+                    senderId: currentUser.$id,
+                    receiverId: receiverId,
                     status: "pending",
                 }
             );

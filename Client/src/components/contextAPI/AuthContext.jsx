@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
 
     // Check if the user is already logged in and check for profile completion
     useEffect(() => {
+        let isMounted = true;
         const checkSession = async () => {
             try {
                 // Check if the user has a session
@@ -28,26 +29,33 @@ export const AuthProvider = ({ children }) => {
         
                 const profileCompleted = prefs?.profileCompleted === true;
         
-                setUserData({
-                    logged: true,
-                    profileCompleted,
-                    loading: false,
-                    currentUser,
-                });
+                if (isMounted) {
+                    setUserData({
+                        logged: true,
+                        profileCompleted,
+                        loading: false,
+                        currentUser : currentUser,
+                    });
+                }
             } catch (error) {
                 // Handle case where no session exists or an error occurs
-                setUserData({
-                    logged: false,
-                    profileCompleted: false,
-                    loading: false,
-                    currentUser: null,  
-                });
+                if (isMounted) {
+                    setUserData({
+                        logged: false,
+                        profileCompleted: false,
+                        loading: false,
+                        currentUser: null,  
+                    });
+                }
                 console.error('Session check failed:', error);
             }
         };
-        
-
+        console.log("Checking session...");
         checkSession();
+
+        return () => {
+            isMounted = false;
+        };
     }, []); // Empty dependency array to run once when the component mounts
 
     // Exportable function to update profileCompleted state
@@ -69,7 +77,9 @@ export const AuthProvider = ({ children }) => {
     };
 
     if (userData.loading) {
-        return <Loading />; // Optional: Show a loading indicator while checking the session
+        return  <div className='w-screen h-screen'>
+                  <Loading />
+                </div>; // Optional: Show a loading indicator while checking the session
     }
 
     return (

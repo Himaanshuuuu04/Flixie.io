@@ -29,7 +29,7 @@ export default function App(){
           minSize={0.2}
           maxSize={1}
           particleDensity={40}
-          className="w-full h-full "
+          className="w-full h-full"
           particleColor="#FFFFFF"
           speed={1}
         />

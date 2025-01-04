@@ -115,7 +115,7 @@ const Carousel = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`h-1.5 w-1.5 md:w-2 md:h-2 rounded-full transition duration-300 ${currentIndex === index ? 'bg-white' : 'bg-white/10'}`}
+            className={`h-1.5 w-1.5 md:w-2 md:h-2 rounded-full transition duration-300 ease-in-out ${currentIndex === index ? 'bg-white' : 'bg-white/10'}`}
           />
         ))}
       </div>

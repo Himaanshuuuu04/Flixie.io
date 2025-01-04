@@ -48,7 +48,8 @@ export const LikedMoviesProvider = ({ children }) => {
     // Fetch liked movies
     const fetchLikedMovies = async () => {
         try {
-            if (!currentUser) {
+            console.log(currentUser);
+            if (!currentUser.prefs.profileCompleted) {
                 console.warn('User is not logged in. Skipping liked movies fetch.');
                 return;
             }
@@ -177,7 +178,7 @@ export const LikedMoviesProvider = ({ children }) => {
     // Fetch watched movies
     const fetchWatchedMovies = async () => {
         try {
-            if (!currentUser) {
+            if (!currentUser.prefs.profileCompleted) {
                 console.warn('User is not logged in. Skipping watched movies fetch.');
                 return;
             }

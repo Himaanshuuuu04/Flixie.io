@@ -8,15 +8,15 @@ import { account, ID, databases } from '../Appwrite/Config';
 function ProfileComplete() {
     const [formData, setFormData] = useState({
         fullName: '',
-        email: '',
         profilePicture: '',
         dateOfBirth: '',
         gender: '',
     });
 
     const navigate = useNavigate();
-    const { logged,setProfileCompleted  } = useAuthContext();
-
+    const { logged,setProfileCompleted,currentUser  } = useAuthContext();
+    console.log(currentUser);
+    const email = currentUser.email;
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({
@@ -24,13 +24,14 @@ function ProfileComplete() {
             [name]: value,
         }));
     };
-
+    
+    
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const { fullName, email, dateOfBirth, gender } = formData;
+        const { fullName, dateOfBirth, gender } = formData;
 
-        if (!fullName || !email || !dateOfBirth || !gender) {
+        if (!fullName || !dateOfBirth || !gender) {
             toast.error('Please fill in all required fields.', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -40,24 +41,25 @@ function ProfileComplete() {
 
         try {
             const createdOn = new Date().toISOString();
-            const user = await account.get(); // Retrieve current user's details
+            const user = await account.get();
+           ; // Retrieve current user's details
             const profilePicture =formData.profilePicture ||(formData.gender === 'male'
                                                         ? 'https://images.nightcafe.studio/jobs/fbL1FdyjoypfdrWqbpND/fbL1FdyjoypfdrWqbpND--0--ixbsv.jpg?tr=w-1600,c-at_max'
                                                         : 'https://images.nightcafe.studio/jobs/1jGQl3zOyHYaHjADwGzI/1jGQl3zOyHYaHjADwGzI--0--xvcdg.jpg?tr=w-1600,c-at_max');
-            const email=formData.email.toLocaleLowerCase();
-                await databases.createDocument(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID, // Database ID
-                import.meta.env.VITE_APPWRITE_COLLECTION_USERS_ID, // Collection ID
-                ID.unique(), // Unique document ID
-                {
-                    userId: user.$id,
-                    fullName,
-                    email: email,
-                    profilePicture: profilePicture ,// Optional field
-                    dateOfBirth,
-                    gender,
-                    createdOn,
-                }
+            // const email=formData.email.toLocaleLowerCase();
+            await databases.createDocument(
+            import.meta.env.VITE_APPWRITE_DATABASE_ID, // Database ID
+            import.meta.env.VITE_APPWRITE_COLLECTION_USERS_ID, // Collection ID
+            user.$id, // Unique document ID
+            {
+                userId: user.$id,
+                fullName,
+                email: email,
+                profilePicture: profilePicture ,// Optional field
+                dateOfBirth,
+                gender,
+                createdOn,
+            }
             );
 
             // Update user preferences to indicate profile completion
@@ -100,7 +102,7 @@ function ProfileComplete() {
                                             </label>
                                             <input
                                                 placeholder="Your full name"
-                                                className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none"
+                                                className="bg-white/10 border border-gray-300 text-white text-sm md:text-md rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-blue-300 outline-none disabled"
                                                 id="fullName"
                                                 type="text"
                                                 name="fullName"
@@ -118,7 +120,7 @@ function ProfileComplete() {
                                                 id="email"
                                                 type="email"
                                                 name="email"
-                                                value={formData.email}
+                                                value={email}
                                                 onChange={handleInputChange}
                                             />
                                         </div>

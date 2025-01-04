@@ -35,8 +35,8 @@ export default function Card({ id, img, title, link, year, rating, media_type, p
                     className="w-36 h-52 sm:w-44 sm:h-64 md:w-36 md:h-52 rounded-xl object-cover opacity-85 transition-all duration-300 group-hover:blur-sm"
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100  transition-opacity duration-300 bg-black/50 rounded-xl gap-2">
-                    <h2 className="text-lg font-bold text-white text-center">{title}</h2>
+                <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100  transition-opacity duration-300 bg-black/50 rounded-xl gap-2 ">
+                    <h2 className="text-xl font-bold text-white text-center tracking-wide">{title}</h2>
                     <p className="text-sm text-gray-300">{yearSliced}</p>
                     <p className="text-sm text-blue-400">{rating} / 10</p>
                     {formattedPlayedOn && (
