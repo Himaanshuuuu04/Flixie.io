@@ -261,7 +261,7 @@ const Moviedetails = () => {
           
           <p className="text-white text-base font-thin flex items-center">
               <StarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
-              <strong>Rating : </strong> {movieDetails.vote_average} / 10
+              <strong>Rating : </strong> {movieDetails.vote_average ? movieDetails.vote_average.toFixed(1) : "N/A"} / 10
             </p>
             <p className="text-white text-base font-thin flex items-center">
               <UserIcon className="w-5 h-5 mr-2 -mt-1 text-white" />

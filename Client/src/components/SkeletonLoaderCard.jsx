@@ -8,7 +8,7 @@ export default function SkeletonLoaderCard() {
                 <div className="w-40 h-52 sm:w-44 sm:h-64 md:w-36 md:h-48 rounded-xl bg-white/20 animate-pulse"></div>
                 
                 {/* Skeleton for title */}
-                <div className="md:hidden flex  m-1 h-4 sm:h-5 md:h-6 w-3/4 bg-white/20 animate-pulse rounded"></div>
+               
             </div>
         </div>
     );

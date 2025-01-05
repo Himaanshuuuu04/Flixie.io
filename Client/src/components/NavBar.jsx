@@ -9,6 +9,7 @@ import Heart from "../assets/Heart.png";
 import Switch from "./Hamberger"; // Switch component acting as hamburger icon
 import TimeMachine from "../assets/TimeMachine.png";
 import Group from "../assets/Group.png";
+import Enter from '../assets/Enter.png';
 import { useSearchContext } from "./contextAPI/SearchContext.jsx";
 import { useEffect } from "react";
 import { useAuthContext } from "./contextAPI/AuthContext.jsx";
@@ -18,7 +19,7 @@ export default function NavBar() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const { logged } = useAuthContext();
+  const { logged,logout } = useAuthContext();
   return (
     <>
       {/* Blur Overlay */}
@@ -115,7 +116,7 @@ export default function NavBar() {
           <hr className="border-white/30 h-1 w-full" />
 
           <ul className="space-y-6 font-light">
-            <li className="text-lg">
+            {/* <li className="text-lg">
               {logged ? (
                 < div
                   className="flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 text-gray-500 cursor-not-allowed"
@@ -137,7 +138,7 @@ export default function NavBar() {
                   <span>Profile</span>
                 </NavLink>
               )}
-            </li>
+            </li> */}
             <li className="text-lg">
               <NavLink
                 to="*"
@@ -149,6 +150,20 @@ export default function NavBar() {
               >
                 <img src={Settings} alt="settings" className="h-6 -mt-1" />
                 <span>Settings</span>
+              </NavLink>
+            </li>
+            <li className="text-lg">
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                }
+                onClick={() => {logout();}}
+              >
+                <img src={Enter} alt="logout" className="h-6 -mt-1" />
+                <span>Logout</span>
               </NavLink>
             </li>
             
@@ -168,7 +183,7 @@ export default function NavBar() {
           className={`fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-2xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${isOpen ? "-translate-y-0 opacity-100" : "translate-y-full opacity-0"
             }`}
         >
-          <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-[60%] w-[80%] border rounded-3xl  border-white/20 p-10 bg-white/10">
+          <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-fit w-[80%] border rounded-3xl  border-white/20 p-10 bg-white/10">
             <ul className="space-y-6 font-light">
 
               {/* Link items */}
@@ -278,6 +293,20 @@ export default function NavBar() {
                 >
                   <img src={Settings} alt="settings" className="h-6 -mt-1" />
                   <span>Settings</span>
+                </NavLink>
+              </li>
+              <li className="text-lg">
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    ` flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 
+                   ${isActive ? "text-blue-400 font-bold" : "hover:text-blue-300"} 
+                   hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500`
+                  }
+                  onClick={() => {logout();}}
+                >
+                  <img src={Enter} alt="Logout" className="h-6 -mt-1" />
+                  <span>Logout</span>
                 </NavLink>
               </li>
             </ul>

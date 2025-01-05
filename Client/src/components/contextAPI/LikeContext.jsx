@@ -47,13 +47,11 @@ export const LikedMoviesProvider = ({ children }) => {
 
     // Fetch liked movies
     const fetchLikedMovies = async () => {
+        if (!currentUser.prefs.profileCompleted) {
+            console.warn('User is not logged in. Skipping liked movies fetch.');
+            return;
+        }
         try {
-            console.log(currentUser);
-            if (!currentUser.prefs.profileCompleted) {
-                console.warn('User is not logged in. Skipping liked movies fetch.');
-                return;
-            }
-
             const env = validateEnvironment();
             if (!env) return;
 
@@ -177,11 +175,13 @@ export const LikedMoviesProvider = ({ children }) => {
 
     // Fetch watched movies
     const fetchWatchedMovies = async () => {
+        if (!currentUser.prefs.profileCompleted) {
+            console.warn('User is not logged in. Skipping watched movies fetch.');
+            return;
+        }
         try {
-            if (!currentUser.prefs.profileCompleted) {
-                console.warn('User is not logged in. Skipping watched movies fetch.');
-                return;
-            }
+            
+            
 
             const env = validateEnvironment();
             if (!env) return;
@@ -218,10 +218,7 @@ export const LikedMoviesProvider = ({ children }) => {
         try {
             if (!currentUser) {
                 console.error('Cannot add watched movie: User is not logged in.');
-                toast.error('You must be logged in to add watched movies.', {
-                    position: 'top-right',
-                    autoClose: 3000,
-                });
+               
                 return;
             }
 

@@ -38,7 +38,7 @@ export default function Card({ id, img, title, link, year, rating, media_type, p
                 <div className="absolute inset-0 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100  transition-opacity duration-300 bg-black/50 rounded-xl gap-2 ">
                     <h2 className="text-xl font-bold text-white text-center tracking-wide">{title}</h2>
                     <p className="text-sm text-gray-300">{yearSliced}</p>
-                    <p className="text-sm text-blue-400">{rating} / 10</p>
+                    <p className="text-lg text-blue-400 ">{rating.toFixed(1)} / 10</p>
                     {formattedPlayedOn && (
                         <p className="text-sm text-gray-300 text-center">{formattedPlayedOn}</p>
                     )}
