@@ -26,13 +26,12 @@ export const AuthProvider = ({ children }) => {
                 // If the session exists, fetch user data and preferences
                 const currentUser = await account.get();
                 const prefs = await account.getPrefs();
-        
                 const profileCompleted = prefs?.profileCompleted === true;
-        
+                console.log("Profile completed: ", profileCompleted);   
                 if (isMounted) {
                     setUserData({
                         logged: true,
-                        profileCompleted,
+                        profileCompleted : profileCompleted,
                         loading: false,
                         currentUser : currentUser,
                     });

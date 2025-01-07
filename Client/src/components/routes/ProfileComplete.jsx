@@ -15,8 +15,11 @@ function ProfileComplete() {
 
     const navigate = useNavigate();
     const { logged,setProfileCompleted,currentUser  } = useAuthContext();
-    console.log(currentUser);
-    const email = currentUser.email;
+    var email = "";
+    if(currentUser !== null){
+    email = currentUser.email;
+    }
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({

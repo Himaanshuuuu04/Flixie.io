@@ -66,7 +66,7 @@ const Login = () => {
   // OAuth Login
   const handleOAuthLogin = async (provider) => {
     try {
-      await account.createOAuth2Session(provider, `${window.location.origin}/`, `${window.location.origin}/Login`);
+     account.createOAuth2Session(provider, `${window.location.origin}/`, `${window.location.origin}/Login`);
     } catch (error) {
       console.error(`OAuth login failed with ${provider}:`, error.message);
       toast.error(`OAuth login failed with ${provider}. Please try again.`, { position: "top-right", autoClose: 3000 });
@@ -88,9 +88,9 @@ const Login = () => {
 
             <div className="w-full border border-white/20 rounded-2xl backdrop-filter backdrop-blur-3xl shadow-2xl  ">
               <div className="p-6 space-y-4 sm:p-8">
-                <p className="text-3xl font-semibold leading-tight tracking-tight text-center md:text-3xl ">
+                <span className="text-3xl font-semibold leading-tight tracking-tight text-center md:text-3xl ">
                 <TextGenerateEffect duration={2} filter={true} words={"Login to Flixie"} />
-                </p>
+                </span>
                 <div>
                   <label className="block mb-1 text-sm md:text-md font-light">Email</label>
                   <input
