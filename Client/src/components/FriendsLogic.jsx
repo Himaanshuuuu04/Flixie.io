@@ -86,11 +86,11 @@ export default function FriendsLogic() {
                         <p className="text-white/50">You have no friends yet.</p>
                     ) : (
                         friends.map((friend) => (
-                            <li key={friend.$id} className="flex items-center justify-between p-3 border border-white/20 rounded-xl mb-2 bg-white/10">
+                            <li key={friend.$id} className="flex items-center justify-between p-1 border border-white/20 rounded-xl mb-2 bg-white/10">
                                 <div className="flex items-center">
-                                    <img src={friend.profilePicture} alt={friend.fullName} className="h-10 w-10 rounded-full mr-3 border border-white/50" />
+                                    <img src={friend.profilePicture} alt={friend.fullName} className="h-10 w-10 rounded-full mr-3  border border-white/50" />
                                     <div>
-                                        <p className="font-medium text-xl ">{friend.fullName}</p>
+                                        <p className="font-medium text-xl -mb-1 ">{friend.fullName}</p>
                                         <p className="text-sm text-white/50">{friend.email}</p>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@ export default function FriendsLogic() {
                                     onClick={() => handleRemoveFriend(friend.$id)}
                                     disabled={loadingActions[friend.$id]}
                                     className={`px-4 py-2 rounded-lg text-white transition-all duration-300 ${
-                                        loadingActions[friend.$id] ? "bg-white/20" : "bg-red-500 hover:bg-red-400"
+                                        loadingActions[friend.$id] ? "bg-white/20" : "bg-red-500 hover:bg-red-700 hover:scale-105 "
                                     }`}
                                 >
                                     {loadingActions[friend.$id] ? "Removing..." : "Remove"}
@@ -120,7 +120,7 @@ export default function FriendsLogic() {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Search users..."
-                            className="flex-grow px-4 py-2 border border-white/20 rounded-xl focus:outline-none focus:ring focus:ring-white/20 bg-black/20 text-center"
+                            className="flex-grow px-4 py-2 border border-white/20 rounded-xl focus:outline-none focus:ring focus:ring-white/20 bg-black/20 text-center "
                         />
                         
                         {/* Cross button to clear search results */}
@@ -131,7 +131,7 @@ export default function FriendsLogic() {
                                     setQuery('');
                                     setSearchedUsers([]);
                                 }} // Clear the query state when clicked
-                                className=" bg-red-500 rounded-xl px-3 hover:bg-red-600     text-white "
+                                className=" bg-red-500 rounded-xl px-3 hover:bg-red-600     text-white   transition-all duration-300"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
                                     <path d="M11.742 4.758a1 1 0 0 0-1.48-1.32l-3.264 3.265-3.264-3.265a1 1 0 0 0-1.48 1.32l3.265 3.265-3.265 3.263a1 1 0 0 0 1.48 1.32l3.264-3.263 3.264 3.263a1 1 0 0 0 1.48-1.32l-3.265-3.263 3.265-3.265z"/>
@@ -142,9 +142,9 @@ export default function FriendsLogic() {
                         <button
                             type="submit"
                             disabled={userLoading}
-                            className="px-6 py-2 rounded-lg font-light border border-white/20 text-white transition-all duration-300 bg-white/20 hover:bg-white/10"
+                            className="px-6 py-2 rounded-lg font-light border border-white/20 text-white transition-all duration-300 bg-white/20 hover:bg-white/10 hover:scale-105"
                         >
-                            {userLoading ? "Searching..." : "Search"}
+                            {userLoading ? "Searching..." : "Search"} {/* Change button text based on loading state */}
                         </button>
                     </div>
                 </label>
@@ -152,7 +152,7 @@ export default function FriendsLogic() {
                 {searchedUsers.length > 0 && (
                     <ul className="mt-4">
                         {searchedUsers.map((user) => (
-                            <li key={user.$id} className="flex items-center justify-between p-3 border rounded-xl mb-2 bg-white/10">
+                            <li key={user.$id} className="flex items-center justify-between p-3 border border-white/20 rounded-xl mb-2 bg-white/10">
                                 <div className="flex items-center">
                                     <img src={user.profilePicture} alt={user.fullName} className="h-12 w-12 rounded-full mr-3" />
                                     <div>

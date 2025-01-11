@@ -18,6 +18,9 @@ import WatchHistroy from "./components/routes/WatchHistroy.jsx";
 import { AiRecommendationProvider } from "./components/contextAPI/AiRecommendationContext.jsx";
 import { FriendProvider } from "./components/contextAPI/FriendContext.jsx";
 import {SparklesCore} from "./components/SparkleText.jsx";
+
+import { Provider } from "react-redux";
+import { store } from "./components/Redux/Store.jsx";
 export default function App(){
   return (
     <>
@@ -34,34 +37,36 @@ export default function App(){
           speed={1}
         />
       </div>
-      <GenreProvider>
-        <AuthProvider>
-          <LikedMoviesProvider>
-            <SearchProvider>
-              <AiRecommendationProvider>
-                <FriendProvider>
-                  <HashRouter>
-                    <Routes>
-                      <Route path="/Login" element={<Login />} />
-                      <Route path="/ProfileComplete" element={<ProfileComplete />} />
-                      <Route path="*" element={<NotFound />} />
-                      <Route element={<AuthenticatedRoutes />}>
-                        <Route path="/" element={<Home />}/ >
-                        <Route path="/Home" element={<Home />}/ >
-                        <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
-                        <Route path="/Favourite" element={<Favourite />} />
-                        <Route path="/TopRated" element={<TopRated />} />
-                        <Route path="/Friends" element={<Friends />} />
-                        <Route path="WatchHistory" element={<WatchHistroy />} />
-                      </Route>
-                    </Routes>
-                  </HashRouter>
-                </FriendProvider>
-              </AiRecommendationProvider>
-            </SearchProvider>
-          </LikedMoviesProvider>
-        </AuthProvider>
-      </GenreProvider> 
+      <Provider store={store}>
+        <GenreProvider>
+          <AuthProvider>
+            <LikedMoviesProvider>
+              <SearchProvider>
+                <AiRecommendationProvider>
+                  <FriendProvider>
+                    <HashRouter>
+                      <Routes>
+                        <Route path="/Login" element={<Login />} />
+                        <Route path="/ProfileComplete" element={<ProfileComplete />} />
+                        <Route path="*" element={<NotFound />} />
+                        <Route element={<AuthenticatedRoutes />}>
+                          <Route path="/" element={<Home />}/ >
+                          <Route path="/Home" element={<Home />}/ >
+                          <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
+                          <Route path="/Favourite" element={<Favourite />} />
+                          <Route path="/TopRated" element={<TopRated />} />
+                          <Route path="/Friends" element={<Friends />} />
+                          <Route path="WatchHistory" element={<WatchHistroy />} />
+                        </Route>
+                      </Routes>
+                    </HashRouter>
+                  </FriendProvider>
+                </AiRecommendationProvider>
+              </SearchProvider>
+            </LikedMoviesProvider>
+          </AuthProvider>
+        </GenreProvider> 
+      </Provider>
     </BackgroundGradientAnimation>
     </>
   );

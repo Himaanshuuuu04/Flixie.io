@@ -11,6 +11,7 @@ function ProfileComplete() {
         profilePicture: '',
         dateOfBirth: '',
         gender: '',
+        
     });
 
     const navigate = useNavigate();
@@ -62,6 +63,8 @@ function ProfileComplete() {
                 dateOfBirth,
                 gender,
                 createdOn,
+                online: false,
+                lastSeen: createdOn,
             }
             );
 
