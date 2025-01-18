@@ -3,17 +3,20 @@ import TopBar from "../TopBar";
 import NavBar from "../NavBar";
 import Logo from "../Logo";
 import MovieResults from "../MovieResults";
-import { useSearchContext } from "../contextAPI/SearchContext.jsx";
-import { useGenreContext } from "../contextAPI/GenreContext.jsx";
+// import { useSearchContext } from "../contextAPI/SearchContext.jsx";
+import {setSearchActive} from "../Redux/Slice/searchSlice";
+import { useDispatch, useSelector,shallowEqual } from "react-redux";
 import TopRatedLogic from "../TopRatedLogic.jsx";
 export default function TopRated() {
-  const { movieByGenre } = useGenreContext();
-  const { searchActive, setSearchActive, searchTerm } = useSearchContext();
+  const dispatch = useDispatch();
+  const { searchActive,searchTerm } = useSelector((state) => state.search,shallowEqual);
+  // const { searchActive, setSearchActive, searchTerm } = useSearchContext();
 
   useEffect(() => {
     if (!searchTerm) {
-      setSearchActive(false);
+      dispatch(setSearchActive(false));
     }
+    console.log("fetching TopRated",Math.random());
   }, [searchTerm]);
 
   return (
@@ -45,7 +48,7 @@ export default function TopRated() {
           {/* <div className="bg-white/10 p-2 px-4 border border-white/20 w-fit backdrop:filter backdrop-blur-sm rounded-xl mb-5">
             <h2 className="text-xl font-light text-white ">Favourites</h2>
           </div> */}
-          {movieByGenre && <GenreResults />}
+         
           {searchActive ? (
             <MovieResults />
           ) : (

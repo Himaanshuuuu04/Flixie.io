@@ -1,6 +1,6 @@
 // src/components/TopBar.js
 import React, { useState } from 'react';
-import { useSearchContext } from "./contextAPI/SearchContext.jsx"
+// import { useSearchContext } from "./contextAPI/SearchContext.jsx"
 import { useGenreContext } from './contextAPI/GenreContext.jsx';
 import ExpandArrow from '../assets/ExpandArrow.png';
 import Search from '../assets/Search.png';
@@ -9,16 +9,21 @@ import Enter from '../assets/Enter.png';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from './contextAPI/AuthContext.jsx';
 import ChatGPT from "../assets//ChatGPT.png";
-import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext.jsx';
-
+// import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext.jsx';
+import {fetchSearchMovies, setSearchTerm, setSearchActive } from "./Redux/Slice/searchSlice.js";
+import { useDispatch,useSelector,shallowEqual } from 'react-redux';
+import {fetchAiRecommendations} from "./Redux/Slice/aiSearchSlice.js";
 export default function TopBar() {
     const { logout, logged } = useAuthContext();
     const { fetchMoviesByGenre } = useGenreContext();
-    const {  setSearchTerm, fetchData, searchTerm, setSearchActive } = useSearchContext();
-    const {fetchAiRecommendations } = useAiRecommendationContext();
+    const { searchTerm } = useSelector((state) => state.search,shallowEqual);
+    const dispatch=useDispatch();
+    // const {  setSearchTerm, fetchData, searchTerm, setSearchActive } = useSearchContext();
+
+    // const {fetchAiRecommendations } = useAiRecommendationContext();
     const [isOpen, setIsOpen] = useState(false);
-   
     const [selectedOption, setSelectedOption] = useState("All");
+    
     
     
 
@@ -94,22 +99,23 @@ export default function TopBar() {
                     <input
                         type="text"
                         placeholder="Search"
+                        value={searchTerm}
                         className="bg-transparent focus:outline-none ml-2 w-full h-full"
                         onChange={(e) => {
-                            setSearchTerm(e.target.value);
+                            dispatch(setSearchTerm(e.target.value));
                         }}
 
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
-                                fetchData(e.target.value);
-                                setSearchActive(true);
+                                dispatch(fetchSearchMovies(e.target.value));
+                                dispatch(setSearchActive(true));
                                 // Fetch data when Enter key is pressed
                             }
                         }}
                     />
                     <button type="submit" onClick={() => {
-                        fetchAiRecommendations(searchTerm);
-                        setSearchActive(true);
+                        dispatch(fetchAiRecommendations(searchTerm));
+                        dispatch(setSearchActive(true));
                     }
                     }>
                         <img src={ChatGPT} className="ml-2 mr-2 h-6" alt="search" />
@@ -117,8 +123,8 @@ export default function TopBar() {
 
 
                     <button type="submit" onClick={() => {
-                        fetchData(searchTerm);
-                        setSearchActive(true);
+                        dispatch(fetchSearchMovies(searchTerm));
+                        dispatch(setSearchActive(true));
                     }
                     }>
                         <img src={Search} className="ml-2 mr-2 h-6" alt="search" />
@@ -146,7 +152,7 @@ export default function TopBar() {
                 </button>
             </div>
 
-            {/* Display the MovieList component */}
+           
 
 
         </div>

@@ -2,20 +2,30 @@ import React, { useState, useEffect } from 'react';
 import Favorite from '../assets/Favorite.png';
 import Play from '../assets/Play.png';
 import { Link } from 'react-router-dom';
-import { useSearchContext } from './contextAPI/SearchContext';
+// import { useSearchContext } from './contextAPI/SearchContext';
 import Carouselskeleton from './Carouselskeleton';
-
+import { useSelector, useDispatch,shallowEqual } from 'react-redux';
+import {CarouselFetchMovies} from './Redux/Slice/searchSlice';
 const Carousel = () => {
-  const { carouselMovies,CarouselFetchMovies,loading } = useSearchContext();
+  const dispatch = useDispatch();
+  const { carouselMovies, loading} = useSelector((state) => state.search,
+  shallowEqual // Prevents unnecessary re-renders if values are the same
+  );
+  // const { carouselMovies,CarouselFetchMovies,loading } = useSearchContext();
   const movies=carouselMovies;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState(null);
 
   useEffect(() => {
-    if(movies.length===0)
-      CarouselFetchMovies();
-  }, []);
+    const fetchCarousel = async () => {
+      if (movies.length === 0 && !loading) {
+        dispatch(CarouselFetchMovies());
+      }
+    };
+    const interval = setInterval(fetchCarousel, 1000);
+    return () => clearInterval(interval);
+  }, [dispatch, loading, movies.length]);
 
   const nextSlide = () => {
     if (movies.length > 0) {
@@ -44,7 +54,7 @@ const Carousel = () => {
   };
 
   return (
-    loading?<Carouselskeleton/>:
+    movies.length===0?<Carouselskeleton/>:
   (
     <div className="overflow-hidden">
       <div

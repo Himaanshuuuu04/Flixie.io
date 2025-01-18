@@ -1,13 +1,19 @@
 // src/components/MovieList.js
 import React from 'react';
 import Card from "./Card.jsx";
-import { useSearchContext} from "./contextAPI/SearchContext.jsx"
-import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext.jsx';
+// import { useSearchContext} from "./contextAPI/SearchContext.jsx"
+import { useDispatch, useSelector,shallowEqual } from 'react-redux';
+import {setSearchActive,setSearchTerm} from "./Redux/Slice/searchSlice.js"
+// import {fetchAiRecommendations} from "./Redux/Slice/aiSearchSlice.js"
+// import { useAiRecommendationContext } from './contextAPI/AiRecommendationContext.jsx';
 import SkeletonLoaderCard from "./SkeletonLoaderCard.jsx";
 
 function MovieResults() {
-    const { movies, loading, searchTerm, setSearchActive } = useSearchContext();
-    const { aiLoading } = useAiRecommendationContext();
+    const dispatch = useDispatch();
+    const { movies, loading, searchTerm } = useSelector((state) => state.search,shallowEqual);
+    // const { movies, loading, searchTerm, setSearchActive } = useSearchContext();
+    // const { aiLoading } = useAiRecommendationContext();
+    const {aiLoading} = useSelector((state) => state.aiSearch,shallowEqual);
     
     return (
         <div className="">
@@ -20,7 +26,9 @@ function MovieResults() {
                     <>
                         <svg
                             className="bg-white/20 md:w-8 md:h-8 w-8 h-8 absolute  right-24  cursor-pointer rounded-full p-2 z-50 hidden md:flex hover:scale-110 transition-all duration-300 ease-in-out"
-                            onClick={() => setSearchActive(false)}
+                            onClick={() => {dispatch(setSearchActive(false));
+                            dispatch(setSearchTerm(''));
+                            }}
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             role="img"

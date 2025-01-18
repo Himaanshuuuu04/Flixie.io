@@ -89,7 +89,7 @@ export const SearchProvider = ({ children }) => {
         setLoading(true);
         setMovies([]);
         
-        try {
+        try {   
             // If there are no liked movie IDs, return early
             if (!movies || movies.length === 0) {
                 setMovies([]); // Ensure the state is cleared

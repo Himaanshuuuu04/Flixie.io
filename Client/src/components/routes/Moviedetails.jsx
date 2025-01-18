@@ -9,19 +9,24 @@ import {
 } from "@heroicons/react/24/outline";
 import { useLikedMoviesContext } from "../contextAPI/LikeContext";
 const VIDSRCS_ME_API = "https://vidsrc.xyz/embed/";
-import { useSearchContext } from "../contextAPI/SearchContext";
+import {useDispatch,useSelector} from "react-redux";
+import {fetchMovieDetails} from "../Redux/Slice/searchSlice";
+// import { useSearchContext } from "../contextAPI/SearchContext";
 import SkeletonLoaderMoviedetails from "../SkeletonLoaderMoviedetils";
 
 const Moviedetails = () => {
   const { likedMovies, addLikedMovie, removeLikedMovie ,watchedMovies,addWatchedMovie,} = useLikedMoviesContext();
   const { media_type, id } = useParams();
+  
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {movieDetails, trailerUrl,  loading } = useSelector((state) => state.search);
 
   const [isTouched, setIsTouched] = useState({
     Liked:false,
     Watched:false
   });
-  const { movieDetails, trailerUrl, fetchMovieDetails, loading } = useSearchContext();
+  // const { movieDetails, trailerUrl, fetchMovieDetails, loading } = useSearchContext();
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
@@ -77,7 +82,8 @@ const Moviedetails = () => {
   }, [movieDetails, likedMovies, media_type,watchedMovies,]);
 
   useEffect(() => {
-    fetchMovieDetails(id, media_type);
+ 
+    dispatch(fetchMovieDetails({id: id, mediaType: media_type}));
   }, [id, media_type]);
 
   useEffect(() => {
@@ -248,7 +254,7 @@ const Moviedetails = () => {
         <div className="flex flex-col gap-2">
           <p className="text-white text-base font-thin flex items-center">
             <FilmIcon className="w-5 h-5 mr-2 -mt-1 text-white" />
-            <strong>Genres : </strong> {movieDetails.genres.slice(0, 2).map((genre) => genre.name).join(", ")}
+            <strong>Genres : </strong> {movieDetails.genres && movieDetails.genres.slice(0, 2).map((genre) => genre.name).join(", ")}
           </p>
           <p className="text-white text-base font-thin flex items-center ">
             <CalendarIcon className="w-5 h-5 mr-2 -mt-1 text-white" />

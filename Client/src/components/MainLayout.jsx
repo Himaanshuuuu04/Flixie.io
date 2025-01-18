@@ -5,19 +5,19 @@ import Carousel from "./Carousel";
 import Logo from "./Logo";
 import CardMapper from "./CardMapper";
 import MovieResults from "./MovieResults";
-import { useSearchContext } from "./contextAPI/SearchContext.jsx";
-import GenreResults from "./GenreResults.jsx";
-import { useGenreContext } from "./contextAPI/GenreContext.jsx";
+// import { useSearchContext } from "./contextAPI/SearchContext.jsx";
+import {  useSelector , shallowEqual } from "react-redux";
+// import { setSearchActive } from "./Redux/Slice/searchSlice.js";
+// import GenreResults from "./GenreResults.jsx";
+// import { useGenreContext } from "./contextAPI/GenreContext.jsx";
 
 export default function MainLayout() {
-  const { movieByGenre } = useGenreContext();
-  const { searchActive, setSearchActive, searchTerm } = useSearchContext();
+  // const { movieByGenre } = useGenreContext();
 
-  useEffect(() => {
-    if (!searchTerm) {
-      setSearchActive(false); // Reset when searchTerm becomes empty
-    }
-  }, [searchTerm]);
+  const {searchActive } = useSelector((state) => state.search,shallowEqual);
+  // const { searchActive, setSearchActive, searchTerm } = useSearchContext();
+  console.log("fetching mainlayout",Math.random());
+  
 
   return (
     <div className="h-screen flex flex-col md:flex-row">
@@ -31,7 +31,6 @@ export default function MainLayout() {
         <div className="flex flex-col flex-grow overflow-y-auto ">
           <div className="mt-10 ml-5 mb-10 flex flex-col gap-5 mr-10">
             <TopBar />
-            {movieByGenre && <GenreResults />}
             {searchActive ? (
               <MovieResults />
             ) : (
@@ -54,7 +53,7 @@ export default function MainLayout() {
         </div>
         {/* Scrollable Content */}
         <div className="flex flex-col gap-5 px-5">
-          {movieByGenre && <GenreResults />}
+          
           {searchActive ? (
             <MovieResults />
           ) : (

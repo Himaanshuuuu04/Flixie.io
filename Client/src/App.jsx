@@ -20,7 +20,7 @@ import { FriendProvider } from "./components/contextAPI/FriendContext.jsx";
 import {SparklesCore} from "./components/SparkleText.jsx";
 
 import { Provider } from "react-redux";
-import { store } from "./components/Redux/Store.jsx";
+import { store } from "./components/Redux/Store";
 export default function App(){
   return (
     <>
