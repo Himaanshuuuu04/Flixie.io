@@ -7,7 +7,7 @@
 
 ## 🚀 Live Demo
 
-[flixie-io.vercel.app](https://flixie-io.vercel.app/)
+[flixie.himanshu.engineer](https://flixie.himanshu.engineer/)
 
 ---
 
