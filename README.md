@@ -127,7 +127,7 @@ npm run dev
 ## 📬 Contact
 
 - **GitHub:** [Himaanshuuuu04/Flixie.io](https://github.com/Himaanshuuuu04/Flixie.io)
-- **Email:** [shauryarahlon.10@gmail.com](mailto:shauryarahlon.10@gmail.com)
+- **Email:** [himan0411singh@gmail.com](mailto:himan0411singh@gmail.com)
 
 ---
 
