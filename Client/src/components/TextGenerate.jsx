@@ -4,7 +4,7 @@ import { cn } from "../lib/utils";
 
 export default function TextGenerateEffect({
   words,
-  className ="text-2xl font-semibold  text-center md:text-3xl lg:text-4xl dark:text-white text-black",
+  className ="text-2xl font-semibold  text-center md:text-3xl lg:text-4xl dark:text-white text-white",
   filter = true,
   duration = 2
 }){
@@ -27,7 +27,7 @@ export default function TextGenerateEffect({
           return (
             (<motion.span
               key={word + idx}
-              className="dark:text-white text-black opacity-0"
+              className="dark:text-white text-white opacity-0"
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}>
@@ -43,7 +43,7 @@ export default function TextGenerateEffect({
     (<div className={cn("font-bold", className)}>
       <div >
         <div
-          className=" dark:text-white text-black text-2xl md:text-3xl leading-snug tracking-normal">
+          className=" dark:text-white text-white text-2xl md:text-3xl leading-snug tracking-normal">
           {renderWords()}
         </div>
       </div>
