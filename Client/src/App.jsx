@@ -49,7 +49,7 @@ export default function App(){
                         <Route path="/Login" element={<Login />} />
                         <Route path="/ProfileComplete" element={<ProfileComplete />} />
                         <Route path="*" element={<NotFound />} />
-                        <Route element={<AuthenticatedRoutes />}>
+{/*                         <Route element={<AuthenticatedRoutes />}> */}
                           <Route path="/" element={<Home />}/ >
                           <Route path="/Home" element={<Home />}/ >
                           <Route path="/Moviedetails/:media_type/:id" element={<Moviedetails />} />
@@ -57,7 +57,7 @@ export default function App(){
                           <Route path="/TopRated" element={<TopRated />} />
                           <Route path="/Friends" element={<Friends />} />
                           <Route path="WatchHistory" element={<WatchHistroy />} />
-                        </Route>
+{/*                         </Route> */}
                       </Routes>
                     </HashRouter>
                   </FriendProvider>
