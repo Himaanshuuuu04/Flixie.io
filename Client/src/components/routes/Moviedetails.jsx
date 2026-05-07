@@ -8,7 +8,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useLikedMoviesContext } from "../contextAPI/LikeContext";
-const VIDSRCS_ME_API = "https://vidsrc.xyz/embed/";
+const VIDSRCS_ME_API = "https://vidsrcme.ru/embed/";
 import {useDispatch,useSelector} from "react-redux";
 import {fetchMovieDetails} from "../Redux/Slice/searchSlice";
 // import { useSearchContext } from "../contextAPI/SearchContext";
