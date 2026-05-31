@@ -47,9 +47,7 @@ export default function TopRatedLogic() {
   });
 
   const fetchMovies = (overridePage = 1, inputs = userInputs) => {
-    dispatch(
-      fetchTopRatedMovies(buildTopRatedOptions(inputs), overridePage),
-    );
+    dispatch(fetchTopRatedMovies(buildTopRatedOptions(inputs), overridePage));
   };
 
   useEffect(() => {
