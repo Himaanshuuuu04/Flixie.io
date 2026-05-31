@@ -68,7 +68,7 @@ export default function TopRatedLogic() {
         onSubmit={handleSubmit}
         className="bg-white/5 border border-white/20 backdrop-blur-3xl rounded-2xl shadow-lg p-4 flex flex-wrap gap-5 w-full mb-5 text-white font-light text-center"
       >
-        <label className="flex flex-col items-center gap-2 flex-grow ">
+        <label className="flex flex-col items-center gap-2 grow ">
           <span className="text-md">Sort By</span>
           <select
             name="sort_by"
@@ -87,7 +87,7 @@ export default function TopRatedLogic() {
             </option>
           </select>
         </label>
-        <label className="flex flex-col items-center gap-2 flex-grow ">
+        <label className="flex flex-col items-center gap-2 grow ">
           <span className="text-md">Minimum Vote</span>
           <input
             type="number"
@@ -97,7 +97,7 @@ export default function TopRatedLogic() {
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-white/50 bg-black/20 border-white/20 h-full text-center"
           />
         </label>
-        <label className="flex flex-col items-center gap-2 flex-grow ">
+        <label className="flex flex-col items-center gap-2 grow ">
           <span className="text-md">From</span>
           <input
             type="date"
@@ -107,7 +107,7 @@ export default function TopRatedLogic() {
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-white/50 bg-black/20 border-white/20 h-full text-center"
           />
         </label>
-        <label className="flex flex-col items-center gap-2 flex-grow ">
+        <label className="flex flex-col items-center gap-2 grow ">
           <span className="text-md">Till</span>
           <input
             type="date"
@@ -117,7 +117,7 @@ export default function TopRatedLogic() {
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-1 focus:ring-white/50 bg-black/20 border-white/20 h-full text-center"
           />
         </label>
-        <label className="flex flex-col items-center gap-2 flex-grow ">
+        <label className="flex flex-col items-center gap-2 grow ">
           <span className="text-md">Genre</span>
           <select
             name="with_genres"

@@ -95,7 +95,7 @@ export default function FriendsLogic() {
                   className="flex items-center justify-between p-1 border border-white/20 rounded-xl mb-2 bg-white/10"
                 >
                   <div className="flex items-center">
-                    <img
+                    <Image
                       src={friend.profilePicture}
                       alt={friend.fullName}
                       width={40}
@@ -142,7 +142,7 @@ export default function FriendsLogic() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search users..."
-                className="flex-grow px-4 py-2 border border-white/20 rounded-xl focus:outline-none focus:ring focus:ring-white/20 bg-black/20 text-center "
+                className="grow px-4 py-2 border border-white/20 rounded-xl focus:outline-none focus:ring focus:ring-white/20 bg-black/20 text-center "
               />
               {/* Cross button to clear search results */}
               {query && (

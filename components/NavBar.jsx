@@ -200,7 +200,7 @@ export default function NavBar() {
         {/* Mobile Menu */}
         <ul
           className={`fixed inset-0 bg-black/50 backdrop-filter backdrop-blur-2xl text-white text-2xl space-y-6 items-center justify-center h-screen w-screen text-center flex flex-col transition-all duration-500 ease-in-out z-40 ${
-            isOpen ? "-translate-y-0 opacity-100" : "translate-y-full opacity-0"
+            isOpen ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
           }`}
         >
           <div className="nav-links flex flex-col mt-10 items-start space-y-8 h-fit w-[80%] border rounded-3xl  border-white/20 p-10 bg-white/10">
@@ -212,14 +212,14 @@ export default function NavBar() {
                   className={linkClass("/")}
                   onClick={() => dispatch(setSearchActive(false))}
                 >
-                  <img src={homeSrc} alt="home" className="h-6 -mt-1" />
+                  <Image src={homeSrc} alt="home" className="h-6 -mt-1" />
                   <span>Home</span>
                 </Link>
               </li>
               {/* Add other NavLinks similarly */}
               <li className="text-lg">
                 <Link href="/TopRated" className={linkClass("/TopRated")}>
-                  <img
+                  <Image
                     src={arrowSrc}
                     alt="top grossing"
                     className="h-6 -mt-1"
@@ -229,7 +229,7 @@ export default function NavBar() {
               </li>
               <li className="text-lg">
                 <Link href="/Favourite" className={linkClass("/Favourite")}>
-                  <img src={heartSrc} alt="favourite" className="h-6 -mt-1" />
+                  <Image src={heartSrc} alt="favourite" className="h-6 -mt-1" />
                   <span>Favourite</span>
                 </Link>
               </li>
@@ -238,7 +238,7 @@ export default function NavBar() {
                   href="/WatchHistory"
                   className={linkClass("/WatchHistory")}
                 >
-                  <img
+                  <Image
                     src={timeMachineSrc}
                     alt="Watch History"
                     className="h-6 -mt-1"
@@ -248,7 +248,7 @@ export default function NavBar() {
               </li>
               <li className="text-lg">
                 <Link href="/Friends" className={linkClass("/Friends")}>
-                  <img src={groupSrc} alt="friends" className="h-6 -mt-1" />
+                  <Image src={groupSrc} alt="friends" className="h-6 -mt-1" />
                   <span>Friends</span>
                 </Link>
               </li>
