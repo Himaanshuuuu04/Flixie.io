@@ -11,13 +11,14 @@ import {
 } from "../../components/Redux/Slice/searchSlice";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import TopRatedLogic from "../../components/TopRatedLogic.jsx";
+import { RootState, AppDispatch } from "../../components/Redux/Store";
 
 export default function TopRatedPage() {
-  const dispatch = useDispatch();
-  const topRatedMovies = useSelector((state) => state.search.topRatedMovies);
-  const loading = useSelector((state) => state.search.loading);
+  const dispatch = useDispatch<AppDispatch>();
+  const topRatedMovies = useSelector((state: RootState) => state.search.topRatedMovies);
+  const loading = useSelector((state: RootState) => state.search.loading);
   const { searchActive, searchTerm } = useSelector(
-    (state) => state.search,
+    (state: RootState) => state.search,
     shallowEqual,
   );
 
@@ -33,8 +34,8 @@ export default function TopRatedPage() {
     }
 
     dispatch(
-      fetchTopRatedMovies(
-        {
+      (fetchTopRatedMovies as unknown as (arg: { userOptions: unknown; page?: number }) => { type: string })({
+        userOptions: {
           sort_by: "vote_average.desc",
           vote_count: "5000",
           primary_release_date: {
@@ -43,8 +44,8 @@ export default function TopRatedPage() {
           },
           with_genres: "",
         },
-        1,
-      ),
+        page: 1,
+      }),
     );
   }, [dispatch, loading, topRatedMovies.length]);
 

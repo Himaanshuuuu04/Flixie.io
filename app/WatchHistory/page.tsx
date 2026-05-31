@@ -9,12 +9,13 @@ import GenreResults from "../../components/GenreResults.jsx";
 import WatchHistoryLogic from "../../components/WatchHistoryLogic.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchActive } from "../../components/Redux/Slice/searchSlice";
+import { RootState } from "../../components/Redux/Store";
 
 export default function WatchHistoryPage() {
   const dispatch = useDispatch();
-  const moviesByGenre = useSelector((state) => state.genre.moviesByGenre);
-  const searchActive = useSelector((state) => state.search.searchActive);
-  const searchTerm = useSelector((state) => state.search.searchTerm);
+  const moviesByGenre = useSelector((state: RootState) => state.genre.moviesByGenre);
+  const searchActive = useSelector((state: RootState) => state.search.searchActive);
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
 
   useEffect(() => {
     if (!searchTerm) {

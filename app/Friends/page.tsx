@@ -8,11 +8,12 @@ import MovieResults from "../../components/MovieResults";
 import FriendsLogic from "../../components/FriendsLogic.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchActive } from "../../components/Redux/Slice/searchSlice";
+import { RootState } from "../../components/Redux/Store";
 
 export default function FriendsPage() {
   const dispatch = useDispatch();
-  const searchActive = useSelector((state) => state.search.searchActive);
-  const searchTerm = useSelector((state) => state.search.searchTerm);
+  const searchActive = useSelector((state: RootState) => state.search.searchActive);
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
 
   useEffect(() => {
     if (!searchTerm) {

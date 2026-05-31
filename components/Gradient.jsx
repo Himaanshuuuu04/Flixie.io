@@ -14,6 +14,7 @@ export const BackgroundGradientAnimation = ({
   children,
   interactive = false,
   containerClassName,
+  className,
 
   // gradientBackgroundStart = "rgb(0, 17, 45)",    // Dark blue
   // gradientBackgroundEnd = "rgb(50, 0, 30)",      // Darker shade of red (reduced intensity)
@@ -99,6 +100,7 @@ export const BackgroundGradientAnimation = ({
       className={cn(
         "h-screen overflow-hidden w-screen relative overflow-x-hidden top-0 left-0 bg-[linear-gradient(40deg,var(--gradient-background-start),var(--gradient-background-end))] z-0",
         containerClassName,
+        className,
       )}
     >
       <div className={cn("relative z-10")}>{children}</div>

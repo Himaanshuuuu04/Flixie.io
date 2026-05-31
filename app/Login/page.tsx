@@ -7,20 +7,22 @@ import "react-toastify/dist/ReactToastify.css";
 import GithubButton from "../../components/Github";
 import GoogleButton from "../../components/Google";
 import { account, ID } from "../../components/Appwrite/Config";
+import { OAuthProvider } from "appwrite";
 import TextGenerateEffect from "../../components/TextGenerate";
 import { useDispatch } from "react-redux";
 import { initializeAuth } from "../../components/Redux/Slice/authSlice";
+import { AppDispatch } from "../../components/Redux/Store";
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [formdata, setFormData] = React.useState({
     email: "",
     otp: "",
   });
   const router = useRouter();
-  const [userId, setUserId] = React.useState(null);
+  const [userId, setUserId] = React.useState<string | null>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -47,8 +49,8 @@ export default function LoginPage() {
         autoClose: 3000,
       });
     } catch (error) {
-      console.error("Error creating email token:", error.message);
-      toast.error(`Failed to send OTP: ${error.message}`, {
+      console.error("Error creating email token:", (error as Error).message);
+      toast.error(`Failed to send OTP: ${(error as Error).message}`, {
         position: "top-right",
         autoClose: 3000,
       });
@@ -79,15 +81,15 @@ export default function LoginPage() {
       });
       setTimeout(() => router.push("/"), 3000);
     } catch (error) {
-      console.error("Error verifying OTP:", error.message);
-      toast.error(`Failed to verify OTP: ${error.message}`, {
+      console.error("Error verifying OTP:", (error as Error).message);
+      toast.error(`Failed to verify OTP: ${(error as Error).message}`, {
         position: "top-right",
         autoClose: 3000,
       });
     }
   };
 
-  const handleOAuthLogin = async (provider) => {
+  const handleOAuthLogin = async (provider: OAuthProvider) => {
     try {
       account.createOAuth2Session(
         provider,
@@ -95,7 +97,7 @@ export default function LoginPage() {
         `${window.location.origin}/Login`,
       );
     } catch (error) {
-      console.error(`OAuth login failed with ${provider}:`, error.message);
+      console.error(`OAuth login failed with ${provider}:`, (error as Error).message);
       toast.error(`OAuth login failed with ${provider}. Please try again.`, {
         position: "top-right",
         autoClose: 3000,
@@ -176,13 +178,13 @@ export default function LoginPage() {
                   </p>
                   <div className="flex justify-center gap-8">
                     <button
-                      onClick={() => handleOAuthLogin("google")}
+                      onClick={() => handleOAuthLogin(OAuthProvider.Google)}
                       className="animate-third"
                     >
                       <GoogleButton />
                     </button>
                     <button
-                      onClick={() => handleOAuthLogin("github")}
+                      onClick={() => handleOAuthLogin(OAuthProvider.Github)}
                       className="animate-fifth"
                     >
                       <GithubButton />

@@ -17,20 +17,53 @@ import {
   removeLikedMovie,
 } from "../../../../components/Redux/Slice/likeSlice";
 import SkeletonLoaderMoviedetails from "../../../../components/SkeletonLoaderMoviedetils";
+import { RootState, AppDispatch } from "../../../../components/Redux/Store";
 
 const VIDSRCS_ME_API = "https://vidsrcme.ru/embed/";
+
+interface Season {
+  id: number;
+  season_number: number;
+  episode_count: number;
+  name: string;
+  overview?: string;
+  poster_path?: string;
+  air_date?: string;
+}
+
+interface MovieRef {
+  movieId: string;
+  type: string;
+  playedOn?: string;
+}
+
+interface MovieDetail {
+  id: number | string;
+  title?: string;
+  name?: string;
+  overview?: string;
+  poster_path?: string;
+  seasons?: Season[];
+  genres?: { name: string }[];
+  release_date?: string;
+  first_air_date?: string;
+  runtime?: number;
+  episode_run_time?: number;
+  vote_average?: number;
+}
 
 export default function MovieDetailsPage() {
   const params = useParams();
   const media_type = params?.media_type;
   const id = params?.id;
   useRouter();
-  const dispatch = useDispatch();
-  const likedMovies = useSelector((state) => state.like.likedMovies);
-  const watchedMovies = useSelector((state) => state.like.watchedMovies);
-  const { movieDetails, trailerUrl, loading } = useSelector(
-    (state) => state.search,
+  const dispatch = useDispatch<AppDispatch>();
+  const likedMovies = useSelector((state: RootState) => state.like.likedMovies) as MovieRef[];
+  const watchedMovies = useSelector((state: RootState) => state.like.watchedMovies) as MovieRef[];
+  const { movieDetails: rawMovieDetails, trailerUrl, loading } = useSelector(
+    (state: RootState) => state.search,
   );
+  const movieDetails = rawMovieDetails as MovieDetail | null;
 
   const isTouched = useMemo(() => {
     if (!movieDetails) {
@@ -52,8 +85,8 @@ export default function MovieDetailsPage() {
     return { Liked: Boolean(liked), Watched: Boolean(watched) };
   }, [movieDetails, likedMovies, media_type, watchedMovies]);
 
-  const [selectedSeason, setSelectedSeason] = useState(null);
-  const [selectedEpisode, setSelectedEpisode] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
+  const [selectedEpisode, setSelectedEpisode] = useState<number | null>(null);
 
   const toggleLike = () => {
     const movieId = id;
@@ -62,9 +95,19 @@ export default function MovieDetailsPage() {
       (movie) => movie.movieId === movieId && movie.type === mediaType,
     );
     if (isAlreadyLiked) {
-      dispatch(removeLikedMovie({ movieId, media_type: mediaType }));
+      dispatch(
+        (removeLikedMovie as unknown as (arg: unknown) => { type: string })({
+          movieId,
+          media_type: mediaType,
+        }),
+      );
     } else {
-      dispatch(addLikedMovie({ movieId, media_type: mediaType }));
+      dispatch(
+        (addLikedMovie as unknown as (arg: unknown) => { type: string })({
+          movieId,
+          media_type: mediaType,
+        }),
+      );
     }
   };
 
@@ -76,25 +119,35 @@ export default function MovieDetailsPage() {
         movie.movieId === movieId && movie.type === mediaType && movie.playedOn,
     );
     if (!isAlreadyWatched) {
-      dispatch(addWatchedMovie({ movieId, media_type: mediaType }));
+      dispatch(
+        (addWatchedMovie as unknown as (arg: unknown) => { type: string })({
+          movieId,
+          media_type: mediaType,
+        }),
+      );
     }
   };
 
   useEffect(() => {
-    dispatch(fetchMovieDetails({ id: id, mediaType: media_type }));
+    dispatch(
+      (fetchMovieDetails as unknown as (arg: unknown) => { type: string })({
+        id: id,
+        mediaType: media_type,
+      }),
+    );
   }, [id, media_type, dispatch]);
 
-  const seasons = movieDetails?.seasons ?? [];
+  const seasons = (movieDetails?.seasons as Season[]) ?? [];
   const activeSeason = selectedSeason ?? seasons[0] ?? null;
 
-  const handleSeasonChange = (seasonId) => {
-    const season = seasons.find((s) => s.id === parseInt(seasonId));
-    setSelectedSeason(season);
+  const handleSeasonChange = (seasonId: string) => {
+    const season = seasons.find((s: Season) => s.id === parseInt(seasonId));
+    setSelectedSeason(season || null);
     setSelectedEpisode(null);
   };
 
-  const handleEpisodeChange = (episodeNumber) => {
-    setSelectedEpisode(episodeNumber);
+  const handleEpisodeChange = (episodeNumber: string) => {
+    setSelectedEpisode(parseInt(episodeNumber));
   };
 
   if (loading || !movieDetails) {
@@ -111,14 +164,14 @@ export default function MovieDetailsPage() {
               title="Movie Trailer"
               className="w-full h-full rounded-t-2xl md:rounded-none z-40"
               allowFullScreen
-              loading="earger"
+              loading="eager"
               allow="accelerometer; gyroscope; picture-in-picture"
             />
           ) : (
             <div className="relative w-full h-full">
               <Image
                 src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`}
-                alt={movieDetails.title}
+                alt={movieDetails.title || movieDetails.name || "Movie Poster"}
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -193,7 +246,7 @@ export default function MovieDetailsPage() {
           </div>
           <div className="flex gap-4 -mt-2">
             <a
-              onClick={() => toggleWatch(movieDetails.id, media_type)}
+              onClick={() => toggleWatch()}
               href={
                 activeSeason && selectedEpisode
                   ? `${VIDSRCS_ME_API}${media_type}?tmdb=${id}&season=${activeSeason.season_number}&episode=${selectedEpisode}`
@@ -224,7 +277,7 @@ export default function MovieDetailsPage() {
             </a>
 
             <button
-              onClick={() => toggleLike(movieDetails.id, media_type)}
+              onClick={() => toggleLike()}
               className={`flex items-center py-2 px-4 rounded-2xl shadow-sm transition-all transform hover:scale-105 focus:outline-none duration-200 ease-in-out ${
                 isTouched.Liked
                   ? "bg-red-500 border border-red-500 text-white"

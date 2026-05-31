@@ -7,6 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { account, databases } from "../../components/Appwrite/Config";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfileCompleted } from "../../components/Redux/Slice/authSlice";
+import { RootState } from "../../components/Redux/Store";
+
+interface CurrentUser {
+  $id: string;
+  email: string;
+  name?: string;
+}
 
 export default function ProfileCompletePage() {
   const [formData, setFormData] = useState({
@@ -17,8 +24,9 @@ export default function ProfileCompletePage() {
   });
   const router = useRouter();
   const dispatch = useDispatch();
-  const logged = useSelector((state) => state.auth.logged);
-  const currentUser = useSelector((state) => state.auth.currentUser);
+  const logged = useSelector((state: RootState) => state.auth.logged);
+  const rawCurrentUser = useSelector((state: RootState) => state.auth.currentUser);
+  const currentUser = rawCurrentUser as CurrentUser | null;
   const email = currentUser?.email || "";
 
   useEffect(() => {
@@ -27,7 +35,7 @@ export default function ProfileCompletePage() {
     }
   }, [logged, router]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -35,7 +43,7 @@ export default function ProfileCompletePage() {
     }));
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { fullName, dateOfBirth, gender } = formData;
@@ -58,8 +66,8 @@ export default function ProfileCompletePage() {
           : "https://images.nightcafe.studio/jobs/1jGQl3zOyHYaHjADwGzI/1jGQl3zOyHYaHjADwGzI--0--xvcdg.jpg?tr=w-1600,c-at_max");
 
       await databases.createDocument(
-        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
-        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_USERS_ID,
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_USERS_ID!,
         user.$id,
         {
           userId: user.$id,
@@ -87,8 +95,8 @@ export default function ProfileCompletePage() {
 
       setTimeout(() => router.push("/"), 3000);
     } catch (error) {
-      console.error("Error updating profile:", error.message);
-      toast.error(`Failed to update profile: ${error.message}`, {
+      console.error("Error updating profile:", (error as Error).message);
+      toast.error(`Failed to update profile: ${(error as Error).message}`, {
         position: "top-right",
         autoClose: 3000,
       });
