@@ -5,11 +5,16 @@ import TopBar from "../TopBar";
 import NavBar from "../NavBar";
 import Logo from "../Logo";
 import MovieResults from "../MovieResults";
-import { setSearchActive } from "../Redux/Slice/searchSlice";
+import {
+  fetchTopRatedMovies,
+  setSearchActive,
+} from "../Redux/Slice/searchSlice";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import TopRatedLogic from "../TopRatedLogic.jsx";
 export default function TopRated() {
   const dispatch = useDispatch();
+  const topRatedMovies = useSelector((state) => state.search.topRatedMovies);
+  const loading = useSelector((state) => state.search.loading);
   const { searchActive, searchTerm } = useSelector(
     (state) => state.search,
     shallowEqual,
@@ -20,6 +25,27 @@ export default function TopRated() {
       dispatch(setSearchActive(false));
     }
   }, [searchTerm, dispatch]);
+
+  useEffect(() => {
+    if (loading || topRatedMovies.length > 0) {
+      return;
+    }
+
+    dispatch(
+      fetchTopRatedMovies(
+        {
+          sort_by: "vote_average.desc",
+          vote_count: "5000",
+          primary_release_date: {
+            gte: "2010-01-01",
+            lte: new Date().toISOString().split("T")[0],
+          },
+          with_genres: "",
+        },
+        1,
+      ),
+    );
+  }, [dispatch, loading, topRatedMovies.length]);
 
   return (
     <div className="h-screen flex flex-col md:flex-row">

@@ -8,18 +8,6 @@ import {
   setPage,
 } from "./Redux/Slice/searchSlice";
 
-let topRatedBootstrapRequested = false;
-
-const DEFAULT_TOP_RATED_FILTERS = {
-  sort_by: "vote_average.desc",
-  vote_count: "5000",
-  primary_release_date: {
-    gte: "2010-01-01",
-    lte: new Date().toISOString().split("T")[0],
-  },
-  with_genres: "",
-};
-
 export default function TopRatedLogic() {
   const dispatch = useDispatch();
   const topRatedMovies = useSelector((state) => state.search.topRatedMovies);
@@ -49,29 +37,6 @@ export default function TopRatedLogic() {
   const fetchMovies = (overridePage = 1, inputs = userInputs) => {
     dispatch(fetchTopRatedMovies(buildTopRatedOptions(inputs), overridePage));
   };
-
-  useEffect(() => {
-    if (topRatedBootstrapRequested) {
-      return;
-    }
-
-    topRatedBootstrapRequested = true;
-
-    dispatch(
-      fetchTopRatedMovies(
-        {
-          sort_by: DEFAULT_TOP_RATED_FILTERS.sort_by,
-          vote_count: DEFAULT_TOP_RATED_FILTERS.vote_count,
-          primary_release_date: {
-            gte: DEFAULT_TOP_RATED_FILTERS.primary_release_date.gte,
-            lte: DEFAULT_TOP_RATED_FILTERS.primary_release_date.lte,
-          },
-          with_genres: DEFAULT_TOP_RATED_FILTERS.with_genres,
-        },
-        1,
-      ),
-    );
-  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

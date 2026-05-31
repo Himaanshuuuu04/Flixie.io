@@ -45,7 +45,7 @@ export default function CardMapper() {
       // Throttle by 2 second
       dispatch(fetchHomePageMovies(page));
     }
-  }, []);
+  }, [dispatch, homePageMovies.length, loading, page]);
 
   const loadMoreMovies = () => {
     if (!loading && hasMore) {
