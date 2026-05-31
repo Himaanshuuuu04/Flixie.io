@@ -69,10 +69,7 @@ const Carousel = () => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className="shrink-0 w-full h-52 relative"
-            >
+            <div key={movie.id} className="shrink-0 w-full h-52 relative">
               <Link href={`/Moviedetails/${movie.media_type}/${movie.id}`}>
                 {movie.backdrop_path && (
                   <div className="relative w-full h-full">
@@ -106,7 +103,12 @@ const Carousel = () => {
                           className="text-xs hover:bg-blue-500 focus:scale-105 border-white/20 border hover:border-blue-500 transition-all duration-300 px-2 py-1 rounded-full flex items-center space-x-1"
                           aria-label="Watch Now"
                         >
-                          <Image src={playSrc} alt="Play" width={16} height={16} />{" "}
+                          <Image
+                            src={playSrc}
+                            alt="Play"
+                            width={16}
+                            height={16}
+                          />{" "}
                           <span className="-mb-1">Watch Now</span>
                         </button>
 

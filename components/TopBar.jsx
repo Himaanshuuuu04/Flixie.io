@@ -118,7 +118,13 @@ export default function TopBar() {
               dispatch(setSearchActive(true));
             }}
           >
-            <Image src={chatgptSrc} alt="search" width={24} height={24} className="ml-2 mr-2" />
+            <Image
+              src={chatgptSrc}
+              alt="search"
+              width={24}
+              height={24}
+              className="ml-2 mr-2"
+            />
           </button>
 
           <button
@@ -128,13 +134,24 @@ export default function TopBar() {
               dispatch(setSearchActive(true));
             }}
           >
-            <Image src={searchSrc} alt="search" width={24} height={24} className="ml-2 mr-2" />
+            <Image
+              src={searchSrc}
+              alt="search"
+              width={24}
+              height={24}
+              className="ml-2 mr-2"
+            />
           </button>
         </div>
 
         {/* Notification Button */}
         <button className="hidden md:flex justify-center items-center h-12 p-2 border border-white/20 rounded-full backdrop-blur-3xl shadow-xl text-white hover:bg-blue-400">
-          <Image src={notificationSrc} alt="Notification" width={24} height={24} />
+          <Image
+            src={notificationSrc}
+            alt="Notification"
+            width={24}
+            height={24}
+          />
         </button>
 
         {/* Profile Section */}
@@ -149,7 +166,13 @@ export default function TopBar() {
               className="rounded-full"
             />
             <h2 className="ml-4">John Doe</h2>
-            <Image src={enterSrc} alt="Logout" width={24} height={24} className="ml-2" />
+            <Image
+              src={enterSrc}
+              alt="Logout"
+              width={24}
+              height={24}
+              className="ml-2"
+            />
           </div>
         </button>
       </div>

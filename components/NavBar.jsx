@@ -49,7 +49,13 @@ export default function NavBar() {
           onClick={() => dispatch(setSearchActive(false))}
         >
           <Link href="/" className="flex items-center -space-x-1">
-            <Image src={logoSrc} alt="logo" width={48} height={48} className="-ml-2" />
+            <Image
+              src={logoSrc}
+              alt="logo"
+              width={48}
+              height={48}
+              className="-ml-2"
+            />
             <h2 className="text-4xl font-semibold mt-2 hover:text-blue-300 transition-all durattion-300">
               Flixie
             </h2>
@@ -66,20 +72,38 @@ export default function NavBar() {
                 className={linkClass("/")}
                 onClick={() => dispatch(setSearchActive(false))}
               >
-                <Image src={homeSrc} alt="home" width={24} height={24} className="-mt-1" />
+                <Image
+                  src={homeSrc}
+                  alt="home"
+                  width={24}
+                  height={24}
+                  className="-mt-1"
+                />
                 <span>Home</span>
               </Link>
             </li>
             {/* Add other NavLinks similarly */}
             <li className="text-lg">
               <Link href="/TopRated" className={linkClass("/TopRated")}>
-                <Image src={arrowSrc} alt="top grossing" width={24} height={24} className="-mt-1" />
+                <Image
+                  src={arrowSrc}
+                  alt="top grossing"
+                  width={24}
+                  height={24}
+                  className="-mt-1"
+                />
                 <span>Top Rated</span>
               </Link>
             </li>
             <li className="text-lg">
               <Link href="/Favourite" className={linkClass("/Favourite")}>
-                <Image src={heartSrc} alt="favourite" width={24} height={24} className="-mt-1" />
+                <Image
+                  src={heartSrc}
+                  alt="favourite"
+                  width={24}
+                  height={24}
+                  className="-mt-1"
+                />
                 <span>Favourite</span>
               </Link>
             </li>
@@ -97,7 +121,13 @@ export default function NavBar() {
             </li>
             <li className="text-lg">
               <Link href="/Friends" className={linkClass("/Friends")}>
-                <Image src={groupSrc} alt="Friends" width={24} height={24} className="-mt-1" />
+                <Image
+                  src={groupSrc}
+                  alt="Friends"
+                  width={24}
+                  height={24}
+                  className="-mt-1"
+                />
                 <span>Friends</span>
               </Link>
             </li>
@@ -127,7 +157,13 @@ export default function NavBar() {
                 href="/ProfileComplete"
                 className={linkClass("/ProfileComplete")}
               >
-                <Image src={settingsSrc} alt="settings" width={24} height={24} className="-mt-1" />
+                <Image
+                  src={settingsSrc}
+                  alt="settings"
+                  width={24}
+                  height={24}
+                  className="-mt-1"
+                />
                 <span>Settings</span>
               </Link>
             </li>
@@ -140,7 +176,13 @@ export default function NavBar() {
                   router.push("/Login");
                 }}
               >
-                <Image src={enterSrc} alt="logout" width={24} height={24} className="-mt-1" />
+                <Image
+                  src={enterSrc}
+                  alt="logout"
+                  width={24}
+                  height={24}
+                  className="-mt-1"
+                />
                 <span>Logout</span>
               </Link>
             </li>
@@ -221,7 +263,12 @@ export default function NavBar() {
                     className="flex items-center space-x-3 px-2 py-1 rounded-lg transition-all duration-300 text-gray-500 cursor-not-allowed"
                     title="You are already logged in. Profile cannot be accessed!"
                   >
-                    <Image src={businessmanSrc} alt="profile" width={24} height={24} />
+                    <Image
+                      src={businessmanSrc}
+                      alt="profile"
+                      width={24}
+                      height={24}
+                    />
                     <span>Profile</span>
                   </div>
                 ) : (
@@ -229,7 +276,12 @@ export default function NavBar() {
                     href="/ProfileComplete"
                     className={linkClass("/ProfileComplete")}
                   >
-                    <Image src={businessmanSrc} alt="profile" width={24} height={24} />
+                    <Image
+                      src={businessmanSrc}
+                      alt="profile"
+                      width={24}
+                      height={24}
+                    />
                     <span>Profile</span>
                   </Link>
                 )}
@@ -240,7 +292,13 @@ export default function NavBar() {
                   href="/ProfileComplete"
                   className={linkClass("/ProfileComplete")}
                 >
-                  <Image src={settingsSrc} alt="settings" width={24} height={24} className="-mt-1" />
+                  <Image
+                    src={settingsSrc}
+                    alt="settings"
+                    width={24}
+                    height={24}
+                    className="-mt-1"
+                  />
                   <span>Settings</span>
                 </Link>
               </li>
@@ -253,7 +311,13 @@ export default function NavBar() {
                     router.push("/Login");
                   }}
                 >
-                  <Image src={enterSrc} alt="Logout" width={24} height={24} className="-mt-1" />
+                  <Image
+                    src={enterSrc}
+                    alt="Logout"
+                    width={24}
+                    height={24}
+                    className="-mt-1"
+                  />
                   <span>Logout</span>
                 </Link>
               </li>
