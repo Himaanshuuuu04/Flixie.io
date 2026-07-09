@@ -4,20 +4,16 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GithubButton from "../../components/Github";
-import GoogleButton from "../../components/Google";
-// Kept Appwrite config if oauth still needs it, else OAuth will be broken. Let's assume user wants to keep them for now.
-import { account, ID } from "../../components/Appwrite/Config";
-import { OAuthProvider } from "appwrite";
 import TextGenerateEffect from "../../components/TextGenerate";
 import { useDispatch } from "react-redux";
 import { initializeAuth } from "../../components/Redux/Slice/authSlice";
 import { AppDispatch } from "../../components/Redux/Store";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function SignupPage() {
   const dispatch = useDispatch<AppDispatch>();
   const [formdata, setFormData] = React.useState({
+    name: "",
     email: "",
     otp: "",
   });
@@ -33,8 +29,8 @@ export default function LoginPage() {
   };
 
   const generateOTP = async () => {
-    if (!formdata.email) {
-      toast.warn("Please enter a valid email.", {
+    if (!formdata.name || !formdata.email) {
+      toast.warn("Please enter a valid name and email.", {
         position: "top-right",
         autoClose: 3000,
       });
@@ -44,10 +40,9 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formdata.email, isSignup: false }),
+        body: JSON.stringify({ email: formdata.email, name: formdata.name, isSignup: true }),
       });
       const data = await res.json();
-      
       if (res.ok) {
         setOtpSent(true);
         toast.success("OTP sent to your email. Please check your inbox.", {
@@ -61,7 +56,6 @@ export default function LoginPage() {
         });
       }
     } catch (error: any) {
-      console.error("Error creating email token:", error.message);
       toast.error(`Failed to send OTP: ${error.message}`, {
         position: "top-right",
         autoClose: 3000,
@@ -88,7 +82,7 @@ export default function LoginPage() {
 
       if (res.ok) {
         dispatch(initializeAuth());
-        toast.success("Login successful! Redirecting to the dashboard...", {
+        toast.success("Signup successful! Redirecting to the dashboard...", {
           position: "top-right",
           autoClose: 3000,
         });
@@ -100,24 +94,7 @@ export default function LoginPage() {
         });
       }
     } catch (error: any) {
-      console.error("Error verifying OTP:", error.message);
       toast.error(`Failed to verify OTP: ${error.message}`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
-    }
-  };
-
-  const handleOAuthLogin = async (provider: OAuthProvider) => {
-    try {
-      account.createOAuth2Session(
-        provider,
-        `${window.location.origin}/`,
-        `${window.location.origin}/Login`,
-      );
-    } catch (error: any) {
-      console.error(`OAuth login failed with ${provider}:`, error.message);
-      toast.error(`OAuth login failed with ${provider}. Please try again.`, {
         position: "top-right",
         autoClose: 3000,
       });
@@ -136,9 +113,24 @@ export default function LoginPage() {
                   <TextGenerateEffect
                     duration={2}
                     filter={true}
-                    words={"Login to Flixie"}
+                    words={"Sign Up for Flixie"}
                   />
                 </span>
+                <div>
+                  <label className="block mb-1 text-sm md:text-md font-light">
+                    Name
+                  </label>
+                  <input
+                    placeholder="John Doe"
+                    className="bg-black/20 border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 focus:ring-2 focus:ring-white/50 outline-none text-center"
+                    id="name"
+                    type="text"
+                    name="name"
+                    value={formdata.name}
+                    onChange={handleChange}
+                    disabled={otpSent}
+                  />
+                </div>
                 <div>
                   <label className="block mb-1 text-sm md:text-md font-light">
                     Email
@@ -192,30 +184,11 @@ export default function LoginPage() {
                     className="mt-8 w-full border border-white/20 bg-white/10 hover:bg-white/5 focus:ring-1 focus:outline-none focus:ring-white/50 rounded-lg text-sm md:text-base px-5 py-2.5 text-center text-white transition-all duration-300"
                     onClick={verifyOTP}
                   >
-                    Login
+                    Complete Signup
                   </button>
                 )}
-                <div className="mt-4 text-center text-sm">
-                  <p>Don't have an account? <Link href="/Signup" className="text-blue-400 hover:underline">Sign up</Link></p>
-                </div>
-                <div className="mt-6">
-                  <p className="text-sm md:text-md text-center mb-4">
-                    or login with
-                  </p>
-                  <div className="flex justify-center gap-8">
-                    <button
-                      onClick={() => handleOAuthLogin(OAuthProvider.Google)}
-                      className="animate-third"
-                    >
-                      <GoogleButton />
-                    </button>
-                    <button
-                      onClick={() => handleOAuthLogin(OAuthProvider.Github)}
-                      className="animate-fifth"
-                    >
-                      <GithubButton />
-                    </button>
-                  </div>
+                <div className="mt-6 text-center text-sm">
+                  <p>Already have an account? <Link href="/Login" className="text-blue-400 hover:underline">Log in</Link></p>
                 </div>
               </div>
             </div>

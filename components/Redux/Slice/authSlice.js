@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { account } from "../../Appwrite/Config";
 
 const initialState = {
   logged: false,
-  profileCompleted: false,
+  profileCompleted: false, // You might need another API endpoint to fetch/set preferences, leaving this false initially or derived from user
   loading: true,
   currentUser: null,
   error: null,
@@ -13,36 +12,43 @@ export const initializeAuth = createAsyncThunk(
   "auth/initializeAuth",
   async (_, { rejectWithValue }) => {
     try {
-      await account.getSession("current");
-      const currentUser = await account.get();
-      const prefs = await account.getPrefs();
+      const res = await fetch("/api/auth/me", { method: "GET" });
+      if (!res.ok) {
+        throw new Error("Not authenticated");
+      }
+      const data = await res.json();
+      if (!data.authenticated) {
+        throw new Error("Not authenticated");
+      }
 
+      // If you still use Appwrite for preferences or other DB models, you might combine this with your custom user. 
+      // For now, we use the custom user data from the API route.
       return {
         currentUser: {
-          ...currentUser,
-          prefs: {
-            ...(currentUser.prefs || {}),
-            ...(prefs || {}),
-          },
+          ...data.user,
+          prefs: {}, // Assuming preferences will be migrated or added to User model later
         },
-        profileCompleted: prefs?.profileCompleted === true,
+        profileCompleted: false, // Or derive from data.user
       };
     } catch (error) {
       return rejectWithValue(error.message || "Unable to initialize auth");
     }
-  },
+  }
 );
 
 export const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      await account.deleteSession("current");
+      const res = await fetch("/api/auth/logout", { method: "POST" });
+      if (!res.ok) {
+        throw new Error("Failed to logout");
+      }
       return true;
     } catch (error) {
       return rejectWithValue(error.message || "Unable to log out");
     }
-  },
+  }
 );
 
 const authSlice = createSlice({
