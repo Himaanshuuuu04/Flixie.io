@@ -212,7 +212,13 @@ export default function NavBar() {
                   className={linkClass("/")}
                   onClick={() => dispatch(setSearchActive(false))}
                 >
-                  <Image src={homeSrc} alt="home" className="h-6 -mt-1" />
+                  <Image
+                    src={homeSrc}
+                    alt="home"
+                    width={24}
+                    height={24}
+                    className="h-6 -mt-1"
+                  />
                   <span>Home</span>
                 </Link>
               </li>
@@ -222,6 +228,8 @@ export default function NavBar() {
                   <Image
                     src={arrowSrc}
                     alt="top grossing"
+                    width={24}
+                    height={24}
                     className="h-6 -mt-1"
                   />
                   <span>Top Grossing</span>
@@ -229,7 +237,13 @@ export default function NavBar() {
               </li>
               <li className="text-lg">
                 <Link href="/Favourite" className={linkClass("/Favourite")}>
-                  <Image src={heartSrc} alt="favourite" className="h-6 -mt-1" />
+                  <Image
+                    src={heartSrc}
+                    alt="favourite"
+                    width={24}
+                    height={24}
+                    className="h-6 -mt-1"
+                  />
                   <span>Favourite</span>
                 </Link>
               </li>
@@ -241,6 +255,8 @@ export default function NavBar() {
                   <Image
                     src={timeMachineSrc}
                     alt="Watch History"
+                    width={24}
+                    height={24}
                     className="h-6 -mt-1"
                   />
                   <span>Watch History</span>
@@ -248,7 +264,13 @@ export default function NavBar() {
               </li>
               <li className="text-lg">
                 <Link href="/Friends" className={linkClass("/Friends")}>
-                  <Image src={groupSrc} alt="friends" className="h-6 -mt-1" />
+                  <Image
+                    src={groupSrc}
+                    alt="friends"
+                    width={24}
+                    height={24}
+                    className="h-6 -mt-1"
+                  />
                   <span>Friends</span>
                 </Link>
               </li>
